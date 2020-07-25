@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const App = props => (
-  <div>Hello {props.name}!</div>
+  <div>Hello {props.name} - from react!!</div>
 )
 
-Hello.defaultProps = {
+App.defaultProps = {
   name: 'user'
 }
 
-Hello.propTypes = {
+App.propTypes = {
   name: PropTypes.string
 }
+
+export default App;
