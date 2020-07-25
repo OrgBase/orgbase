@@ -1,0 +1,2 @@
+class OauthsController < ApplicationController
+end
