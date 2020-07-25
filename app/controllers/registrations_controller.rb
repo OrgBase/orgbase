@@ -1,9 +1,18 @@
-class RegistrationsController < ApplicationController
-  def after_sign_out_path_for(_resource_or_scope)
-    new_session_path
+class RegistrationsController < Devise::RegistrationsController
+  private
+
+  def signup_params
+    params.require(:user).permit(:name,
+                                 :email,
+                                 :password,
+                                 :password_confirmation)
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || root_path
+  def account_update_params
+    params.require(:user).permit(:name,
+                                 :email,
+                                 :password,
+                                 :password_confirmation,
+                                 :current_password)
   end
 end
