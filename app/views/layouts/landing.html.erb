@@ -5,7 +5,7 @@
     <% if content_for?(:page_title) %>
       <%= yield(:page_title) %>
     <% else %>
-      OrgCharts | Organization Charts and people management
+      OrgBase | Org Charts & People Management
     <% end %>
   </title>
   <%= csrf_meta_tags %>
@@ -20,12 +20,12 @@
     <%= yield(:extra_meta_tags) %>
   <% else %>
     <meta content="Easily make & publish beautiful org charts with rich team and individual profiles. Enable everyone in the company to better understand the teams and individuals that work there." name="description"/>
-    <meta content="OrgCharts" property="og:site_name"/>
+    <meta content="OrgBase" property="og:site_name"/>
 <!--    <meta content="<%#= asset_path('apple-touch-icon.png') %>" property="og:image"/>-->
-    <meta content="OrgCharts | Organization Charts and people management" property="og:title"/>
-    <meta content="Org charts with rich team and individual profiles" property="og:description"/>
+    <meta content="OrgBase | Organization Charts & People Management" property="og:title"/>
+    <meta content="Org management with rich team charts and individual profiles" property="og:description"/>
     <meta content="summary" name="twitter:card"/>
-<!--    <meta content="@OrgChartsHQ" name="twitter:site"/>-->
+    <meta content="@OrgBase" name="twitter:site"/>
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="en_GB" />
     <meta property="og:type" content="website" />
