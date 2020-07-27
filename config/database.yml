@@ -79,7 +79,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: org_charts_production
-  username: org_charts
-  password: <%= ENV['ORG_CHARTS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
