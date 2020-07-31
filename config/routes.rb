@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/home', to: 'home#index', as: :home
+
+  post "/early-access" => "landing#early_access", :as => :early_access
+
 end

@@ -35,6 +35,16 @@
 </head>
 
 <body <%= yield :body_tags %>>
+  <% if alert %>
+    <div class="alert alert-error" role="alert">
+      <%= alert %>
+    </div>
+  <% end %>
+  <% if notice %>
+    <div class="alert alert-notice" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
 <%= yield %>
 </body>
 </html>

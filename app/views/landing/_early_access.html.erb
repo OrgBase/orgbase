@@ -1,0 +1,10 @@
+<%= form_tag(early_access_path, method: 'post') do %>
+  <div class="hero-form field field-grouped">
+    <div class="control control-expanded">
+      <input class="input" type="email" name="early_access[email]" placeholder="Your work email">
+    </div>
+    <div class="control">
+      <button class="button button-primary button-block" type="submit">Get Early Access</button>
+    </div>
+  </div>
+<% end %>

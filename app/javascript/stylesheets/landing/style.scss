@@ -76,3 +76,11 @@
 .navbar-orgbase-logo {
         width: 225px;
 }
+
+.alert {
+        padding: 12px;
+        text-align: center;
+        &.alert-notice {
+                background: #55EBD0;
+        }
+}
