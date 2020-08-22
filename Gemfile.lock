@@ -58,6 +58,9 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -249,6 +252,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate (~> 3.1)
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
@@ -274,4 +278,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
