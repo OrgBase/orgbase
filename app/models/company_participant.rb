@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: company_particpants
+# Table name: company_participants
 #
 #  id         :bigint           not null, primary key
 #  role       :string           not null
@@ -11,18 +11,15 @@
 #
 # Indexes
 #
-#  index_company_particpants_on_company_id  (company_id)
-#  index_company_particpants_on_user_id     (user_id)
+#  index_company_participants_on_company_id  (company_id)
+#  index_company_participants_on_user_id     (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'test_helper'
-
-class CompanyParticpantTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class CompanyParticipant < ApplicationRecord
+  belongs_to :user
+  belongs_to :company
 end

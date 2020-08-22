@@ -19,6 +19,8 @@ gem "devise", "~> 4.7"
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'react-rails', '~> 2.6.1'
 gem "httparty", "~> 0.18.0"
+gem "faker", "~> 2.11"
+
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

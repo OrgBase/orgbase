@@ -3,9 +3,10 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  admin                  :boolean
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  name                   :string           default(""), not null
+#  name                   :string
 #  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
