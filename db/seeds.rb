@@ -9,6 +9,7 @@
 require 'faker'
 
 midhun = User.create!(name: 'Midhun Dandamudi', email: 'midhun@jally.co', password: 'hodor007', admin: true)
+alex = User.create!(name: 'Alex Zed', email: 'alex@jally.co', password: 'hodor007', admin: true)
 company = Company.create!(name: 'Jally',
                           icon_url: '',
                           slug: 'jally',
@@ -20,7 +21,16 @@ Employee.create!(user: midhun,
                  slug: 'midhun',
                  title: 'Co Founder')
 
+Employee.create!(user: alex,
+                 company: company,
+                 slug: 'alex',
+                 title: 'Co Founder')
+
 CompanyParticipant.create!(user: midhun,
+                           company: company,
+                           role: 'admin')
+
+CompanyParticipant.create!(user: alex,
                            company: company,
                            role: 'admin')
 
