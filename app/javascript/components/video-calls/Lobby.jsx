@@ -1,15 +1,16 @@
 import React from 'react';
 
 const Lobby = ({
+                 name,
                  roomName,
                  handleRoomNameChange,
                  handleSubmit
                }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Enter a room</h2>
+    <form onSubmit={handleSubmit} autoComplete="off">
       <div>
-        <label htmlFor="room">Room name:</label>
+        <h2>Hello, {name}! Enter a room.</h2>
+        <label htmlFor="room">Room Name:</label>
         <input
           type="text"
           id="room"
@@ -18,7 +19,7 @@ const Lobby = ({
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">Join</button>
     </form>
   );
 };

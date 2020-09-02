@@ -7,23 +7,25 @@ class TwilioService
   API_KEY = Rails.application.credentials.twilio[:api_key]
   API_SECRET = Rails.application.credentials.twilio[:api_secret]
 
-  def self.client
-    Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
-  end
-  
-  def self.jwt_access_token(identity, room_name)
-    # Create Video grant for our token
-    video_grant = Twilio::JWT::AccessToken::VideoGrant.new
-    video_grant.room = room_name
+  class << self
+    def twilio_client
+      Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
+    end
 
-    token = Twilio::JWT::AccessToken.new(
-        ACCOUNT_SID,
-        API_KEY,
-        API_SECRET,
-        [video_grant],
-        identity: identity
-    )
+    def jwt_access_token(identity, room)
+      # Create Video grant for our token
+      video_grant = Twilio::JWT::AccessToken::VideoGrant.new
+      video_grant.room = room
 
-    token.to_jwt
+      token = Twilio::JWT::AccessToken.new(
+          ACCOUNT_SID,
+          API_KEY,
+          API_SECRET,
+          [video_grant],
+          identity: identity
+      )
+
+      token.to_jwt
+    end
   end
 end

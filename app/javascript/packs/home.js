@@ -1,3 +1,4 @@
+import 'stylesheets/home/style';
 import Rails from '@rails/ujs';
 
 Rails.start();

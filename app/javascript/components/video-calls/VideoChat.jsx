@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Lobby from "./Lobby";
 
-const VideoChat = () => {
+const VideoChat = ({ name }) => {
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
 
@@ -44,6 +44,7 @@ const VideoChat = () => {
   } else {
     render = (
       <Lobby
+        name={name}
         roomName={roomName}
         handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}

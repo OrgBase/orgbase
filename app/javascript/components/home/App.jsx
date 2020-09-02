@@ -7,11 +7,17 @@ const App = props => {
   return (
       <div className="app">
         <header>
-          <h1>This is Jally</h1>
+          <h1>Jally</h1>
         </header>
+
         <main>
-          <VideoChat />
+          <VideoChat name={props.name}/>
         </main>
+        <footer>
+          <p>
+            Made with ❤️ by <a href="https://jally.co">Team Jally.</a>
+          </p>
+        </footer>
       </div>
   );
 };
