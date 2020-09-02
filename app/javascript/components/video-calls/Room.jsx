@@ -2,13 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
 import Participant from "./Participant";
 
-const Room = ({ roomName, token, handleExit }) => {
+const Room = ({ roomName, token, roomSid, handleExit }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
-
-  const remoteParticipants = participants.map(participant => (
-    <Participant key={participant.sid} participant={participant} />
-  ));
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -20,7 +16,7 @@ const Room = ({ roomName, token, handleExit }) => {
       );
     };
     Video.connect(token, {
-      name: roomName
+      sid: roomSid
     }).then(room => {
       setRoom(room);
       room.on('participantConnected', participantConnected);
@@ -43,10 +39,14 @@ const Room = ({ roomName, token, handleExit }) => {
     };
   }, [roomName, token]);
 
+  const remoteParticipants = participants.map(participant => (
+    <Participant key={participant.sid} participant={participant} />
+  ));
+
   return (
-    <div className="room">
+    <div className="room clearfix">
       <h2>Room: {roomName}</h2>
-      <button onClick={() => {
+      <button className="leave-room-btn" onClick={() => {
         if(room) {
             room.localParticipant.tracks.forEach(function(trackPublication) {
             trackPublication.track.stop();
@@ -55,6 +55,7 @@ const Room = ({ roomName, token, handleExit }) => {
         }
         handleExit()
       }}>Leave Room</button>
+      <div className="remote-participants">{remoteParticipants}</div>
       <div className="local-participant">
         {room ? (
           <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
@@ -62,8 +63,6 @@ const Room = ({ roomName, token, handleExit }) => {
           ''
         )}
       </div>
-      <h3>Remote Participants</h3>
-      <div className="remote-participants">{remoteParticipants}</div>
     </div>
   );
 };

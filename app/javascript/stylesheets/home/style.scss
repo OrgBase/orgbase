@@ -15,8 +15,8 @@ body {
 }
 
 header {
-  background: #f0293e;
-  color: #fff;
+  background: #0137ff;
+  color: #ffffff;
   text-align: center;
   flex-grow: 0;
   margin-bottom: 2em;
@@ -38,8 +38,10 @@ h1 {
 }
 
 main {
+  position: relative;
   background: #ffffff;
   flex-grow: 1;
+  max-width: 1080px;
 }
 
 form {
@@ -83,9 +85,14 @@ button:hover {
 }
 
 .room {
-  position: relative;
+  overflow: auto;
 }
-.room button {
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.room .leave-room-btn {
   position: absolute;
   top: 0;
   right: 20px;
@@ -97,37 +104,59 @@ button:hover {
 }
 
 .local-participant {
-  text-align: center;
-  margin-bottom: 2em;
+  max-width: 300px;
+  position: absolute;
+  bottom: 2em;
+  right: 2em;
 }
-.remote-participants {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  padding: 0 2em 2em;
-}
+//.remote-participants {
+//  display: flex;
+//  flex-wrap: nowrap;
+//  justify-content: space-between;
+//  padding: 0 2em 2em;
+//}
 .participant {
+  position: relative;
   background: #333e5a;
-  padding: 10px;
+  padding: 5px;
   border-radius: 6px;
   display: inline-block;
-  margin-right: 10px;
-}
-.participant:last-child {
-  margin-right: 0;
-}
-.participant h3 {
-  text-align: center;
-  padding-bottom: 0.5em;
-  color: #fff;
+  margin: 10px;
 }
 
 video {
   width: 100%;
-  max-width: 600px;
   display: block;
   margin: 0 auto;
   border-radius: 6px;
+}
+
+.name {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  margin: 0;
+  padding: 0.5em 0.5em 0.5em 2em;
+  background: rgba(242, 47, 70, 0.9);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.name::after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: -2em;
+  border: 1em solid rgba(242, 47, 70, 0.9);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.local-participant .name {
+  font-size: 10px;
 }
 
 footer {

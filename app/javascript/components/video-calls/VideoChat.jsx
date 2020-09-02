@@ -5,6 +5,7 @@ import Room from "./Room";
 const VideoChat = ({ name }) => {
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
+  const [roomSid, setRoomSid] = useState(null);
 
   const handleRoomNameChange = useCallback(event => {
     setRoomName(event.target.value);
@@ -28,6 +29,7 @@ const VideoChat = ({ name }) => {
       }
     }).then(res => res.json());
     setToken(data.token);
+    setRoomSid(data.roomSid)
   }, [roomName]);
 
   const handleExit = useCallback(event => {
@@ -37,7 +39,7 @@ const VideoChat = ({ name }) => {
   let render;
   if (token) {
     render = (
-      <Room roomName={roomName} token={token} handleExit={handleExit} />
+      <Room roomName={roomName} token={token} room_sid={roomSid} handleExit={handleExit} />
     );
   } else {
     render = (
