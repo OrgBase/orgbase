@@ -40,3 +40,5 @@ yarn-debug.log*
 .rakeTasks
 .idea
 public/sitemap.xml.gz
+
+/config/credentials/production.key

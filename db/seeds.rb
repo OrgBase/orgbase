@@ -8,10 +8,10 @@
 
 require 'faker'
 
-midhun = User.create!(name: 'Midhun Dandamudi', email: 'midhundandamudi@gmail.com', password: 'password1', admin: true)
-company = Company.create!(name: 'Triba',
-                          icon_url: 'http://localhost:3007/packs/media/stylesheets/img/orgbase-logo-color-a9e9024512d1c3ee9b24b235dfe27346.svg',
-                          slug: 'triba',
+midhun = User.create!(name: 'Midhun Dandamudi', email: 'midhun@jally.co', password: 'hodor007', admin: true)
+company = Company.create!(name: 'Jally',
+                          icon_url: '',
+                          slug: 'jally',
                           country: 'USA',
                           website: 'http://localhost:3007/')
 
