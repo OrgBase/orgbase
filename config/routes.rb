@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   post "/early-access" => "landing#early_access", :as => :early_access
 
-  post "/video/token" => "video#access_token", :as => :access_token
+  post "/video/room" => "video#join_room", :as => :join_room
 
 end

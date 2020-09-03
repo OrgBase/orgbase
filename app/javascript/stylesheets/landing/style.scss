@@ -2,9 +2,9 @@
 # Variables, functions and mixins
 --------------------------------------------------------------*/
 @import "abstracts/variables",
-        "abstracts/functions",
-        "abstracts/mixins",
-        'abstracts/include-media';
+"abstracts/functions",
+"abstracts/mixins",
+'abstracts/include-media';
 
 /*--------------------------------------------------------------
 1.0 Normalize
@@ -74,13 +74,16 @@
 @import "layout/footer";
 
 .navbar-orgbase-logo {
-        width: 225px;
+  width: 225px;
 }
 
 .alert {
-        padding: 12px;
-        text-align: center;
-        &.alert-notice {
-                background: #55EBD0;
-        }
+  padding: 12px;
+  text-align: center;
+  &.alert-notice {
+    background: #55EBD0;
+  }
+  &.alert-error {
+    background: #B00100;
+  }
 }

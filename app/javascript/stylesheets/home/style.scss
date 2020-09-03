@@ -170,3 +170,15 @@ footer {
 footer a {
   color: #fff;
 }
+
+.alert {
+  padding: 12px;
+  text-align: center;
+  &.alert-notice {
+    background: #55EBD0;
+  }
+  &.alert-error {
+    background: #ff8400;
+    color: white;
+  }
+}

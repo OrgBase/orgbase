@@ -6,6 +6,7 @@ const VideoChat = ({ name }) => {
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
   const [roomSid, setRoomSid] = useState(null);
+  const [maxCapacity, setMaxCapacity] = useState(false);
 
   const handleRoomNameChange = useCallback(event => {
     setRoomName(event.target.value);
@@ -18,18 +19,21 @@ const VideoChat = ({ name }) => {
       .querySelector('meta[name="csrf-token"]')
       .getAttribute('content');
 
-    const data = await fetch('/video/token', {
+    const data = await fetch('/video/room', {
       method: 'POST',
       body: JSON.stringify({
-        room: roomName
+        room: roomName,
+        capacity: 2
       }),
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': csrfToken,
       }
     }).then(res => res.json());
+    console.log(data);
+    setMaxCapacity(data.max_capacity);
     setToken(data.token);
-    setRoomSid(data.roomSid)
+    setRoomSid(data.room_sid)
   }, [roomName]);
 
   const handleExit = useCallback(event => {
@@ -43,12 +47,19 @@ const VideoChat = ({ name }) => {
     );
   } else {
     render = (
-      <Lobby
-        name={name}
-        roomName={roomName}
-        handleRoomNameChange={handleRoomNameChange}
-        handleSubmit={handleSubmit}
-      />
+      <>
+        {maxCapacity && <p className="alert alert-error">
+          Uh oh! That room is full. Please enter a different name
+          below to join or create a new one.
+        </p>
+        }
+        <Lobby
+          name={name}
+          roomName={roomName}
+          handleRoomNameChange={handleRoomNameChange}
+          handleSubmit={handleSubmit}
+        />
+      </>
     );
   }
 

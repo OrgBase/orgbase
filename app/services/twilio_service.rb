@@ -24,18 +24,18 @@ class TwilioService
       token.to_jwt
     end
 
-    def p2p_room_sid(room_name)
-      @client = Twilio::REST::Client.new(ACCOUNT_SID, AUTH_TOKEN)
+    def client(room_name)
+      Twilio::REST::Client.new(ACCOUNT_SID, AUTH_TOKEN)
+    end
 
-      room = @client.video.rooms.list(unique_name: room_name).try(:first)
-
-      room ||= @client.video.rooms.create(
+    def p2p_room(client, room_name)
+      room = client.video.rooms.create(
           enable_turn: true,
           type: 'peer-to-peer',
           unique_name: room_name
       )
 
-      room.sid
+      room
     end
   end
 end
