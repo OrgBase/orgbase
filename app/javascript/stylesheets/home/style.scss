@@ -41,7 +41,7 @@ main {
   position: relative;
   background: #ffffff;
   flex-grow: 1;
-  max-width: 1080px;
+  min-width: 1080px;
 }
 
 form {
@@ -104,17 +104,54 @@ button:hover {
 }
 
 .local-participant {
-  max-width: 300px;
+  max-width: 250px;
   position: absolute;
-  bottom: 2em;
-  right: 2em;
+  bottom: 0em;
+  left: 2em;
 }
-//.remote-participants {
-//  display: flex;
-//  flex-wrap: nowrap;
-//  justify-content: space-between;
-//  padding: 0 2em 2em;
-//}
+.remote-participants {
+  display: inline-block;
+  max-width: 640px;
+}
+.shared-panel {
+  display: inline-block;
+  vertical-align: top;
+  width: 400px;
+  height: 450px;
+  border: 5px solid #333e5a;
+  border-radius: 6px;
+  float: right;
+  margin-right: 2em;
+  margin-top: 1em;
+  text-align: center;
+}
+.start-game-button {
+  margin-top: 200px;
+}
+.change-game-button {
+  margin: 1em 0;
+  opacity: 0;
+  animation: fadeInFromNone 2s ease-out 5s forwards;
+}
+.game-title {
+  margin: 1em 0;
+}
+.game-rules {
+  margin: 1em 0;
+}
+@keyframes fadeInFromNone {
+  0% {
+    opacity: 0;
+  }
+
+  1% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 .participant {
   position: relative;
   background: #333e5a;

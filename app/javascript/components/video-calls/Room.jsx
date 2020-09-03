@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
 import Participant from "./Participant";
+import SidePanel from "./SidePanel";
 
 const Room = ({ roomName, token, roomSid, handleExit }) => {
   const [room, setRoom] = useState(null);
@@ -56,6 +57,9 @@ const Room = ({ roomName, token, roomSid, handleExit }) => {
         handleExit()
       }}>Leave Room</button>
       <div className="remote-participants">{remoteParticipants}</div>
+      <div className="shared-panel">
+        <SidePanel />
+      </div>
       <div className="local-participant">
         {room ? (
           <Participant key={room.localParticipant.sid} participant={room.localParticipant} />

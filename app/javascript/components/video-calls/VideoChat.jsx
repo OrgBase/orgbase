@@ -30,14 +30,16 @@ const VideoChat = ({ name }) => {
         'X-CSRF-Token': csrfToken,
       }
     }).then(res => res.json());
-    console.log(data);
     setMaxCapacity(data.max_capacity);
     setToken(data.token);
-    setRoomSid(data.room_sid)
+    setRoomSid(data.room_sid);
   }, [roomName]);
 
   const handleExit = useCallback(event => {
     setToken(null);
+    setRoomName('');
+    setRoomSid(null);
+    setMaxCapacity(false);
   }, []);
 
   let render;
