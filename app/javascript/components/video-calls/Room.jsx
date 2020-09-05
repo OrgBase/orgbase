@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "./Participant";
 import SidePanel from "./SidePanel";
+import RoomContextProvider from "../../context/RoomContextProvider";
 
-const Room = ({ roomName, token, roomSid, handleExit }) => {
+const Room = ({ roomName, token, roomSid, handleExit, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const dataTrack = new LocalDataTrack();
@@ -56,37 +57,39 @@ const Room = ({ roomName, token, roomSid, handleExit }) => {
   ));
 
   return (
-    <div className="room clearfix">
-      <h2>Room: {roomName}</h2>
-      <button className="leave-room-btn" onClick={() => {
-        if(room) {
-            room.localParticipant.tracks.forEach(function(trackPublication) {
-            if (trackPublication.track.kind !== 'data') {
-            trackPublication.track.stop();
-            }
-          });
-          room.disconnect();
-        }
-        handleExit()
-      }}>Leave Room</button>
-      <div className="remote-participants">{remoteParticipants}</div>
-      <div className="shared-panel">
-        {room ? (
-          <SidePanel
-            localParticipant={room.localParticipant}
-          />
-        ) : (
-          ''
-        )}
+    <RoomContextProvider roomShared={roomShared}>
+      <div className="room clearfix">
+        <h2>Room: {roomName}</h2>
+        <button className="leave-room-btn" onClick={() => {
+          if(room) {
+              room.localParticipant.tracks.forEach(function(trackPublication) {
+              if (trackPublication.track.kind !== 'data') {
+              trackPublication.track.stop();
+              }
+            });
+            room.disconnect();
+          }
+          handleExit()
+        }}>Leave Room</button>
+        <div className="remote-participants">{remoteParticipants}</div>
+        <div className="shared-panel">
+          {room ? (
+            <SidePanel
+              localParticipant={room.localParticipant}
+            />
+          ) : (
+            ''
+          )}
+        </div>
+        <div className="local-participant">
+          {room ? (
+            <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
+          ) : (
+            ''
+          )}
+        </div>
       </div>
-      <div className="local-participant">
-        {room ? (
-          <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
-        ) : (
-          ''
-        )}
-      </div>
-    </div>
+    </RoomContextProvider>
   );
 };
 

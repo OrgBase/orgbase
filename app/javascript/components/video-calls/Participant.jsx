@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
+import {RoomContext} from "../../context/context";
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [dataTracks, setDataTracks] = useState([]);
+  const { updateRoomDetails } = useContext(RoomContext);
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -72,7 +74,10 @@ const Participant = ({ participant }) => {
     const dataTrack = dataTracks[0];
     if (dataTrack) {
       dataTrack.on('message', (data) =>{
-        console.log(data);
+        const { gameId } = JSON.parse(data);
+        updateRoomDetails({
+          gameId
+        })
       });
     }
   }, [dataTracks]);

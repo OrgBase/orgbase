@@ -1,36 +1,41 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useContext} from 'react';
 import Game from "./Game";
 import games from "./games";
+import {RoomContext} from "../../context/context";
 
-const SidePanel = ({ localParticipant, remoteParticipants, room }) => {
-  const [gameIdx, setGameIdx] = useState(-1);
+const SidePanel = ({ localParticipant }) => {
+  const {gameId, updateRoomDetails} = useContext(RoomContext);
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
     .filter(track => track !== null);
 
   const loadGame = useCallback(event => {
-    setGameIdx(Math.floor(Math.random() * games.length));
+    const id = Math.floor(Math.random() * games.length);
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
 
     dataTrack.send(JSON.stringify({
       event: 'start-game',
-      gameIndex: 0
+      gameId: id
     }));
-  }, [gameIdx]);
 
-  const game = games[gameIdx]
+    updateRoomDetails({
+      gameId: id
+    });
+  }, [gameId]);
+
+  const game = games[gameId]
 
   return (
     <>
-      {gameIdx > -1 ? (
+      {gameId > -1 ? (
         <>
           <h3 className="game-title"> {game.name} </h3>
           <p className="game-rules">{game.rules}</p>
           <button className="change-game-button" key={+new Date()} onClick={loadGame}>Change Game</button>
         </>
       ) : (
-        <button className="start-game-button" onClick={loadGame}>Start Game</button>
+        <button className="start-game-button" key={+new Date()} onClick={loadGame}>Start Game</button>
       )}
     </>
   );

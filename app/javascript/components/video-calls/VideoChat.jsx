@@ -45,7 +45,15 @@ const VideoChat = ({ name }) => {
   let render;
   if (token) {
     render = (
-      <Room roomName={roomName} token={token} room_sid={roomSid} handleExit={handleExit} />
+      <Room
+        roomName={roomName}
+        token={token}
+        room_sid={roomSid}
+        handleExit={handleExit}
+        roomShared={{
+          gameId: -1
+        }}
+      />
     );
   } else {
     render = (
