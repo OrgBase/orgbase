@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
+  const [dataTracks, setDataTracks] = useState([]);
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -17,6 +18,8 @@ const Participant = ({ participant }) => {
         setVideoTracks(videoTracks => [...videoTracks, track]);
       } else if (track.kind === 'audio') {
         setAudioTracks(audioTracks => [...audioTracks, track]);
+      } else if (track.kind === 'data') {
+        setDataTracks(dataTracks => [...dataTracks, track]);
       }
     };
 
@@ -25,11 +28,14 @@ const Participant = ({ participant }) => {
         setVideoTracks(videoTracks => videoTracks.filter(v => v !== track));
       } else if (track.kind === 'audio') {
         setAudioTracks(audioTracks => audioTracks.filter(a => a !== track));
+      } else if (track.kind === 'data') {
+        setDataTracks(dataTracks => dataTracks.filter(d => d !== track));
       }
     };
 
     setVideoTracks(trackpubsToTracks(participant.videoTracks));
     setAudioTracks(trackpubsToTracks(participant.audioTracks));
+    setDataTracks(trackpubsToTracks(participant.dataTracks));
 
     participant.on('trackSubscribed', trackSubscribed);
     participant.on('trackUnsubscribed', trackUnsubscribed);
@@ -37,6 +43,7 @@ const Participant = ({ participant }) => {
     return () => {
       setVideoTracks([]);
       setAudioTracks([]);
+      setDataTracks([]);
       participant.removeAllListeners();
     };
   }, [participant]);
@@ -54,16 +61,25 @@ const Participant = ({ participant }) => {
   useEffect(() => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
-      audioTrack.attach(videoRef.current);
+      audioTrack.attach(audioRef.current);
       return () => {
         audioTrack.detach();
       };
     }
-  }, [videoTracks]);
+  }, [audioTracks]);
+
+  useEffect(() => {
+    const dataTrack = dataTracks[0];
+    if (dataTrack) {
+      dataTrack.on('message', (data) =>{
+        console.log(data);
+      });
+    }
+  }, [dataTracks]);
 
   return (
     <div className="participant">
-      <span className="name">{participant.identity}</span>
+      <span className="name">{participant.identity.split('-$-')[0]}</span>
       <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} />
     </div>

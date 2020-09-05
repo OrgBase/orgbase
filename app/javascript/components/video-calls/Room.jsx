@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Video from 'twilio-video';
+import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "./Participant";
 import SidePanel from "./SidePanel";
 
 const Room = ({ roomName, token, roomSid, handleExit }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const dataTrack = new LocalDataTrack();
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -16,14 +17,24 @@ const Room = ({ roomName, token, roomSid, handleExit }) => {
         prevParticipants.filter(p => p !== participant)
       );
     };
-    Video.connect(token, {
-      sid: roomSid
-    }).then(room => {
-      setRoom(room);
-      room.on('participantConnected', participantConnected);
-      room.on('participantDisconnected', participantDisconnected);
-      room.participants.forEach(participantConnected);
-    });
+    async function setUpTracksAndConnectToRoom() {
+      try {
+        const audioAndVideoTracks = await createLocalTracks();
+        connect(token, {
+          sid: roomSid,
+          tracks: audioAndVideoTracks.concat(dataTrack)
+        }).then(room => {
+          setRoom(room);
+          room.on('participantConnected', participantConnected);
+          room.on('participantDisconnected', participantDisconnected);
+          room.participants.forEach(participantConnected);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    setUpTracksAndConnectToRoom();
 
     return () => {
       setRoom(currentRoom => {
@@ -50,7 +61,9 @@ const Room = ({ roomName, token, roomSid, handleExit }) => {
       <button className="leave-room-btn" onClick={() => {
         if(room) {
             room.localParticipant.tracks.forEach(function(trackPublication) {
+            if (trackPublication.track.kind !== 'data') {
             trackPublication.track.stop();
+            }
           });
           room.disconnect();
         }
@@ -58,7 +71,13 @@ const Room = ({ roomName, token, roomSid, handleExit }) => {
       }}>Leave Room</button>
       <div className="remote-participants">{remoteParticipants}</div>
       <div className="shared-panel">
-        <SidePanel />
+        {room ? (
+          <SidePanel
+            localParticipant={room.localParticipant}
+          />
+        ) : (
+          ''
+        )}
       </div>
       <div className="local-participant">
         {room ? (
