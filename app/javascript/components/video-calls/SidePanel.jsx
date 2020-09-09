@@ -11,11 +11,13 @@ const SidePanel = ({ localParticipant }) => {
     .filter(track => track !== null);
 
   const loadGame = useCallback(event => {
-    const id = Math.floor(Math.random() * games.length);
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
+    let id = gameId;
+
+    while(id === gameId) id = Math.floor(Math.random() * games.length);
 
     dataTrack.send(JSON.stringify({
-      event: 'start-game',
+      event: 'short-game-load',
       gameId: id
     }));
 
