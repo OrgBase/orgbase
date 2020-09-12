@@ -31,10 +31,22 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  config.action_mailer.smtp_settings = {
+      :authentication => :plain,
+      :address => "smtp.sendgrid.net",
+      :port => 587,
+      :domain => "localhost:3007",
+      :user_name => "apikey",
+      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password)
+  }
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3007 }
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+  config.action_mailer.asset_host = "http://localhost:3007/"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
