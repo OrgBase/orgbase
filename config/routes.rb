@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get '/home', to: 'home#index', as: :home
 
+  get '/:company_slug/lobby', to: 'home#lobby', as: :lobby
+
   post "/early-access" => "landing#early_access", :as => :early_access
 
   post "/video/room" => "video#join_room", :as => :join_room

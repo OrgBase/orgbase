@@ -21,6 +21,7 @@ gem 'react-rails', '~> 2.6.1'
 gem "httparty", "~> 0.18.0"
 gem "faker", "~> 2.11"
 gem 'twilio-ruby', '~> 5.40.0'
+gem "pundit", "~> 2.1"
 
 
 # Use Redis adapter to run Action Cable in production

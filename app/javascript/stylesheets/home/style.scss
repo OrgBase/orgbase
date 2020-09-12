@@ -31,16 +31,19 @@ h1 {
   min-height: 100vh;
 }
 
-.app {
+.lobby {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+.lobby-container {
+  flex-grow: 1;
+}
+
 main {
   position: relative;
   background: #ffffff;
-  flex-grow: 1;
   min-width: 1080px;
 }
 
