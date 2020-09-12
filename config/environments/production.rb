@@ -60,7 +60,19 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "org_charts_production"
 
+  config.action_mailer.smtp_settings = {
+      :authentication => :plain,
+      :address => "smtp.sendgrid.net",
+      :port => 465,
+      :domain => "jally.co",
+      :user_name => "apikey",
+      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password)
+  }
+
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'https://jally.co' }
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+  config.action_mailer.asset_host = "https://jally.co"
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
