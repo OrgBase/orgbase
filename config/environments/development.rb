@@ -11,6 +11,7 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+  config.force_ssl = true
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -31,22 +32,25 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :authentication => :plain,
       :address => "smtp.sendgrid.net",
-      :port => 587,
+      :port => 465,
       :domain => "localhost:3007",
       :user_name => "apikey",
-      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password)
+      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password),
+      :enable_starttls_auto => true,
+      :tls => true
   }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3007 }
+  config.action_mailer.default_url_options = { host: 'https://localhost:3007/' }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
-  config.action_mailer.asset_host = "http://localhost:3007/"
+  config.action_mailer.asset_host = "https://localhost:3007/"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

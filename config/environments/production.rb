@@ -60,13 +60,16 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "org_charts_production"
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :authentication => :plain,
       :address => "smtp.sendgrid.net",
       :port => 465,
       :domain => "jally.co",
       :user_name => "apikey",
-      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password)
+      :password => Rails.application.credentials.dig(:sendgrid, :smtp_password),
+      :enable_starttls_auto => true,
+      :tls => true
   }
 
   config.action_mailer.perform_caching = false
