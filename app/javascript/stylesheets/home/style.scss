@@ -20,11 +20,22 @@ header {
   text-align: center;
   flex-grow: 0;
   margin-bottom: 2em;
-}
 
-h1 {
-  font-weight: 300;
-  padding: 0.4em 0;
+  .logo {
+    display: inline-block;
+    float: left;
+    font-weight: 300;
+    margin: 0.4em;
+  }
+
+  .logout {
+    float: right;
+    margin: 1em;
+    background: #f0f8ff;
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 #root {
@@ -39,6 +50,7 @@ h1 {
 
 .lobby-container {
   flex-grow: 1;
+  text-align: center;
 }
 
 main {

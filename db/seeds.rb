@@ -10,7 +10,7 @@ require 'faker'
 
 midhun = User.create!(name: 'Midhun Dandamudi', email: 'midhun@jally.co', password: 'hodor007', admin: true)
 alex = User.create!(name: 'Alex Zed', email: 'alex@jally.co', password: 'hodor007', admin: true)
-test_user = User.create!(name: 'Test User', email: 'test@jally.co', password: 'hodor007', admin: true)
+test_user = User.create!(name: 'Test User', email: 'test@jally.co', password: 'hodor007', admin: false)
 company = Company.create!(name: 'Jally',
                           icon_url: '',
                           slug: 'jally',

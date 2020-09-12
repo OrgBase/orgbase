@@ -16,7 +16,10 @@
 <body>
   <div class="lobby">
     <header>
-      <h1>Jally</h1>
+      <h1 class="logo">Jally</h1>
+      <button class="logout">
+        <%= link_to 'Logout', logout_url %>
+      </button>
     </header>
     <div class="lobby-container">
       <%= yield %>
