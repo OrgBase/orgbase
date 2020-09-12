@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
-import Participant from "./Participant";
-import SidePanel from "./SidePanel";
+import Participant from "../video/Participant";
+import SidePanel from "../video/SidePanel";
 import RoomContextProvider from "../../context/RoomContextProvider";
 
-const Room = ({ roomName, token, roomSid, handleExit, roomShared }) => {
+const Room = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const dataTrack = new LocalDataTrack();
@@ -68,8 +68,8 @@ const Room = ({ roomName, token, roomSid, handleExit, roomShared }) => {
               }
             });
             room.disconnect();
+            window.open('/lobby', '_self')
           }
-          handleExit()
         }}>Leave Room</button>
         <div className="remote-participants">{remoteParticipants}</div>
         <div className="shared-panel">

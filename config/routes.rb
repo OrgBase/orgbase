@@ -14,12 +14,11 @@ Rails.application.routes.draw do
   #
   # get 'login', to: 'magic_links#request_link', as: :magic_link_login
 
-  get '/home', to: 'home#index', as: :home
-
-  get '/:company_slug/lobby', to: 'home#lobby', as: :lobby
+  get '/lobby', to: 'home#index', as: :home
 
   post "/early-access" => "landing#early_access", :as => :early_access
 
-  post "/video/room" => "video#join_room", :as => :join_room
+  get '/room/:identifier' => "video#join_room", :as => :room
+  get '/room/new' => "video#join_room", :as => :new_room
 
 end

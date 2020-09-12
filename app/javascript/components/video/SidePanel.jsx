@@ -1,5 +1,4 @@
 import React, {useState, useCallback, useEffect, useContext} from 'react';
-import Game from "./Game";
 import games from "./games";
 import {RoomContext} from "../../context/context";
 

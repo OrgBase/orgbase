@@ -59,32 +59,14 @@ main {
   min-width: 1080px;
 }
 
-form {
-  max-width: 300px;
-  margin: 0 auto;
-}
-
 h2 {
   font-weight: 300;
   margin-bottom: 1em;
   text-align: center;
 }
 
-form > div {
-  width: 100%;
-  margin-bottom: 1em;
-}
-form > div > label {
-  display: block;
-  margin-bottom: 0.3em;
-}
-form > div > input {
-  display: block;
-  width: 100%;
-  font-size: 16px;
-  padding: 0.4em;
-  border-radius: 6px;
-  border: 1px solid #333e5a;
+.create-room {
+  margin-top: 1em;
 }
 
 button {
