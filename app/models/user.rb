@@ -22,11 +22,23 @@
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
 
   validates :name, presence: true
   validates :email, presence: true
   has_one :employee
+
+  def first_name
+    name.split.select { |x| ["Mrs.", "Mrs", "Ms.", "Ms", "M/s.", "M/s", "Mr.", "Mr", "Dr.", "Dr"].exclude?(x) }.first
+  end
+
+  def last_name
+    name.split.last
+  end
+
+  def remember_me
+    (super == nil) ? "1" : super
+  end
 end
