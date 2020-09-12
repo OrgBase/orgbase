@@ -1,13 +1,13 @@
 import React from 'react';
 
-const VideoChat = ({ name, error }) => {
+const VideoChat = ({ name, errorMessage }) => {
   const handleClick = () => {
     window.open('/room/new', '_self')
   }
   return (
     <>
-      {error && <p className="alert alert-error">
-        {error}
+      {errorMessage && <p className="alert alert-error">
+        {errorMessage}
       </p>}
       <div className="video-chat-container">
         <h2>Hello, {name} </h2>

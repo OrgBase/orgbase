@@ -6,9 +6,7 @@ import VideoChat from "../video/VideoChat";
 const Lobby = props => {
   return (
     <>
-      <main>
         <VideoChat {...props}/>
-      </main>
     </>
   );
 };

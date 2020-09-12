@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def index
     @user = current_user
     @employee = @user.employee
-    @room_full = params[:room_full].present?
+    @error_message = params[:error_message] || ''
 
     if @employee.present?
       @company = @employee.company

@@ -8,9 +8,17 @@ class VideoController < ApplicationController
     @company = @employee&.company
 
     @room_name = params[:identifier]
-    room_identifier = "#{@company.slug}-$-#{@employee.slug}"
     if @room_name == 'new'
-      return redirect_to room_path(identifier: room_identifier)
+      return redirect_to room_path(identifier: "#{@company&.slug}-$-#{@employee.slug}")
+    end
+
+    company_slug = @room_name.split('-$-').first
+    company = Company.find_by(slug: company_slug)
+
+    if company
+      authorize(company, :show?)
+    else
+      return redirect_to home_path(error_message: "Uh oh! That seems like an invalid room.")
     end
 
     capacity = params[:capacity] || 2
