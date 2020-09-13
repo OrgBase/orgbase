@@ -23,4 +23,6 @@
 class Employee < ApplicationRecord
   belongs_to :user
   belongs_to :company
+  has_many :room_participants, dependent: :destroy
+  has_many :rooms, through: room_participants
 end

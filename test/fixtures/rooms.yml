@@ -1,0 +1,28 @@
+# == Schema Information
+#
+# Table name: rooms
+#
+#  id         :bigint           not null, primary key
+#  capacity   :integer
+#  panel_type :string
+#  slug       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  panel_id   :bigint
+#
+# Indexes
+#
+#  index_rooms_on_slug  (slug) UNIQUE
+#
+
+one:
+  slug: MyString
+  capacity: 1
+  panel_type: MyString
+  panel_id: 1
+
+two:
+  slug: MyString
+  capacity: 1
+  panel_type: MyString
+  panel_id: 1

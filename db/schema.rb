@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_185338) do
+ActiveRecord::Schema.define(version: 2020_09_13_025606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,25 @@ ActiveRecord::Schema.define(version: 2020_08_22_185338) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "room_participants", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "employee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_room_participants_on_employee_id"
+    t.index ["room_id"], name: "index_room_participants_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "slug"
+    t.integer "capacity"
+    t.string "panel_type"
+    t.bigint "panel_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
 
   create_table "team_members", force: :cascade do |t|
