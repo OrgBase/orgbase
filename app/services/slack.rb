@@ -15,7 +15,7 @@ class Slack
       payload[:channel] = Rails.env.production? ? channel : TESTING_CHANNEL
 
       options[:icon_emoji] ||= ':tada:'
-      options[:username] ||= 'OrgBase Bot'
+      options[:username] ||= 'Jally Bot'
 
       slack_endpoint = Rails.env.production? ? SLACK_URL : ENG_NOTIFICATIONS_URL
 
