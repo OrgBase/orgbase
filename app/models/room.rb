@@ -24,4 +24,8 @@ class Room < ApplicationRecord
   belongs_to :company
   has_many :room_participants, dependent: :destroy
   has_many :employees, through: :room_participants
+
+  PANEL_TYPES = %w(short-game ice-breaker)
+
+  validates :panel_type, allow_nil: true, inclusion: { in: PANEL_TYPES }
 end

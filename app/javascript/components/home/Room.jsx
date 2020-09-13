@@ -59,7 +59,6 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   return (
     <RoomContextProvider roomShared={roomShared}>
       <div className="room clearfix">
-        <h2>Room: {roomName}</h2>
         <button className="leave-room-btn" onClick={() => {
           if(room) {
               room.localParticipant.tracks.forEach(function(trackPublication) {
@@ -76,6 +75,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
           {room ? (
             <SidePanel
               localParticipant={room.localParticipant}
+              roomName={roomName}
             />
           ) : (
             ''

@@ -18,7 +18,8 @@ Rails.application.routes.draw do
 
   post "/early-access" => "landing#early_access", :as => :early_access
 
-  get '/room/:identifier' => "room#join_room", :as => :room
+  post '/room/:identifier/panel-update' => "room#panel_update", :as => :panel_update
   get '/room/new' => "room#join_room", :as => :new_room
+  get '/room/:identifier' => "room#join_room", :as => :room
 
 end

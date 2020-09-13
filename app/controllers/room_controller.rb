@@ -45,4 +45,18 @@ class RoomController < ApplicationController
 
     render template: 'room/room'
   end
+
+  def panel_update
+    authorize(current_user, :participate?)
+    room_slug = params[:identifier]
+    room = Room.find_by(slug: room_slug)
+    panel_id = params[:panel_id]
+    panel_type = params[:panel_type]
+
+    authorize(room, :update?)
+    room.update_attributes(
+        panel_id: panel_id,
+        panel_type: panel_type
+    )
+  end
 end

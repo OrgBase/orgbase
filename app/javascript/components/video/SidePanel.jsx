@@ -2,7 +2,7 @@ import React, {useState, useCallback, useEffect, useContext} from 'react';
 import games from "./games";
 import {RoomContext} from "../../context/context";
 
-const SidePanel = ({ localParticipant }) => {
+const SidePanel = ({ localParticipant, roomName }) => {
   const {panelId, panelType, updateRoomDetails} = useContext(RoomContext);
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
@@ -12,6 +12,7 @@ const SidePanel = ({ localParticipant }) => {
   const loadRandomGame = useCallback(event => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     let id = panelId;
+    const panelType = 'short-game';
 
     while(id === panelId) id = Math.floor(Math.random() * games.length);
 
@@ -20,6 +21,23 @@ const SidePanel = ({ localParticipant }) => {
       panelType: 'short-game',
       panelId: id
     }));
+
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute('content');
+
+    fetch(`/room/${roomName}/panel-update`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        panel_id: id,
+        panel_type: panelType,
+      })
+    });
 
     updateRoomDetails({
       panelType: 'short-game',
@@ -31,7 +49,7 @@ const SidePanel = ({ localParticipant }) => {
 
   return (
     <>
-      {panelType  ? (
+      {panelType && game ? (
         <>
           <h3 className="game-title"> {game.name} </h3>
           <p className="game-rules">{game.rules}</p>
