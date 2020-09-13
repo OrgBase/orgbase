@@ -1,4 +1,4 @@
-class VideoController < ApplicationController
+class RoomController < ApplicationController
   before_action :authenticate_user!
   layout 'home'
 
@@ -38,6 +38,6 @@ class VideoController < ApplicationController
 
     @token = TwilioService.jwt_access_token(participant_identity, @room_name)
 
-    render template: 'video/room'
+    render template: 'room/room'
   end
 end
