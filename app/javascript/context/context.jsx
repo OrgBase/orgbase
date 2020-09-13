@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 
 export const RoomContext = createContext({
-  gameId: -1,
+  panelType: '',
+  panelId: -1
 });

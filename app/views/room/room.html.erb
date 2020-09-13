@@ -1,8 +1,9 @@
 <%= react_component('Room', {
-    roomName: @room_name,
+    roomName: @room.slug,
     token: @token,
-    room_sid: @room.sid,
+    roomSid: @twilio_room.sid,
     roomShared: {
-        gameId: -1
+        panelType: @room.panel_type,
+        panelId: @room.panel_id
     }
 }) %>

@@ -3,40 +3,42 @@ import games from "./games";
 import {RoomContext} from "../../context/context";
 
 const SidePanel = ({ localParticipant }) => {
-  const {gameId, updateRoomDetails} = useContext(RoomContext);
+  const {panelId, panelType, updateRoomDetails} = useContext(RoomContext);
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
     .filter(track => track !== null);
 
-  const loadGame = useCallback(event => {
+  const loadRandomGame = useCallback(event => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
-    let id = gameId;
+    let id = panelId;
 
-    while(id === gameId) id = Math.floor(Math.random() * games.length);
+    while(id === panelId) id = Math.floor(Math.random() * games.length);
 
     dataTrack.send(JSON.stringify({
       event: 'short-game-load',
-      gameId: id
+      panelType: 'short-game',
+      panelId: id
     }));
 
     updateRoomDetails({
-      gameId: id
+      panelType: 'short-game',
+      panelId: id
     });
-  }, [gameId]);
+  }, [panelId]);
 
-  const game = games[gameId]
+  const game = games[panelId]
 
   return (
     <>
-      {gameId > -1 ? (
+      {panelType  ? (
         <>
           <h3 className="game-title"> {game.name} </h3>
           <p className="game-rules">{game.rules}</p>
-          <button className="change-game-button" key={+new Date()} onClick={loadGame}>Change Game</button>
+          <button className="change-game-button" key={+new Date()} onClick={loadRandomGame}>Change Game</button>
         </>
       ) : (
-        <button className="start-game-button" key={+new Date()} onClick={loadGame}>Start Game</button>
+        <button className="start-game-button" key={+new Date()} onClick={loadRandomGame}>Start Game</button>
       )}
     </>
   );

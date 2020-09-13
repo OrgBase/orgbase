@@ -21,6 +21,7 @@
 #  fk_rails_...  (company_id => companies.id)
 #
 class Room < ApplicationRecord
+  belongs_to :company
   has_many :room_participants, dependent: :destroy
-  has_many :employees, through: room_participants
+  has_many :employees, through: :room_participants
 end

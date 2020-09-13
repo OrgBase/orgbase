@@ -74,9 +74,10 @@ const Participant = ({ participant }) => {
     const dataTrack = dataTracks[0];
     if (dataTrack) {
       dataTrack.on('message', (data) =>{
-        const { gameId } = JSON.parse(data);
+        const { panelType, panelId } = JSON.parse(data);
         updateRoomDetails({
-          gameId
+          panelId,
+          panelType
         })
       });
     }
