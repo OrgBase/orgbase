@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, createRef, useCallback} from 'react';
 import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "../video/Participant";
 import SidePanel from "../video/SidePanel";
@@ -8,6 +8,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const dataTrack = new LocalDataTrack();
+  const urlInputRef = createRef();
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -52,9 +53,36 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     };
   }, [roomName, token]);
 
-  const remoteParticipants = participants.map(participant => (
-    <Participant key={participant.sid} participant={participant} />
-  ));
+  const copyToClipboard = (e) => {
+    e.preventDefault();
+    urlInputRef.current.select();
+    document.execCommand('copy');
+  }
+
+  const remoteParticipants = () => {
+    if(participants.length) {
+      return participants.map(participant => (
+        <Participant key={participant.sid} participant={participant} />
+      ));
+    } else {
+      return (
+        <>
+          <p>There's no one else here 👀. Share this url with a colleague so they can join you.</p>
+          <input
+            ref={urlInputRef}
+            defaultValue={window.location.href.split('?')[0]}
+            readOnly
+          />
+          {
+            document.queryCommandSupported('copy') &&
+            <div>
+              <button onClick={copyToClipboard}>Copy</button>
+            </div>
+          }
+        </>
+      );
+    }
+  }
 
   return (
     <RoomContextProvider roomShared={roomShared}>
@@ -70,7 +98,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
             window.open('/lobby', '_self')
           }
         }}>Leave Room</button>
-        <div className="remote-participants">{remoteParticipants}</div>
+        <div className="remote-participants">{remoteParticipants()}</div>
         <div className="shared-panel">
           {room ? (
             <SidePanel

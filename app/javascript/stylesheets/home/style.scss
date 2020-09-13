@@ -109,6 +109,16 @@ button:hover {
 .remote-participants {
   display: inline-block;
   max-width: 640px;
+  input {
+    margin: 1em;
+    display: inline-block;
+    width: 230px;
+    height: 30px;
+    text-align: center;
+  }
+  div {
+    display: inline-block;
+  }
 }
 .shared-panel {
   display: inline-block;
@@ -119,7 +129,7 @@ button:hover {
   border-radius: 6px;
   float: right;
   margin-right: 2em;
-  margin-top: 1em;
+  margin-top: 6em;
   text-align: center;
 }
 .start-game-button {
