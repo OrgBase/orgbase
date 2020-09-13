@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_025606) do
+ActiveRecord::Schema.define(version: 2020_09_13_033016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 2020_09_13_025606) do
     t.bigint "panel_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_rooms_on_company_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
 
@@ -104,6 +106,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_025606) do
   add_foreign_key "company_participants", "users"
   add_foreign_key "employees", "companies"
   add_foreign_key "employees", "users"
+  add_foreign_key "rooms", "companies"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
   add_foreign_key "teams", "companies"
