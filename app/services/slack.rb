@@ -35,6 +35,9 @@ class Slack
     def new_lead(data = {})
       send_message(LEADS_CHANNEL, "<!here|here>: New Lead :tada: #{JSON.pretty_generate(data)}")
     end
+    def spam_request(data={})
+      send_message(LEADS_CHANNEL, "Mostly Spam :face_with_raised_eyebrow: #{JSON.pretty_generate(data)}")
+    end
 
     def log_data(data = {})
       send_message(TESTING_CHANNEL, "Data Log: #{JSON.pretty_generate(data)}")

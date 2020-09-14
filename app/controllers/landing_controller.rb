@@ -7,7 +7,14 @@ class LandingController < ApplicationController
   end
 
   def early_access
-    data = params.require("early_access").permit(:email)
+    data = params.require("early_access").permit(:email, :checkField)
+
+    if data["checkField"].present?
+      # Spam Likely, filled out a hidden field
+      Rails.logger.debug("Likely spam submission #{data}")
+      Slack.spam_request(data)
+      redirect_to root_path, flash: { notice: "We might not get back to you." } and return
+    end
 
     Slack.new_lead(data)
 

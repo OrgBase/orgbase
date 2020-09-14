@@ -1,10 +1,18 @@
-<%= form_tag(early_access_path, method: 'post') do %>
+<%= form_tag(early_access_path, method: 'post', class: 'landing-form') do %>
+  <input type="text" class="d-none form-check-field" name="early_access[checkField]" placeholder="Are you real?">
   <div class="hero-form field field-grouped">
     <div class="control control-expanded">
-      <input class="input" type="email" name="early_access[email]" placeholder="Your work email">
+      <input
+        class="input"
+        type="email"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        name="early_access[email]"
+        placeholder="Your work email"
+      />
     </div>
     <div class="control">
-      <button class="button button-primary button-block" type="submit">Sign up for a demo</button>
+      <button id="landing-submit-button" class="landing-submit-button button button-primary button-block" type="submit">Sign up for a demo</button>
     </div>
   </div>
 <% end %>
