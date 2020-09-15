@@ -99,6 +99,8 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
+    heroku-deflater (0.6.3)
+      rack (>= 1.4.5)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -266,6 +268,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   devise (~> 4.7)
   faker (~> 2.11)
+  heroku-deflater
   httparty (~> 0.18.0)
   jbuilder (~> 2.7)
   listen (~> 3.2)
