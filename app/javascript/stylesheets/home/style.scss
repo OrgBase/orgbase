@@ -1,7 +1,9 @@
+$primary: #1de0e3;
 @import "bulma/bulma";
 
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import "lobby";
 
 html, body {
   height: 100%;
@@ -19,14 +21,16 @@ body {
 }
 
 header.jally-header {
-  background: #0137ff;
-  color: #ffffff;
+  background: #ffffff;
+  color: $primary;
   text-align: center;
-  padding-top: 1.5rem;
 
   .logo {
     padding-left: 1.5rem;
-    font-size: 2rem;
+    max-width: 190px;
+  }
+  .jally-logo-img {
+    max-width: 100%;
   }
   .logout {
     padding-right: 1.5rem;
@@ -38,26 +42,12 @@ header.jally-header {
   background: #333e5a;
     color: #fff;
     text-align: center;
-    flex-grow: 0;
     padding: 1rem;
   a {
     color: #fff;
     text-decoration: underline;
   }
 }
-
-.alert {
-  padding: 12px;
-  text-align: center;
-  &.alert-notice {
-    background: #55EBD0;
-  }
-  &.alert-error {
-    background: #ff8400;
-    color: white;
-  }
-}
-
 
 //@import '@fortawesome/fontawesome-free/scss/solid';
 //@import '@fortawesome/fontawesome-free/scss/regular';

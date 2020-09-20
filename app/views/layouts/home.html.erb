@@ -18,12 +18,14 @@
     <div class="columns is-multiline">
       <header class="column is-full jally-header">
         <div class="columns is-vcentered is-mobile">
-          <div class="column is-narrow logo">Jally</div>
+          <div class="column is-narrow logo">
+            <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-color.svg') %>" class="jally-logo-img" alt="logos">
+          </div>
           <div class="column"></div>
           <%if user_signed_in? %>
             <div class="column is-narrow logout">
               <a href="/logout">
-                <button class="button">
+                <button class="button is-primary">
                   Logout
                 </button>
               </a>

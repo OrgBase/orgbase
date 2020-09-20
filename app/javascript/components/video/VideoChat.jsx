@@ -8,14 +8,14 @@ const VideoChat = ({ name, errorMessage }) => {
   }
   return (
     <>
-      {errorMessage && <p className="alert alert-error">
+      {errorMessage && <p className="notification is-warning">
         {errorMessage}
       </p>}
-      <div className="video-chat-container">
-        <h2>Hello, {name} </h2>
-        <p>Create a room using the button below and invite a friend to it!</p>
+      <div className="mt-6">
+        <h2 className='title'>Hello, {name}! 👋 </h2>
+        <p className='mb-3 is-family-monospace'>Create a room using the button below and invite a friend to it!</p>
         <button
-          className="create-room"
+          className="create-room button is-primary"
           onClick={handleClick}
           disabled={loading}
         >
