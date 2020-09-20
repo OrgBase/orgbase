@@ -1,3 +1,4 @@
+import "@fortawesome/fontawesome-free/js/all";
 import 'stylesheets/home/style';
 import Rails from '@rails/ujs';
 

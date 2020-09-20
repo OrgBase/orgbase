@@ -14,23 +14,28 @@
 </head>
 
 <body>
-  <div class="lobby">
-    <header>
-      <h1 class="logo">Jally</h1>
-      <button class="logout">
-        <%= link_to 'Logout', logout_url %>
-      </button>
-    </header>
-    <div class="lobby-container">
-      <main>
+  <div class="jally-content">
+    <div class="columns is-multiline">
+      <header class="column is-full jally-header">
+        <div class="columns is-vcentered is-3">
+          <div class="column is-narrow">Jally</div>
+          <%if user_signed_in? %>
+            <button class="logout">
+              <%= link_to 'Logout', logout_url %>
+            </button>
+          <% end %>
+        </div>
+
+      </header>
+      <div class="column is-full lobby-container">
         <%= yield %>
-      </main>
+      </div>
     </div>
-    <footer>
-      <p>
-        Made with ❤️ by <a href="https://jally.co">Team Jally.</a>
-      </p>
-    </footer>
   </div>
+  <footer class="footer jally-footer">
+    <p>
+      Made with ❤️ by <a href="https://jally.co">Team Jally.</a>
+    </p>
+  </footer>
 </body>
 </html>
