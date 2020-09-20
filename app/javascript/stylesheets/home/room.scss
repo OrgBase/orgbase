@@ -1,0 +1,50 @@
+.local-participant {
+  max-width: 225px;
+  position: absolute;
+  bottom: 50px;
+  left: 5px;
+}
+
+.participant {
+  position: relative;
+  background: #333e5a;
+  padding: 5px;
+  border-radius: 6px;
+  display: inline-block;
+  margin: 10px;
+}
+
+video {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+.name {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  margin: 0;
+  padding: 0.5em 0.5em 0.5em 2em;
+  background: rgba(242, 47, 70, 0.9);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.name::after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  right: -2em;
+  border: 1em solid rgba(242, 47, 70, 0.9);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.local-participant .name {
+  font-size: 10px;
+}
