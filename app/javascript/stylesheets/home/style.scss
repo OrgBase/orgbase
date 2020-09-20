@@ -22,16 +22,14 @@ header.jally-header {
   background: #0137ff;
   color: #ffffff;
   text-align: center;
-  flex-grow: 0;
-  margin-bottom: 2em;
+  padding-top: 1.5rem;
 
+  .logo {
+    padding-left: 1.5rem;
+    font-size: 2rem;
+  }
   .logout {
-    float: right;
-    margin: 1em;
-    background: #f0f8ff;
-    a {
-      text-decoration: none;
-    }
+    padding-right: 1.5rem;
   }
 }
 
