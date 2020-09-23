@@ -5,9 +5,9 @@ const games = [
   },
   {
     name: 'Two Truths and a Lie',
-    rules: 'One of you says three statements about yourself.' +
-      'Two of these statements must be facts, or "truths," and one must be a lie.' +
-      'The other one will try to guess which statement is the lie.' +
+    rules: 'One of you says three statements about yourself. ' +
+      'Two of these statements must be facts, or "truths," and one must be a lie. ' +
+      'The other one will try to guess which statement is the lie. ' +
       'Repeat with roles changed.'
   }
 ];
