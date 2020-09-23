@@ -53,10 +53,20 @@ const SidePanel = ({ localParticipant, roomName }) => {
         <>
           <h3 className="title"> {game.name} </h3>
           <p className="game-rules">{game.rules}</p>
-          <button className="button is-primary change-game-button" key={+new Date()} onClick={loadRandomGame}>Change Game</button>
+          <button className="button is-primary change-game-button" key={+new Date()} onClick={loadRandomGame}>
+            <span className='icon'>
+            <i className="fas fa-random"></i>
+          </span>
+            <span>Change Game</span>
+          </button>
         </>
       ) : (
-        <button className="button is-primary start-game-button" key={+new Date()} onClick={loadRandomGame}>Start Game</button>
+        <button className="button is-primary start-game-button" key={+new Date()} onClick={loadRandomGame}>
+          <span className='icon'>
+            <i class="fas fa-flag-checkered"></i>
+          </span>
+          <span>Start Game</span>
+        </button>
       )}
     </>
   );

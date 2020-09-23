@@ -82,20 +82,24 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
           <p className='mb-3 is-family-monospace'>There's no one else here 👀. Share this url with a colleague so they can join you.</p>
           <div className='columns is-centered'>
             <div className='column is-narrow'>
-              <input
-                className='input room-url'
-                ref={urlInputRef}
-                defaultValue={window.location.href.split('?')[0]}
-                readOnly
-              />
-            </div>
-            <div className='column is-narrow'>
-              {
-                document.queryCommandSupported('copy') &&
-                <div>
-                  <button className='button is-primary' onClick={copyToClipboard}>Copy</button>
+              <div className="field has-addons">
+                <div className="control">
+                  <input
+                    className='input room-url'
+                    ref={urlInputRef}
+                    defaultValue={window.location.href.split('?')[0]}
+                    readOnly
+                  />
                 </div>
-              }
+                <div className="control">
+                  <button className='button is-primary' onClick={copyToClipboard}>
+                    <span className='icon'>
+                      <i className="fas fa-copy"></i>
+                    </span>
+                    <span>Copy</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </>
@@ -110,7 +114,12 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
         <div className="column">
           <div className="columns is-multiline">
             <div className="column is-full has-text-right">
-              <button className="button is-primary leave-room-btn" onClick={handleExit}>Exit</button>
+              <button className="button is-primary leave-room-btn is-small" onClick={handleExit}>
+                <span className='icon'>
+                  <i className="fas fa-sign-out-alt"></i>
+                </span>
+                <span>Exit Room</span>
+              </button>
             </div>
             <div className="column is-full">
               <div className="shared-panel has-text-centered is-flex">
