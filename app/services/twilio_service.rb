@@ -28,10 +28,10 @@ class TwilioService
       Twilio::REST::Client.new(ACCOUNT_SID, AUTH_TOKEN)
     end
 
-    def p2p_room(client, room_name)
+    def p2p_room(client, room_name, room_type)
       room = client.video.rooms.create(
           enable_turn: true,
-          type: 'peer-to-peer',
+          type: room_type,
           unique_name: room_name
       )
 
