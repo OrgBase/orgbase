@@ -40,7 +40,7 @@ class RoomController < ApplicationController
 
     # create a room if it doesn't exist
     if @twilio_room.blank?
-      room_type = @room.capacity == 2 ? 'go' : 'peer-to-peer'
+      room_type = @room.capacity <= 3 ? 'peer-to-peer' : 'group'
       @twilio_room = TwilioService.p2p_room(client, @room_name, room_type)
     end
 
