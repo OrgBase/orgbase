@@ -1,0 +1,3 @@
+web: bundle exec puma -C config/puma.rb -b 'ssl://localhost:3007?key=localhost.key&cert=localhost.crt'
+webpack: ./bin/webpack-dev-server
+worker: bundle exec sidekiq -C config/sidekiq.yml

@@ -198,6 +198,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.2.1)
     regexp_parser (1.7.1)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -216,6 +217,10 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sidekiq (6.1.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -278,8 +283,10 @@ DEPENDENCIES
   pundit (~> 2.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   react-rails (~> 2.6.1)
+  redis (~> 4.1)
   sass-rails (>= 6)
   selenium-webdriver
+  sidekiq (~> 6.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   twilio-ruby (~> 5.40.0)

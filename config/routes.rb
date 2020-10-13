@@ -1,5 +1,14 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root 'landing#index'
+
+  #Admin tools
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
+  get 'sidekiq' => redirect('/')
 
   devise_for :users, {controllers: { registrations: 'registrations', omniauth_callbacks: 'oauths' }}
   devise_scope :user do
