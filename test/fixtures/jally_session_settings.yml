@@ -1,0 +1,50 @@
+# == Schema Information
+#
+# Table name: jally_session_settings
+#
+#  id                       :bigint           not null, primary key
+#  cut_off_seconds          :integer
+#  frequency_length         :integer
+#  frequency_unit           :string
+#  party                    :boolean
+#  recurring                :boolean
+#  room_capacity            :integer
+#  scheduled_at             :datetime
+#  session_duration_seconds :integer
+#  switch_after_seconds     :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  jally_session_id         :bigint           not null
+#
+# Indexes
+#
+#  index_jally_session_settings_on_jally_session_id  (jally_session_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (jally_session_id => jally_sessions.id)
+#
+
+one:
+  jally_session: one
+  session_duration_seconds: 1
+  room_capacity: 1
+  cut_off_seconds: 1
+  scheduled_at: 2020-10-21 10:56:49
+  recurring: false
+  frequency_length: 1
+  frequency_unit: MyString
+  party: false
+  switch_after: 1
+
+two:
+  jally_session: two
+  session_duration_seconds: 1
+  room_capacity: 1
+  cut_off_seconds: 1
+  scheduled_at: 2020-10-21 10:56:49
+  recurring: false
+  frequency_length: 1
+  frequency_unit: MyString
+  party: false
+  switch_after: 1

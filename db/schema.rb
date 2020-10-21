@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_033016) do
+ActiveRecord::Schema.define(version: 2020_10_21_052649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,34 @@ ActiveRecord::Schema.define(version: 2020_09_13_033016) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "jally_session_settings", force: :cascade do |t|
+    t.bigint "jally_session_id", null: false
+    t.integer "session_duration_seconds"
+    t.integer "room_capacity"
+    t.integer "cut_off_seconds"
+    t.datetime "scheduled_at"
+    t.boolean "recurring"
+    t.integer "frequency_length"
+    t.string "frequency_unit"
+    t.boolean "party"
+    t.integer "switch_after_seconds"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jally_session_id"], name: "index_jally_session_settings_on_jally_session_id"
+  end
+
+  create_table "jally_sessions", force: :cascade do |t|
+    t.text "slug"
+    t.bigint "company_id", null: false
+    t.bigint "team_id"
+    t.bigint "created_by_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_jally_sessions_on_company_id"
+    t.index ["created_by_id"], name: "index_jally_sessions_on_created_by_id"
+    t.index ["team_id"], name: "index_jally_sessions_on_team_id"
   end
 
   create_table "room_participants", force: :cascade do |t|
@@ -106,6 +134,10 @@ ActiveRecord::Schema.define(version: 2020_09_13_033016) do
   add_foreign_key "company_participants", "users"
   add_foreign_key "employees", "companies"
   add_foreign_key "employees", "users"
+  add_foreign_key "jally_session_settings", "jally_sessions"
+  add_foreign_key "jally_sessions", "companies"
+  add_foreign_key "jally_sessions", "teams"
+  add_foreign_key "jally_sessions", "users", column: "created_by_id"
   add_foreign_key "rooms", "companies"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
