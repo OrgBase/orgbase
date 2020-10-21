@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_052649) do
+ActiveRecord::Schema.define(version: 2020_10_21_111844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,8 +91,21 @@ ActiveRecord::Schema.define(version: 2020_10_21_052649) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "company_id", null: false
+    t.bigint "jally_session_id"
     t.index ["company_id"], name: "index_rooms_on_company_id"
+    t.index ["jally_session_id"], name: "index_rooms_on_jally_session_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
+  end
+
+  create_table "session_participants", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "jally_session_id", null: false
+    t.bigint "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_session_participants_on_employee_id"
+    t.index ["jally_session_id"], name: "index_session_participants_on_jally_session_id"
+    t.index ["room_id"], name: "index_session_participants_on_room_id"
   end
 
   create_table "team_members", force: :cascade do |t|
@@ -139,6 +152,10 @@ ActiveRecord::Schema.define(version: 2020_10_21_052649) do
   add_foreign_key "jally_sessions", "teams"
   add_foreign_key "jally_sessions", "users", column: "created_by_id"
   add_foreign_key "rooms", "companies"
+  add_foreign_key "rooms", "jally_sessions"
+  add_foreign_key "session_participants", "employees"
+  add_foreign_key "session_participants", "jally_sessions"
+  add_foreign_key "session_participants", "rooms"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
   add_foreign_key "teams", "companies"
