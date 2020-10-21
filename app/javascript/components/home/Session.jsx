@@ -1,6 +1,9 @@
-import React, {useState, useEffect, createRef} from 'react';
+import React, { createRef} from 'react';
+import moment from 'moment';
+import Countdown from 'react-countdown';
 
-const Session = ({ sessionSlug }) => {
+
+const Session = ({ sessionSlug, config }) => {
   const urlInputRef = createRef();
 
   const handleExit = () => {
@@ -51,19 +54,74 @@ const Session = ({ sessionSlug }) => {
           <span className='icon'>
             <i className="fas fa-sign-out-alt"></i>
           </span>
-      <span>Exit to Lobby</span>
+      <span>Go to Lobby</span>
     </button>
   )
 
+  const allowedToJoin = () => {
+    const now = Math.floor(new Date().getTime()/1000);
+
+    return now >= config.scheduledAt && now <= config.scheduledAt + config.cutOffSeconds;
+  }
+
+  const showCountDown = () => {
+    const now = Math.floor(new Date().getTime()/1000);
+
+    return now < config.scheduledAt;
+  }
+
+  const sessionIsClosed = () => {
+    const now = Math.floor(new Date().getTime()/1000);
+
+    return now > config.scheduledAt + config.cutOffSeconds;
+  }
+
+  const countDownRenderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      window.location.reload();
+    } else {
+      return <h1 className='title'>
+        {days} {days > 1 ? 'days ' : 'day '},
+        {hours} {hours > 1 ? 'hours ' : 'hour '},
+        {minutes} {days > 1 ? 'minutes ' : 'minute '} and
+        {seconds} {seconds > 1 ? 'seconds' : 'second'}</h1>;
+    }
+  };
+
   return (
-    <div className="columns room is-mobile room-container">
-      <div className="column has-text-centered">
-        {urlCopier()}
+    <>
+      <div className="columns room is-mobile room-container is-centered">
+        {allowedToJoin() &&
+        <div className="column has-text-centered">
+          {urlCopier()}
+        </div>
+        }
+        {sessionIsClosed() &&
+        <p className='ml-2 mt-2'>Uh oh! This jally session is currently not accepting new participants. <br />
+          Please head to Lobby to create a new room or start a new Session.</p>
+        }
+        {showCountDown() &&
+        <div className='mt-3'>
+          This session will scheduled for {moment(config.scheduledAt).format('MMMM Do, h:mm a')}.
+        </div>
+        }
+        {!allowedToJoin() &&
+        <div className="column is-narrow">
+          {exitButton()}
+        </div>
+        }
+
       </div>
-      <div className="column is-narrow">
-        {exitButton()}
+      {showCountDown() &&
+      <div className='has-text-centered'>
+        <p> Starts in... </p>
+        <Countdown
+          date={new Date(config.scheduledAt * 1000)}
+          renderer={countDownRenderer}
+        />
       </div>
-    </div>
+      }
+    </>
   );
 };
 

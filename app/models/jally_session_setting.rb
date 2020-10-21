@@ -26,4 +26,12 @@
 #
 class JallySessionSetting < ApplicationRecord
   belongs_to :jally_session
+
+
+  FREQUENCY_UNITS = %w(days weeks months)
+
+  validates :frequency_unit, allow_nil: true, inclusion: { in: FREQUENCY_UNITS }
+  validates :scheduled_at, presence: true
+  validates :cut_off_seconds, presence: true
+
 end
