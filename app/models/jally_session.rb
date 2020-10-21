@@ -14,6 +14,7 @@
 #
 #  index_jally_sessions_on_company_id     (company_id)
 #  index_jally_sessions_on_created_by_id  (created_by_id)
+#  index_jally_sessions_on_slug           (slug)
 #  index_jally_sessions_on_team_id        (team_id)
 #
 # Foreign Keys

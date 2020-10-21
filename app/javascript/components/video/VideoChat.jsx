@@ -20,7 +20,7 @@ const VideoChat = ({ name, errorMessage }) => {
       </p>}
       <div>
         <h2 className='title'>Hello, {name}! 👋 </h2>
-        <p className='mb-3 is-family-monospace'>Choose one of the options below to get started!</p>
+        <p className='mb-4 is-family-monospace subtitle'>Choose one of the options below to get started!</p>
         <div className='columns ml-2 mr-2'>
           <div className='column'>
             <div
