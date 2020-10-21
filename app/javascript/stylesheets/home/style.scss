@@ -1,4 +1,4 @@
-$primary: #1de0e3;
+$primary: #61D1DB;
 @import "bulma/bulma";
 
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
@@ -49,8 +49,61 @@ header.jally-header {
   }
 }
 
-.input:focus{
+.input:focus {
   outline: none !important;
   border:1px solid $primary;
   box-shadow: 0 0 10px #719ECE;
+}
+
+.jally-card {
+  height: 100%;
+  transition: all .2s ease-in-out;
+  .card-header {
+    box-shadow: 0 0 black;
+  }
+}
+
+.jally-card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 1.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.jally-card.pending {
+  position: relative;
+}
+
+.jally-card.pending::before {
+  background: white;
+  border-radius: 0.25rem;
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+.jally-card.pending::after {
+  animation: loading 1s infinite ease-out;
+  background: radial-gradient(rgba(29, 224, 227, 0), rgba(29, 224, 227, 0.75));
+  border-radius: 50%;
+  content: '';
+  height: 6rem;
+  width: 6rem;
+  position: absolute;
+  left: calc(50% - 3rem);
+  top: calc(50% - 3rem);
+}
+
+@keyframes loading {
+  from {
+    opacity: 1;
+    transform: scale(0.001);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
 }
