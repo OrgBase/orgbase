@@ -69,11 +69,11 @@ header.jally-header {
   box-shadow: 0 1.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
 
-.jally-card.pending {
+.pending {
   position: relative;
 }
 
-.jally-card.pending::before {
+.pending::before {
   background: white;
   border-radius: 0.25rem;
   content: '';
@@ -85,7 +85,7 @@ header.jally-header {
   opacity: 0.85;
 }
 
-.jally-card.pending::after {
+.pending::after {
   animation: loading 1s infinite ease-out;
   background: radial-gradient(rgba(29, 224, 227, 0), rgba(29, 224, 227, 0.75));
   border-radius: 50%;
@@ -106,4 +106,8 @@ header.jally-header {
     opacity: 0;
     transform: scale(1);
   }
+}
+
+.loading-box {
+  height:150px;
 }

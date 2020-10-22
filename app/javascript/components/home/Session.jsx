@@ -125,6 +125,12 @@ const Session = ({ sessionSlug, config }) => {
         />
       </div>
       }
+      {allowedToJoin() &&
+        <>
+          <div className='subtitle has-text-centered'>We're searching for your match. Please wait and do not close the window.</div>
+          <div className='loading-box pending has-text-centered'></div>
+        </>
+      }
     </>
   );
 };
