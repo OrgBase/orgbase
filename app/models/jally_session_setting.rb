@@ -33,5 +33,4 @@ class JallySessionSetting < ApplicationRecord
   validates :frequency_unit, allow_nil: true, inclusion: { in: FREQUENCY_UNITS }
   validates :scheduled_at, presence: true
   validates :cut_off_seconds, presence: true
-
 end

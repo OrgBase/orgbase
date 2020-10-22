@@ -63,7 +63,7 @@ const SidePanel = ({ localParticipant, roomName }) => {
       ) : (
         <button className="button is-primary start-game-button" key={+new Date()} onClick={loadRandomGame}>
           <span className='icon'>
-            <i class="fas fa-flag-checkered"></i>
+            <i className="fas fa-flag-checkered"></i>
           </span>
           <span>Start Game</span>
         </button>

@@ -33,9 +33,13 @@ class JallySessionController < ApplicationController
     end
 
     @session_config = @session.config
-    room = Room.where(jally_session: @session, created_at: @session_config.scheduled_at..(@session_config.scheduled_at+@session_config.cut_off_seconds.seconds)).first
 
-    return redirect_to room_path(identifier: @room.slug) if room.present?
+    @participant = JallySessionService.create_or_clear_participant(
+        employee: @employee,
+        jally_session: @session
+    )
+
+    return redirect_to room_path(identifier: @participant.room.slug) if @participant.room.present?
 
     render template: 'session/session'
   end
