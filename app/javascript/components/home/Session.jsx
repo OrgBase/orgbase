@@ -1,6 +1,7 @@
 import React, { createRef} from 'react';
 import moment from 'moment';
 import Countdown from 'react-countdown';
+import useInterval from "../../helpers/useInterval";
 
 
 const Session = ({ sessionSlug, config }) => {
@@ -60,8 +61,11 @@ const Session = ({ sessionSlug, config }) => {
 
   const allowedToJoin = () => {
     const now = Math.floor(new Date().getTime()/1000);
-
-    return now >= config.scheduledAt && now <= config.scheduledAt + config.cutOffSeconds;
+    const allowed = now >= config.scheduledAt && now <= config.scheduledAt + config.cutOffSeconds;
+    if(allowed) {
+      useInterval(() => window.location.reload(), 5000)
+    }
+    return allowed
   }
 
   const showCountDown = () => {
@@ -102,7 +106,7 @@ const Session = ({ sessionSlug, config }) => {
         }
         {showCountDown() &&
         <div className='mt-3'>
-          This session will scheduled for {moment(config.scheduledAt).format('MMMM Do, h:mm a')}.
+          This session is scheduled for {moment(config.scheduledAt).format('MMMM Do, h:mm a')}.
         </div>
         }
         {!allowedToJoin() &&
