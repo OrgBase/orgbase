@@ -29,7 +29,8 @@ class TwilioService
     end
 
     def p2p_room(client, room_name, room_type)
-      room = client.video.rooms.create(
+      room = client.video.rooms.list(unique_name: room_name).try(:first)
+      room ||= client.video.rooms.create(
           enable_turn: true,
           type: room_type,
           unique_name: room_name
