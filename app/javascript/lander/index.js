@@ -3,7 +3,7 @@ window.onload = function () {
 
   const submitHandler = function() {
     const button = this.querySelector('.landing-submit-button');
-    button.innerHTML = 'Thanks!'
+    button.style.color = "#000";
     button.setAttribute('disabled', true);
   };
 
