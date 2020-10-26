@@ -13,9 +13,21 @@ $family-primary: 'DM Sans';
   position: relative;
   height: 150px;
 }
+.blob-container {
+  position: relative;
+  padding-top: 40px;
+}
 .blob {
   position: absolute;
   z-index: -999;
+}
+.blob-right {
+  right: -48px;
+  top: -130px;
+}
+.blob-left {
+  left: -48px;
+  top: -50px;
 }
 .logo-blob {
   left: 12px;
