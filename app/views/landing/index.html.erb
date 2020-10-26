@@ -14,222 +14,35 @@
 
 <% content_for :body_tags do %>class="is-boxed has-animations"<% end %>
 <div class="body-wrap boxed-container">
-  <header class="site-header">
-    <div class="header-shape header-shape-1">
-      <svg width="337" height="222" viewBox="0 0 337 222" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient x1="50%" y1="55.434%" x2="50%" y2="0%" id="header-shape-1">
-            <stop stop-color="#E0E1FE" stop-opacity="0" offset="0%"/>
-            <stop stop-color="#E0E1FE" offset="100%"/>
-          </linearGradient>
-        </defs>
-        <path d="M1103.21 0H1440v400h-400c145.927-118.557 166.997-251.89 63.21-400z" transform="translate(-1103)" fill="url(#header-shape-1)" fill-rule="evenodd"/>
-      </svg>
-    </div>
-    <div class="header-shape header-shape-2">
-      <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-        <defs>
-          <linearGradient x1="93.05%" y1="19.767%" x2="15.034%" y2="85.765%" id="header-shape-2">
-            <stop stop-color="#FF3058" offset="0%"/>
-            <stop stop-color="#FF6381" offset="100%"/>
-          </linearGradient>
-        </defs>
-        <circle class="anime-element fadeup-animation" cx="64" cy="64" r="64" fill="url(#header-shape-2)" fill-rule="evenodd"/>
-      </svg>
-    </div>
-    <div class="container">
-      <div class="site-header-inner">
-        <div class="brand header-brand">
-          <h1 class="m-0">
-            <a href="#">
-              <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-color.svg') %>" class="jally-logo-img" alt="logos">
-            </a>
-          </h1>
-        </div>
+<!--  <div class="top-logo-container is-narrow">-->
+<!--    <div class="logo-blob blob">-->
+<!--      <img src="<%#= asset_pack_path('media/stylesheets/img/logo-blob.svg') %>" class="blob-img">-->
+<!--    </div>-->
+<!--    <div class="logo-text-container mt-5 ml-5">-->
+<!--      <img src="<%#= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="column mt-2 mr-2" align="right">-->
+<!--    <div class="column is-narrow mt-4">-->
+<!--      <a class="login-link" href="/login/password"> Log In</a>-->
+<!--    </div>-->
+    <%#= render partial: 'landing/early_access' %>
+<!--  </div>-->
+  <div class="columns is-mobile">
+    <div class="column top-logo-container is-narrow">
+      <div class="logo-blob blob">
+        <img src="<%= asset_pack_path('media/stylesheets/img/logo-blob.svg') %>" class="blob-img">
+      </div>
+      <div class="logo-text-container mt-5 ml-5">
+        <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">
       </div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-inner">
-          <div class="hero-copy">
-            <h1 class="hero-title mt-0">Make your <span style="color:#FF6381">team</span> feel like a tight-knit <span style="color:#55EBD0">tribe.</span></h1>
-            <p class="hero-paragraph">Creating strongly bonded teams is hard.
-              It's harder when some or all team members are working remotely.
-              To address this, we've created a team-focused social network.
-              Relax, and watch your team gel as friendly allies with Jally.</p>
-            <%= render partial: 'landing/early_access' %>
-            <p style="font-size: medium">Already have an account? <%= link_to "Login here", password_login_path %></p>
-          </div>
-          <div class="hero-illustration">
-            <div class="hero-shape hero-shape-1">
-              <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-                <circle class="anime-element fadeup-animation" cx="20" cy="20" r="20" fill="#FFD8CD" fill-rule="evenodd"/>
-              </svg>
-            </div>
-            <div class="hero-shape hero-shape-2">
-              <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-                <circle class="anime-element fadeup-animation" cx="44" cy="44" r="44" fill="#FFD2DA" fill-rule="evenodd"/>
-              </svg>
-            </div>
-            <div class="hero-main-shape">
-              <svg width="940" height="647" viewBox="0 0 940 647" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow:visible">
-                <defs>
-                  <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="hero-illustration-a">
-                    <stop stop-color="#261FB6" offset="0%"/>
-                    <stop stop-color="#4950F6" offset="100%"/>
-                  </linearGradient>
-                  <linearGradient x1="89.764%" y1="16.809%" x2="11.987%" y2="82.178%" id="hero-illustration-b">
-                    <stop stop-color="#FC8464" offset="0%"/>
-                    <stop stop-color="#FB5C32" offset="100%"/>
-                  </linearGradient>
-                  <linearGradient x1="100%" y1="23.096%" x2="4.439%" y2="96.586%" id="hero-illustration-c">
-                    <stop stop-color="#1ADAB7" offset="0%"/>
-                    <stop stop-color="#55EBD0" offset="100%"/>
-                  </linearGradient>
-                  <image width="50%" id="hero-illustration-j" href="<%= asset_pack_path('media/stylesheets/img/org-charts.svg') %>" />
-                  <filter x="-15.6%" y="-12.5%" width="139%" height="141.7%" filterUnits="objectBoundingBox" id="hero-illustration-i">
-                    <feOffset dx="12" dy="24" in="SourceAlpha" result="shadowOffsetOuter1"/>
-                    <feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
-                    <feColorMatrix values="0 0 0 0 0.0666666667 0 0 0 0 0.062745098 0 0 0 0 0.243137255 0 0 0 0.08 0" in="shadowBlurOuter1"/>
-                  </filter>
-                  <circle id="hero-illustration-k" cx="16" cy="16" r="16"/>
-                  <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-m">
-                    <stop stop-color="#C6FDF3" offset="0%"/>
-                    <stop stop-color="#C6FDF3" stop-opacity="0" offset="100%"/>
-                  </linearGradient>
-                  <linearGradient x1="2.875%" y1="89.028%" x2="99.412%" y2="6.885%" id="hero-illustration-n">
-                    <stop stop-color="#83F0DD" offset="0%"/>
-                    <stop stop-color="#1ADAB7" offset="50.924%"/>
-                    <stop stop-color="#55EBD0" offset="100%"/>
-                  </linearGradient>
-                  <linearGradient x1="50%" y1="1.569%" x2="50%" y2="97.315%" id="hero-illustration-o">
-                    <stop stop-color="#FF97AA" offset="0%"/>
-                    <stop stop-color="#FF6381" offset="100%"/>
-                  </linearGradient>
-                  <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-illustration-p">
-                    <stop stop-color="#FCAC96" offset="0%"/>
-                    <stop stop-color="#FC8464" offset="100%"/>
-                  </linearGradient>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                  <path class="anime-element stroke-animation" d="M600,300 C600,465.685425 465.685425,600 300,600 C134.314575,600 1.3749042e-14,465.685425 3.60373576e-15,300 C-6.54157051e-15,134.314575 134.314575,-1.29473326e-14 300,-2.30926389e-14 C465.685425,-3.32379452e-14 600,134.314575 600,300 Z" fill="url(#hero-illustration-a)" stroke="#4950F6"/>
-                  <g transform="translate(435 518)">
-                    <circle class="anime-element fadeup-animation" fill="url(#hero-illustration-b)" cx="106" cy="32" r="32"/>
-                    <circle class="anime-element fadeup-animation" fill="url(#hero-illustration-c)" cx="12" cy="117" r="12"/>
-                  </g>
-                  <g class="anime-element fadeleft-animation">
-                    <g transform="translate(56 157)">
-                      <use xlink:href="#hero-illustration-j"/>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features section">
-      <div class="container">
-        <div class="features-inner section-inner">
-          <div class="features-header text-center">
-            <div class="container-sm">
-              <h2 class="section-title mt-0">Made for next-gen organizations.</h2>
-            </div>
-          </div>
-          <div class="features-wrap">
-            <div class="feature text-center is-revealing">
-              <div class="feature-inner">
-                <div class="feature-icon" style="background:#8B4513;">
-                  <img src="<%= asset_pack_path('media/stylesheets/img/camp-fire.jpeg') %>" alt="camp-fire">
-                </div>
-                <h4 class="feature-title h3-mobile mb-8">Fun Hangouts</h4>
-                <p class="text-sm">
-                  Teams can choose to schedule in recurring 'chat roulette time' where
-                  all participants are randomly paired for 1-1 video chat sessions
-                  with plenty of games, ice breakers, AR filters and much more!
-                  It doesn't end there - anyone can create a group hangout room on Jally at whim.
-                </p>
-              </div>
-            </div>
-            <div class="feature text-center is-revealing">
-              <div class="feature-inner">
-                <div class="feature-icon" style="background:#f77474;">
-                  <img src="<%= asset_pack_path('media/stylesheets/img/slack.png') %>" alt="slack">
-                </div>
-                <h4 class="feature-title h3-mobile mb-8">App Integrations</h4>
-                <p class="text-sm">
-                  Create, invite-to or join rooms from right within Slack or Microsoft Teams.
-                  Get a recurring meeting invite to your calendar so you don't
-                  miss your scheduled 1-1 chat-roulette session.
-                  We try our best to make Jally as hands off as possible.
-                </p>
-              </div>
-            </div>
-            <div class="feature text-center is-revealing">
-              <div class="feature-inner">
-                <div class="feature-icon" style="background:#9fa6e0;">
-                  <img src="<%= asset_pack_path('media/stylesheets/img/secure.jpeg') %>" alt="secure">
-                </div>
-                <h4 class="feature-title h3-mobile mb-8">Top Grade Security</h4>
-                <p class="text-sm">
-                  Keeping your data secure and private is our top most priority.
-                  All video and audio communications are end-to-end encrypted so no one can
-                  eavesdrop on your conversations, not even us.
-                </p>
-              </div>
-            </div>
-            <div class="feature text-center is-revealing">
-              <div class="feature-inner">
-                <div class="feature-icon" style="background:#ff2c78;">
-                  <img src="<%= asset_pack_path('media/stylesheets/img/coming-soon.jpeg') %>" alt="coming-soon">
-                </div>
-                <h4 class="feature-title h3-mobile mb-8">Stay tuned for more..</h4>
-                <p class="text-sm">
-                  Our motto is to "Always Be Shipping" and we've a few planned feature
-                  releases coming up next - easily searchable individual/team profiles,
-                  ability to quickly give and receive showcase-able
-                  appreciation, etc. <br /><br />
-                  Oh, and more games, of course! &#128521;
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="newsletter section text-light">
-      <div class="container-sm">
-        <div class="newsletter-inner section-inner">
-          <div class="newsletter-header text-center">
-            <h3 class="section-title mt-0">Sign up below for a demo and premium onboarding!</h3>
-          </div>
-          <div class="footer-form newsletter-form field field-grouped">
-            <%= render partial: 'landing/early_access' %>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div class="site-footer-inner container-sm has-top-divider">
-        <div class="brand footer-brand">
-          <a href="#">
-            <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-white.svg') %>" class="jally-logo-img" alt="logos">
-          </a>
-        </div>
-        <div class="footer-copyright">
-          Got questions or need help? Contact us - team@jally.co
-        </div>
-        <div class="footer-copyright">&copy; 2020 Jally. All rights reserved.</div>
-      </div>
-
+    <div class="column"></div>
+    <div class="column is-narrow mt-4 mr-2">
+      <a class="login-link" href="/login/password"> Log In</a>
     </div>
-  </footer>
+    <div class="column is-hidden-mobile is-narrow mt-2 mr-2">
+      <%= render partial: 'landing/early_access' %>
+    </div>
+  </div>
 </div>

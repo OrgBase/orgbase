@@ -1,7 +1,7 @@
 <%= form_tag(early_access_path, method: 'post', class: 'landing-form') do %>
-  <input type="text" class="d-none form-check-field" name="early_access[checkField]" placeholder="Are you real?">
-  <div class="hero-form field field-grouped">
-    <div class="control control-expanded">
+  <input type="text" class="is-hidden form-check-field" name="early_access[checkField]" placeholder="Are you real?">
+  <div class="field has-addons">
+    <div class="control">
       <input
         class="input"
         type="email"
@@ -12,8 +12,8 @@
       />
     </div>
     <div class="control">
-      <button id="landing-submit-button" class="landing-submit-button button button-primary button-block" type="submit">
-        Join the waitlist!
+      <button id="landing-submit-button" class="landing-submit-button button is-primary" type="submit">
+        Request an invite
       </button>
     </div>
   </div>
