@@ -90,6 +90,185 @@
   </div>
 
   <div class="mx-6 my-2 has-text-centered">...and many, many more games!</div>
-  <div class="mx-6 my-2 has-text-centered"><%= render partial: 'landing/early_access' %></div>
+<!--  <div class="mx-6 mt-2 mb-6 has-text-centered"><%#= render partial: 'landing/early_access' %></div>-->
 
+  <div class="mx-6 my-6 has-text-centered title">How Jally works</div>
+
+  <div class="columns mx-6 mb-6 is-mobile is-vcentered">
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/01-illustration-landing.svg') %>" class="illustration-01">
+    </div>
+    <div class="column">
+      <h1 class="title" style="font-size: 50px; color: #61D1DB;">
+        01
+      </h1>
+      <div class="subtitle"><strong>Sign Up</strong></div>
+      <div class="mb-4">
+        You can get started for free, just sign up with your work email address to create an account
+      </div>
+      <%= render partial: 'landing/early_access' %>
+    </div>
+  </div>
+
+  <div class="columns mx-6 my-6 is-mobile is-vcentered">
+    <div class="column">
+      <h1 class="title" style="font-size: 50px; color: #FFE816;">
+        02
+      </h1>
+      <div class="subtitle"><strong>Invite your team mates</strong></div>
+      <div class="mb-4">
+        Jally is all about having fun and bonding with your team.. so to get started,
+        add some fellow team mates or join an existing team.
+      </div>
+    </div>
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/02-illustration-landing.svg') %>" class="illustration-02">
+    </div>
+  </div>
+
+  <div class="columns mx-6 my-6 is-mobile is-vcentered">
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/03-illustration-landing.svg') %>" class="illustration-01">
+    </div>
+    <div class="column">
+      <h1 class="title" style="font-size: 50px; color: #6361DB;">
+        03
+      </h1>
+      <div class="subtitle"><strong>Create a Jally</strong></div>
+      <div class="mb-4">
+        Whether it’s a recurring Jally session your team will look forward to each week, or a one off..
+        creating a Jally session only takes a couple of clicks
+      </div>
+    </div>
+  </div>
+
+  <div class="columns mx-6 my-6 is-mobile is-vcentered">
+    <div class="column">
+      <h1 class="title" style="font-size: 50px; color: #DB61CF;">
+        04
+      </h1>
+      <div class="subtitle"><strong>Play!</strong></div>
+      <div class="mb-4">
+        When your session starts you’ll get taken to our website, where you’ll play fun,
+        social games with your team mates that’ll bring you all closer together
+      </div>
+    </div>
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/04-illustration-landing.svg') %>" class="illustration-04">
+    </div>
+  </div>
+
+  <div class="has-text-centered mx-6 my-6">
+    <div class="title">
+      Team bonding made simple
+    </div>
+    <div>
+      Jally gives your team a powerful, fun and engaging social ritual, without the admin and awkwardness
+    </div>
+    <img src="<%= asset_pack_path('media/stylesheets/img/05-illustration-landing.svg') %>" class="illustration-05 my-6">
+    <%= render partial: 'landing/early_access' %>
+  </div>
+
+  <div class="has-text-centered mx-6 my-6">
+    <div class="title">
+      Designed for teams
+    </div>
+  </div>
+  <div class="columns mx-6 my-6 is-mobile is-vcentered">
+    <div class="column">
+      <div class="subtitle"><strong>Integrated with your existing tools</strong></div>
+      <div class="mb-4">
+        Create, invite and join Jally sessions right from Slack or Microsoft teams and
+        receive meeting invites straight to your calendar, so you never miss out
+      </div>
+    </div>
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/06-illustration-landing.svg') %>" class="illustration-06">
+    </div>
+  </div>
+
+  <div class="columns mx-6 my-6 is-mobile is-vcentered">
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/07-illustration-landing.svg') %>" class="illustration-07">
+    </div>
+    <div class="column">
+      <div class="subtitle"><strong>Best in class security</strong></div>
+      <div class="mb-4">
+        All video & audio from your Jally sessions is end-to-end encrypted,
+        so no one will be able to access it ever, not even us
+      </div>
+    </div>
+  </div>
+
+  <div class="has-text-centered mx-6 my-6 title">
+    FAQs
+  </div>
+
+  <div class="mx-6 my-6">
+    <div class="subtitle">What kind of games can you play on Jally?</div>
+    <div class="mb-4">
+      We believe that the best games are fun & entertaining, whilst revealing more about ourselves and
+      facilitating connection with others. That’s why all our games are highly social in nature and
+      are based on actually talking to each other e.g. 2 truths one lie.
+      We’ve got over 50 to choose from currently, with more being added every day.
+    </div>
+  </div>
+
+  <div class="mx-6 my-6">
+    <div class="subtitle">What’s the best way of using Jally as a team?</div>
+    <div class="mb-4">
+      Each team is different so we don’t believe in a one size fits all approach,
+      however we do have a couple of ideas to get you started e.g. schedule a recurring Jally
+      for the last 15 minutes of your weekly team meetings, schedule in a recurring Jally hour
+      every Friday afternoon, invite a couple of your close colleagues to a spur of the moment Jally,
+      create a Jally happy hour after work with the entire company to celebrate the end of the month.
+    </div>
+  </div>
+
+  <div class="mx-6 my-6">
+    <div class="subtitle">How many people can play at one time?</div>
+    <div class="mb-4">
+      We believe that small groups lead to much higher quality interactions, so we cap the number of people
+      in any Jally “room” at 4. If more than 4 people join, a new Jally room is automatically created.
+      As an example, if a team of 20 people started a Jally they would be randomly split up into 5 rooms of 4.
+    </div>
+  </div>
+
+  <div class="mx-6 my-6">
+    <div class="subtitle">Am I allowed to use this at my company?</div>
+    <div class="mb-4">
+      Of course! Signing up is free and you are not committing your company to anything,
+      we also meet all the relevant compliance obligations - so you’re not putting yours,
+      or anyone else in the company’s data at risk.
+    </div>
+  </div>
+
+  <div class="mx-6 my-6">
+    <div class="subtitle">Do I need to download an anything?</div>
+    <div class="mb-4">
+      Nope, everything happens on our website... no apps or downloads required!
+    </div>
+  </div>
+
+  <div class="has-text-centered mx-6 my-6">
+    <div class="title" style="font-size: 25px">
+      Try Jally today & make your team feel like a tight knit tribe!
+    </div>
+    <div class="mb-2">
+      Get started for free, then add your whole team.
+    </div>
+    <%= render partial: 'landing/early_access' %>
+  </div>
+
+  <footer class="footer-container has-text-centered">
+    <div class="footer-blob-div">
+      <img src="<%= asset_pack_path('media/stylesheets/img/footer-blob.svg') %>" class="footer-blob-img">
+    </div>
+    <div class="footer-content-div">
+      <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-white.svg') %>" class="jally-logo-img">
+      <div>Made with ❤️️  by team Jally</div>
+      <div>Got questions or need help? Contact us - team@jally.co</div>
+      <div>© 2020 Jally. All rights reserved.</div>
+    </div>
+  </footer>
 </div>
