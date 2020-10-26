@@ -1,4 +1,5 @@
 $primary: #61D1DB;
+$family-primary: 'DM Sans';
 @import "bulma/bulma";
 /*--------------------------------------------------------------
 1.0 Normalize
@@ -34,6 +35,42 @@ $primary: #61D1DB;
 
 .login-link {
   color: $primary;
+}
+
+.landing-form {
+  display: inline-block;
+  max-width: 350px;
+}
+
+.illustration-00 {
+  margin-top: -75px;
+}
+
+.game-box-column {
+  .game-box {
+    color: white;
+    height: 100%;
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 20px;
+    max-width: 200px;
+    .subtitle {
+      color: white;
+    }
+  }
+  .game-box-1 {
+    background-color: #DB61CF;
+  }
+  .game-box-2 {
+    background-color: #61D1DB;
+  }
+  .game-box-3 {
+    background-color: #6361DB;
+  }
+}
+.landing-submit-button {
+  background-color: #F12587;
+  color: white;
 }
 
 .alert {

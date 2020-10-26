@@ -14,20 +14,6 @@
 
 <% content_for :body_tags do %>class="is-boxed has-animations"<% end %>
 <div class="body-wrap boxed-container">
-<!--  <div class="top-logo-container is-narrow">-->
-<!--    <div class="logo-blob blob">-->
-<!--      <img src="<%#= asset_pack_path('media/stylesheets/img/logo-blob.svg') %>" class="blob-img">-->
-<!--    </div>-->
-<!--    <div class="logo-text-container mt-5 ml-5">-->
-<!--      <img src="<%#= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="column mt-2 mr-2" align="right">-->
-<!--    <div class="column is-narrow mt-4">-->
-<!--      <a class="login-link" href="/login/password"> Log In</a>-->
-<!--    </div>-->
-    <%#= render partial: 'landing/early_access' %>
-<!--  </div>-->
   <div class="columns is-mobile">
     <div class="column top-logo-container is-narrow">
       <div class="logo-blob blob">
@@ -45,4 +31,65 @@
       <%= render partial: 'landing/early_access' %>
     </div>
   </div>
+
+  <div class="columns ml-6 mr-6 is-mobile is-vcentered">
+    <div class="column has-text-centered">
+      <h1 class="title" style="font-size: 50px">
+        Bring your team closer together.
+      </h1>
+      <div class="mb-4">
+        Play fun social games over video chat that bring your team closer together... wherever you work from
+      </div>
+      <%= render partial: 'landing/early_access' %>
+    </div>
+    <div class="column is-hidden-mobile">
+      <img src="<%= asset_pack_path('media/stylesheets/img/00-illustration-landing.svg') %>" class="illustration-00">
+    </div>
+  </div>
+
+  <div class="has-text-centered mx-6 my-6">
+    <div class="title">
+      Make team connection effortless and fun
+    </div>
+    <div>
+      Social games are a fun way to connect and get to know each other... no more uncomfortable silences, and no more conversations about the weather
+    </div>
+  </div>
+
+  <div class="columns mx-6">
+    <div class="column has-text-centered game-box-column">
+      <div class="game-box game-box-1">
+        <div class="subtitle">
+          Two truths one lie
+        </div>
+        <div>
+          One person says two truths and one lie, everybody else has to guess which one is the lie
+        </div>
+      </div>
+    </div>
+    <div class="column has-text-centered game-box-column">
+      <div class="game-box game-box-2">
+        <div class="subtitle">
+          Would you rather
+        </div>
+        <div>
+          Two scenarios are put forward and everyone has to state which one they’d prefer... then explain why
+        </div>
+      </div>
+    </div>
+    <div class="column has-text-centered game-box-column">
+      <div class="game-box game-box-3">
+        <div class="subtitle">
+          Treasure Hunt
+        </div>
+        <div>
+          Everybody races to find an object beginning with a randomly picked letter... first one back wins
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-6 my-2 has-text-centered">...and many, many more games!</div>
+  <div class="mx-6 my-2 has-text-centered"><%= render partial: 'landing/early_access' %></div>
+
 </div>
