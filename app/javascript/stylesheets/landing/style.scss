@@ -59,6 +59,12 @@ $family-primary: 'DM Sans';
   margin-top: -75px;
 }
 
+.medium-p {
+  display: inline-block;
+  max-width: 650px;
+  margin-bottom: 20px;
+}
+
 .game-box-column {
   .game-box {
     color: white;
@@ -104,7 +110,7 @@ $family-primary: 'DM Sans';
   .footer-blob-div {
     z-index: -999;
     position: absolute;
-    height: 200px;
+    height: 235px;
     img {
       height: 100%;
       width: 100%;
@@ -124,5 +130,14 @@ $family-primary: 'DM Sans';
     bottom: -40px;
     left: 50%;
     margin-left: -207px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .medium-p {
+    max-width: 100%;
+  }
+  .blob-container{
+    padding-top: 0;
   }
 }
