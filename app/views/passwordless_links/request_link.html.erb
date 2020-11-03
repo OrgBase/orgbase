@@ -1,0 +1,27 @@
+<div class="columns is-centered is-mobile">
+  <div class="column is-three-quarters-mobile is-two-thirds-tablet
+    is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <h1 class="title">Login to Jally</h1>
+
+    <%= form_with url: passwordless_link_path, method: :post do |f| %>
+
+      <div class="field">
+        <%= f.label :email, class: "label" %>
+        <div class="control has-icons-left">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input", required: 'true' %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Get Login Link", class: "button is-primary is-fullwidth mb-3" %>
+      </div>
+    <% end %>
+
+    <div class="notification is-primary is-light">
+      ⚡ We’ll email you a magic link for signing in without a password. Or you can <%= link_to "login manually", password_login_path %>.<br />
+    </div>
+  </div>
+</div>

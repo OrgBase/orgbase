@@ -17,11 +17,11 @@ Rails.application.routes.draw do
     get 'signup', to: 'devise/registrations#new', as: :signup
   end
 
-  # resource :magic_link, only: :create do
-  #   get 'login', to: 'magic_links#login'
-  # end
-  #
-  # get 'login', to: 'magic_links#request_link', as: :magic_link_login
+  resource :passwordless_link, only: :create do
+    get 'login', to: 'passwordless_links#login'
+  end
+
+  get 'login', to: 'passwordless_links#request_link', as: :passwordless_link_login
 
   get '/lobby', to: 'home#index', as: :home
 
