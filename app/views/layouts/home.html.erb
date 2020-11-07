@@ -7,6 +7,7 @@
   <%= csp_meta_tag %>
   <%= javascript_pack_tag 'home' %>
   <%= stylesheet_pack_tag 'home', media: 'all' %>
+  <%= stylesheet_link_tag 'application.css' %>
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
   <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('/favicon-32x32.png') %>">
@@ -14,36 +15,44 @@
 </head>
 
 <body>
-  <div class="jally-content">
-    <div class="columns is-multiline">
-      <header class="column is-full jally-header">
-        <div class="columns is-vcentered is-mobile">
-          <div class="column is-narrow logo">
-            <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-color.svg') %>" class="jally-logo-img" alt="logos">
-          </div>
-          <div class="column"></div>
-          <%if user_signed_in? %>
-            <div class="column is-narrow logout">
-              <a href="/logout">
-                <button class="button is-primary is-small">
-                  Logout
-                </button>
-              </a>
-
-            </div>
-          <% end %>
+  <div class="boxed-container jally-content">
+    <div class="columns is-mobile">
+      <div class="column blob-container">
+        <div class="top-left-blob blob">
+          <img src="<%= asset_pack_path('media/stylesheets/img/top-left-blob.svg') %>" class="blob-img">
         </div>
+        <div class="logo-text-container">
+          <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">
+        </div>
+      </div>
+      <div class="column blob-container">
+        <div class="top-right-blob blob is-hidden-mobile">
+          <img src="<%= asset_pack_path('media/stylesheets/img/top-right-blob.svg') %>" class="blob-img">
+        </div>
+      </div>
+    </div>
 
-      </header>
-      <div class="column is-full lobby-container">
+    <div class="columns">
+      <div class="column">
         <%= yield %>
       </div>
     </div>
+
   </div>
-  <footer class="footer jally-footer">
-    <p>
-      Made with ❤️ by <a href="https://jally.co">Team Jally.</a>
-    </p>
-  </footer>
+  <div class="columns">
+    <div class="column boxed-container">
+      <div class="footer jally-footer blob-container">
+        <div class="bottom-left-blob blob is-hidden-mobile">
+          <img src="<%= asset_pack_path('media/stylesheets/img/bottom-left-blob.svg') %>" class="blob-img">
+        </div>
+        <p>
+          Made with ❤️ by team Jally
+        </p>
+        <div class="bottom-right-blob blob is-hidden-mobile">
+          <img src="<%= asset_pack_path('media/stylesheets/img/bottom-right-blob.svg') %>" class="blob-img">
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

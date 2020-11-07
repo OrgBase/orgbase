@@ -1,0 +1,63 @@
+.boxed-container {
+  max-width: 1440px;
+  background-color: white;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.blob-container {
+  z-index: 1;
+  padding: 0;
+  position: relative;
+}
+.blob {
+  position: absolute;
+  z-index: -999;
+}
+
+.top-left-blob {
+  top: 12px;
+  height: 108px;
+  min-width: 457px;
+  .blob-img {
+    height: 100%;
+  }
+}
+
+.top-right-blob {
+  top: 12px;
+  right: 0;
+  width: 148px;
+  .blob-img {
+    width: 100%;
+  }
+}
+
+.bottom-left-blob {
+  bottom: -1.25em;
+  left: -0.75em;
+  width: 130px;
+  .blob-img {
+    width: 100%;
+  }
+}
+
+.bottom-right-blob {
+  bottom: -1.25em;
+  right: -0.75em;
+  width: 131px;
+  .blob-img {
+    width: 100%;
+  }
+}
+
+.jally-logo-img {
+  width: 127px;
+  margin-left: 12px;
+  margin-top: 23px;
+}
+
+.columns {
+  margin-right: 0;
+  margin-left: 0;
+}
