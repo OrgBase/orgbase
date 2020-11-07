@@ -1,6 +1,11 @@
 <div class="columns is-centered is-mobile">
   <div class="column is-three-quarters-mobile is-two-thirds-tablet
     is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+    <% flash.each do |message_type, message| %>
+      <div class="notification is-<%= message_type %>">
+        <%= message %>
+      </div>
+    <% end %>
     <h1 class="title">Login</h1>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">

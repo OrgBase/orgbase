@@ -17,7 +17,7 @@ class PasswordlessLinksController < ApplicationController
     email_requested = params[:email]
     @user = User.find_by(email: email_requested) || User.where("email ILIKE ?", email_requested).first
     if @user.blank?
-      return redirect_to passwordless_link_login_path, flash: { warning: "There is no account with that email. Did you mean to use a different email?" }
+      return redirect_to passwordless_link_login_path, flash: { warning: "Uh oh! There is no account with that email. Did you mean to use a different email?" }
     end
     PasswordlessLinkService.new(@user).send_token!
 

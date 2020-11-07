@@ -3,7 +3,12 @@
     is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
     <h1 class="title">Login to Jally</h1>
 
-    <%= form_with url: passwordless_link_path, method: :post do |f| %>
+    <%= form_with url: passwordless_link_path, method: :post, local: true do |f| %>
+      <% flash.each do |message_type, message| %>
+        <div class="notification is-<%= message_type %>">
+          <%= message %>
+        </div>
+      <% end %>
 
       <div class="field">
         <%= f.label :email, class: "label" %>

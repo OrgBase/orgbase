@@ -111,3 +111,11 @@ header.jally-header {
 .loading-box {
   height:150px;
 }
+.notification.is-alert{
+  background-color: #ffdd57;
+  color: rgba(0, 0, 0, 0.7);
+}
+.notification.is-notice{
+  background-color: #48c774;
+  color: #fff;
+}
