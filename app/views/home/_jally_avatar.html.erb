@@ -1,0 +1,10 @@
+<% if current_user.present? %>
+  <%= react_component(
+    'JallyAvatar',
+    {
+        name: current_user.name,
+        size: 40,
+        round: 10
+    })
+  %>
+<% end %>
