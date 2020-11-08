@@ -66,6 +66,7 @@
   position: absolute;
   right: 0;
   top: 1.5rem;
+  cursor: pointer;
 }
 
 .team-jally-text {
@@ -99,6 +100,17 @@
       font-weight: bold;
       font-size: 35px;
       line-height: 30px;
+    }
+  }
+}
+
+.jally-dropdown-menu {
+  min-width: 20px;
+  .dropdown-content {
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    .dropdown-item {
+      font-size: 18px;
     }
   }
 }
