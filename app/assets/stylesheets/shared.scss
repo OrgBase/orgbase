@@ -75,3 +75,24 @@
   margin-right: 0;
   margin-left: 0;
 }
+
+.jally-modal {
+  .modal-card-head {
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border: none;
+    padding-bottom: 0;
+  }
+  .modal-card-body {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-top: 0;
+    .jally-modal-title {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 35px;
+      line-height: 30px;
+    }
+  }
+}
