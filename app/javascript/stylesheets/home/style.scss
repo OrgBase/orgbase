@@ -35,17 +35,37 @@ body {
 }
 
 .jally-card {
-  height: 100%;
+  height: 159px;
+  width: 309px;
+  border-radius: 10px;
   transition: all .2s ease-in-out;
-  .card-header {
-    box-shadow: 0 0 black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  line-height: 30px;
+  .jally-card-header {
+    font-weight: 700;
+    font-size: 46px;
   }
+  .jally-card-text {
+    font-weight: 400;
+    font-size: 18px;
+  }
+}
+
+.jally-card.start-card {
+  background-color: #F12587;
+}
+
+.jally-card.schedule-card {
+  background-color: #61D1DB;
 }
 
 .jally-card:hover {
   cursor: pointer;
-  transform: scale(1.05);
-  box-shadow: 0 1.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  transform: scale(1.01);
 }
 
 .pending {
