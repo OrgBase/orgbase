@@ -15,30 +15,37 @@
 </head>
 
 <body>
-  <div class="boxed-container jally-content">
-    <div class="columns is-mobile">
-      <div class="column blob-container">
-        <div class="top-left-blob blob">
-          <img src="<%= asset_pack_path('media/stylesheets/img/top-left-blob.svg') %>" class="blob-img">
+  <!-- ******  Header ********** -->
+  <div class="jally-header columns is-mobile mb-0">
+    <div class="column boxed-container">
+      <div class="columns mb-0">
+        <div class="column blob-container">
+          <div class="top-left-blob blob">
+            <img src="<%= asset_pack_path('media/stylesheets/img/top-left-blob.svg') %>" class="blob-img">
+          </div>
+          <div class="logo-text-container">
+            <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">
+          </div>
         </div>
-        <div class="logo-text-container">
-          <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">
-        </div>
-      </div>
-      <div class="column blob-container">
-        <div class="top-right-blob blob is-hidden-mobile">
-          <img src="<%= asset_pack_path('media/stylesheets/img/top-right-blob.svg') %>" class="blob-img">
+        <div class="column blob-container">
+          <div class="top-right-blob blob is-hidden-mobile">
+            <img src="<%= asset_pack_path('media/stylesheets/img/top-right-blob.svg') %>" class="blob-img">
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- ******  Content ********** -->
+  <div class="boxed-container jally-content">
     <div class="columns">
       <div class="column">
         <%= yield %>
       </div>
     </div>
-
   </div>
+
+  <!-- ******  Footer ********** -->
   <div class="columns">
     <div class="column boxed-container">
       <div class="footer jally-footer blob-container">

@@ -16,7 +16,8 @@
 }
 
 .top-left-blob {
-  top: 12px;
+  top: 0.75rem;
+  left: -0.75rem;
   height: 108px;
   min-width: 457px;
   .blob-img {
@@ -25,8 +26,8 @@
 }
 
 .top-right-blob {
-  top: 12px;
-  right: 0;
+  top: 0.75rem;
+  right: -0.75rem;
   width: 148px;
   .blob-img {
     width: 100%;
