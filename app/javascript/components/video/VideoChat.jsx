@@ -21,7 +21,7 @@ const VideoChat = ({ name, errorMessage }) => {
           {errorMessage}
         </p>}
         <div>
-          <div className='columns is-centered ml-2 mr-2 '>
+          <div className='columns is-centered ml-2 mr-2'>
             <div className='column is-narrow'>
               <div
                 className='jally-card start-card'
