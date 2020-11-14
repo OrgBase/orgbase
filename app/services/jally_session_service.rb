@@ -21,7 +21,7 @@ class JallySessionService
         session_id:,
         session_duration_seconds: 3600,
         cut_off_seconds: 900,
-        room_capacity: 2,
+        room_capacity: 3,
         party: false,
         switch_after_seconds: nil,
         recurring: false,

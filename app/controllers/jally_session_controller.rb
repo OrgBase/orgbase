@@ -2,21 +2,34 @@ class JallySessionController < ApplicationController
   before_action :authenticate_user!
   layout 'home'
 
+  require 'date'
+
   def join_session
     @user = current_user
     authorize(@user, :participate?)
     @employee = @user.employee
     @company = @employee&.company
 
+    params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
+                  :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds)
+
     @session_slug = params[:identifier]
-    if @session_slug.blank? || @session_slug == 'new'
+    if @session_slug.blank?
       @session = JallySessionService.create_session(
           company: @company,
           created_by: @user
       )
 
-      JallySessionService.configure_session(session_id: @session.id)
-      return redirect_to jally_session_path(identifier: @session.slug)
+      JallySessionService.configure_session(
+          session_id: @session.id,
+          session_duration_seconds: params[:session_duration_seconds],
+          party: params[:party],
+          switch_after_seconds: params[:switch_after_seconds],
+          recurring: params[:recurring],
+          scheduled_at: Time.at(params[:scheduled_at]).to_datetime,
+          frequency_length: params[:frequency_length],
+          frequency_unit: params[:frequency_unit])
+      return render json: {session_slug: @session.slug}
     else
       @session = JallySession.find_by(slug: @session_slug)
       company = @session&.company

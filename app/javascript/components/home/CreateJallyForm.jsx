@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import bulmaSlider from "bulma-slider/src/js";
+import fetchWrapper from "../../helpers/fetchWrapper";
 
 const CreateJallyForm = ({ isImpromptu }) => {
   //Nasty hack to make changes to absolute positioning of slider outputs. Sorry! -Midhun
@@ -35,7 +36,32 @@ const CreateJallyForm = ({ isImpromptu }) => {
         swapSliderOutputRef.current.style.left = `${left}px`
       }
     }
-  })
+  });
+
+  const createJally = () => {
+    const session_duration_seconds = sessionDuration * 60;
+    const switch_after_seconds = switchDuration * 60;
+    let recurring, scheduled_at, frequency_length, frequency_unit;
+    if(isImpromptu) {
+      recurring = false;
+      scheduled_at = Math.floor(+ new Date()/1000);
+      frequency_length = 1;
+      frequency_unit = 'weeks'
+    }
+
+    fetchWrapper('/session', 'POST', {
+      party: partyMode,
+      session_duration_seconds,
+      switch_after_seconds,
+      recurring,
+      scheduled_at,
+      frequency_length,
+      frequency_unit,
+    })
+      .then(response => response.json())
+      .then(data => window.location.href = `/session/${data.session_slug}`)
+      .catch(error => console.error(error));
+  }
 
 
   return <>
@@ -105,7 +131,10 @@ const CreateJallyForm = ({ isImpromptu }) => {
         </div>
       </div>
       <div className="actions has-text-centered">
-        <button className="button is-centered mb-3 jally-button">{submitButtonText}</button>
+        <button
+          className="button is-centered mb-3 jally-button"
+          onClick={createJally}
+        >{submitButtonText}</button>
       </div>
     </form>
   </>
