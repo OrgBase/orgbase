@@ -53,7 +53,9 @@ const VideoChat = ({ name, errorMessage }) => {
         modalTitle='Schedule a Jally'
         closeModal={toggleScheduleModal}
       >
-        <p>form goes here</p>
+        <CreateJallyForm
+          isImpromptu={false}
+        />
       </Modal>
       <Modal
         modalState={startModalState}

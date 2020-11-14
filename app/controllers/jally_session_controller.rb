@@ -17,7 +17,8 @@ class JallySessionController < ApplicationController
     if @session_slug.blank?
       @session = JallySessionService.create_session(
           company: @company,
-          created_by: @user
+          created_by: @user,
+          name: params[:name] || nil
       )
 
       JallySessionService.configure_session(

@@ -19,6 +19,7 @@
     "react-avatar": "^3.9.7",
     "react-countdown": "^2.3.0",
     "react-dom": "^16.13.1",
+    "react-flatpickr": "^3.10.6",
     "react_ujs": "^2.6.1",
     "scrollreveal": "^4.0.0",
     "twilio-video": "^2.7.2"

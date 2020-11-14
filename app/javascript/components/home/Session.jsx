@@ -106,7 +106,7 @@ const Session = ({ sessionSlug, config }) => {
         }
         {showCountDown() &&
         <div className='mt-3'>
-          This session is scheduled for {moment(config.scheduledAt).format('MMMM Do, h:mm a')}.
+          This session is scheduled for {moment(config.scheduledAt * 1000).format('MMMM Do, h:mm a')}.
         </div>
         }
         {!allowedToJoin() &&
