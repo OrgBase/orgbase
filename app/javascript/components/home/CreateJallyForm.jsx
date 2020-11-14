@@ -103,7 +103,7 @@ const CreateJallyForm = ({ isImpromptu }) => {
                   value={scheduledAt}
                   onChange={date => setScheduledAt(date[0])}
                   options={{
-                    dateFormat: 'J M Y h:i K'
+                    dateFormat: 'D, J M h:i K'
                   }}
                 />
                 <span className="icon is-medium is-right">
@@ -162,7 +162,8 @@ const CreateJallyForm = ({ isImpromptu }) => {
                   className="input"
                   defaultValue={1}
                   type='number'
-                  step='1'
+                  min={1}
+                  step={1}
                   onChange={(e) => setFrequencyLength(e.target.value)}
                 />
               </div>
@@ -172,9 +173,9 @@ const CreateJallyForm = ({ isImpromptu }) => {
                     defaultValue='weeks'
                     onChange={(e) => setFrequencyUnit(e.target.value)}
                   >
-                    <option value='days'>Work Days</option>
-                    <option value='weeks'>Weeks</option>
-                    <option value='months'>Months</option>
+                    <option value='days'>{`Work Day${frequencyLength > 1 ? 's' : ''}`}</option>
+                    <option value='weeks'>{`Week${frequencyLength > 1 ? 's' : ''}`}</option>
+                    <option value='months'>{`Month${frequencyLength > 1 ? 's' : ''}`}</option>
                   </select>
                 </div>
               </div>
