@@ -114,3 +114,33 @@
     }
   }
 }
+
+.jally-button {
+  height: 47px;
+  background-color: #F12587;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 14px;
+  border-radius: 10px;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.jally-button:hover {
+  opacity: 0.8;
+  color: white;
+}
+
+.button.jally-button-small {
+  height: 37px;
+  font-weight: 400;
+  font-size: 18px;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 6px;
+}
+
+.slider-field {
+  position: relative;
+}

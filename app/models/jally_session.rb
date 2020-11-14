@@ -3,6 +3,7 @@
 # Table name: jally_sessions
 #
 #  id            :bigint           not null, primary key
+#  name          :string
 #  slug          :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

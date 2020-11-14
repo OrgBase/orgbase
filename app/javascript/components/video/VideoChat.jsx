@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Modal from "../common/modal";
+import CreateJallyForm from "../home/CreateJallyForm";
 
 const VideoChat = ({ name, errorMessage }) => {
   const [sessionLoading, setSessionLoading] = useState(false)
@@ -60,7 +61,9 @@ const VideoChat = ({ name, errorMessage }) => {
         modalTitle='Start a Jally'
         className='jally-modal'
       >
-        <p>form goes here</p>
+        <CreateJallyForm
+          isImpromptu={true}
+        />
       </Modal>
     </>
   );

@@ -11,6 +11,8 @@
     "animejs": "^2.2.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bulma": "^0.9.0",
+    "bulma-slider": "^2.0.4",
+    "bulma-tooltip": "^3.0.2",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

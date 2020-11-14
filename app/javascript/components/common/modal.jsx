@@ -13,8 +13,8 @@ const Modal = ({ children, closeModal, modalState, modalTitle }) => {
           <p className="modal-card-title"></p>
           <button className="delete" aria-label="close" onClick={closeModal}></button>
         </header>
-        <section className="modal-card-body has-text-centered">
-          <div className='jally-modal-title'>{modalTitle}</div>
+        <section className="modal-card-body">
+          <div className='jally-modal-title mb-3 has-text-centered'>{modalTitle}</div>
           {children}
         </section>
       </div>

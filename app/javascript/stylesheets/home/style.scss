@@ -1,6 +1,7 @@
-$primary: #61D1DB;
-$family-primary: 'DM Sans';
-@import "bulma/bulma";
+@import "bulma-defaults";
+@import "~bulma";
+@import "~bulma-slider";
+@import "~bulma-tooltip";
 
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
@@ -118,4 +119,18 @@ body {
 .notification.is-notice{
   background-color: #48c774;
   color: #fff;
+}
+
+input[type="range"].slider.has-output-tooltip.jally-slider + output {
+  top: 60px;
+  color: $jally-light-grey;
+  font-size: 14px;
+}
+
+.light-grey-text {
+  color: $jally-light-grey;
+}
+
+.dark-grey-text {
+  color: $jally-dark-grey;
 }
