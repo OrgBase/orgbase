@@ -43,6 +43,10 @@
   }
 }
 
+.bottom-left-blob.blob {
+  z-index: 0;
+}
+
 .bottom-right-blob {
   bottom: -1.25em;
   right: -0.75em;
@@ -122,9 +126,11 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 14px;
+  border: none;
   border-radius: 10px;
   padding-left: 2em;
   padding-right: 2em;
+
 }
 
 .jally-button:hover {

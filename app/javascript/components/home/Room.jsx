@@ -74,55 +74,41 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   const remoteParticipants = () => {
     if(participants.length) {
       return participants.map(participant => (
-        <Participant key={participant.sid} participant={participant} />
+        <div key={participant.sid} className='column is-full is-half-height is-relative'>
+          <Participant participant={participant} />
+        </div>
       ));
-    } else {
-      return (
-        <>
-          <p className='mb-3 is-family-monospace'>There's no one else here 👀. Share this url with a colleague so they can join you.</p>
-          <div className='columns is-centered'>
-            <div className='column is-narrow'>
-              <div className="field has-addons">
-                <div className="control">
-                  <input
-                    className='input room-url'
-                    ref={urlInputRef}
-                    defaultValue={window.location.href.split('?')[0]}
-                    readOnly
-                  />
-                </div>
-                <div className="control">
-                  <button className='button is-primary' onClick={copyToClipboard}>
-                    <span className='icon'>
-                      <i className="fas fa-copy"></i>
-                    </span>
-                    <span>Copy</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      );
     }
   }
 
   return (
     <RoomContextProvider roomShared={roomShared}>
-      <div className="columns room is-mobile room-container">
-        <div className="column is-two-thirds remote-participants has-text-centered">{remoteParticipants()}</div>
-        <div className="column">
-          <div className="columns is-multiline">
-            <div className="column is-full has-text-right">
-              <button className="button is-primary leave-room-btn is-small" onClick={handleExit}>
-                <span className='icon'>
-                  <i className="fas fa-sign-out-alt"></i>
-                </span>
-                <span>Exit Room</span>
-              </button>
+      <div className="columns room is-mobile room-container is-desktop">
+        <div className='column'></div>
+        <div className="column is-two-fifths remote-participants has-text-centered">
+          <div className='columns is-gapless is-multiline full-room-height'>
+            {remoteParticipants()}
+            <div className='column is-full is-half-height is-relative pt-1'>
+              {room ? (
+                <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
+              ) : (
+                ''
+              )}
             </div>
-            <div className="column is-full">
-              <div className="shared-panel has-text-centered is-flex">
+          </div>
+        </div>
+        <div className="column is-two-fifths">
+          <div className="columns is-multiline">
+            {/*<div className="column is-full has-text-right">*/}
+            {/*  <button className="button is-primary leave-room-btn is-small" onClick={handleExit}>*/}
+            {/*    <span className='icon'>*/}
+            {/*      <i className="fas fa-sign-out-alt"></i>*/}
+            {/*    </span>*/}
+            {/*    <span>Exit Room</span>*/}
+            {/*  </button>*/}
+            {/*</div>*/}
+            <div className="column">
+              <div className="shared-panel has-text-centered is-flex full-room-height">
                 {room ? (
                   <SidePanel
                     localParticipant={room.localParticipant}
@@ -135,13 +121,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
             </div>
           </div>
         </div>
-        <div className="local-participant">
-          {room ? (
-            <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
-          ) : (
-            ''
-          )}
-        </div>
+        <div className='column'></div>
       </div>
     </RoomContextProvider>
   );
