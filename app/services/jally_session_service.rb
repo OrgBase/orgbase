@@ -62,7 +62,7 @@ class JallySessionService
         )
       end
 
-      MatchSessionParticipantJob.perform_later(participant.id, 2)
+      MatchSessionParticipantJob.perform_later(participant.id, 3)
 
       participant
     end

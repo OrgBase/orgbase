@@ -130,7 +130,7 @@ const CreateJallyForm = ({ isImpromptu }) => {
           </div>
         </div>
       </div>
-      <div className='columns my-0'>
+      {!isImpromptu && <div className='columns my-0'>
         <div className='column px-0 pt-0'>
           <label className="label jally-label dark-grey-text">
             Recurring
@@ -182,7 +182,7 @@ const CreateJallyForm = ({ isImpromptu }) => {
             </div>
           </div>}
         </div>
-      </div>
+      </div>}
       <div className='columns mt-0 mb-4'>
         <div className='column px-0 py-0'>
           <label className="label jally-label dark-grey-text">

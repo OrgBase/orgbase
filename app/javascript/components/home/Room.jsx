@@ -81,6 +81,14 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     }
   }
 
+  const renderLocalParticipant = () => <div className='column is-full is-half-height is-relative pt-1'>
+    {room ? (
+      <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
+    ) : (
+      ''
+    )}
+  </div>
+
   return (
     <RoomContextProvider roomShared={roomShared}>
       <div className="columns room is-mobile room-container is-desktop">
@@ -88,17 +96,11 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
         <div className="column is-two-fifths remote-participants has-text-centered">
           <div className='columns is-gapless is-multiline full-room-height'>
             {remoteParticipants()}
-            <div className='column is-full is-half-height is-relative pt-1'>
-              {room ? (
-                <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
-              ) : (
-                ''
-              )}
-            </div>
+            {participants.length == 1 && renderLocalParticipant()}
           </div>
         </div>
         <div className="column is-two-fifths">
-          <div className="columns is-multiline">
+          <div className="columns is-gapless is-multiline full-room-height">
             {/*<div className="column is-full has-text-right">*/}
             {/*  <button className="button is-primary leave-room-btn is-small" onClick={handleExit}>*/}
             {/*    <span className='icon'>*/}
@@ -107,8 +109,9 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
             {/*    <span>Exit Room</span>*/}
             {/*  </button>*/}
             {/*</div>*/}
-            <div className="column">
-              <div className="shared-panel has-text-centered is-flex full-room-height">
+            {participants.length == 2 && renderLocalParticipant()}
+            <div className={`column ${participants.length == 2 ? 'is-half-height' : ''}`}>
+              <div className={`shared-panel has-text-centered is-flex`}>
                 {room ? (
                   <SidePanel
                     localParticipant={room.localParticipant}

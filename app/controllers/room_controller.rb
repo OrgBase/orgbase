@@ -8,7 +8,7 @@ class RoomController < ApplicationController
     @employee = @user.employee
     @company = @employee&.company
 
-    capacity = params[:capacity] || 2
+    capacity = params[:capacity] || 3
     @room_name = params[:identifier]
     if @room_name.blank? || @room_name == 'new'
       @room = RoomService.create_room(

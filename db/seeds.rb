@@ -27,6 +27,12 @@ Employee.create!(user: alex,
                  slug: 'alex',
                  title: 'Co Founder')
 
+Employee.create!(user: test_user,
+                 company: company,
+                 slug: 'test',
+                 title: 'Test User')
+
+
 CompanyParticipant.create!(user: midhun,
                            company: company,
                            role: 'admin')
