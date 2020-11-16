@@ -96,7 +96,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
         <div className="column is-two-fifths remote-participants has-text-centered">
           <div className='columns is-gapless is-multiline full-room-height'>
             {remoteParticipants()}
-            {participants.length == 1 && renderLocalParticipant()}
+            {participants.length < 2 && renderLocalParticipant()}
           </div>
         </div>
         <div className="column is-two-fifths">
