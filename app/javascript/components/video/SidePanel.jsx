@@ -1,9 +1,9 @@
-import React, {useState, useCallback, useEffect, useContext} from 'react';
-import games from "./games";
+import React, {useCallback, useContext} from 'react';
+import {getGame, getRandomGameIndex} from "./games";
 import {RoomContext} from "../../context/context";
 
 const SidePanel = ({ localParticipant, roomName }) => {
-  const {panelId, panelType, updateRoomDetails} = useContext(RoomContext);
+  const {panelId, panelType, randomFraction, updateRoomDetails} = useContext(RoomContext);
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -12,14 +12,16 @@ const SidePanel = ({ localParticipant, roomName }) => {
   const loadRandomGame = useCallback(event => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     let id = panelId;
-    const panelType = 'short-game';
+    const type = 'short-game';
+    const fraction = Math.random()
 
-    while(id === panelId) id = Math.floor(Math.random() * games.length);
+    while(id === panelId) id = getRandomGameIndex(fraction);
 
     dataTrack.send(JSON.stringify({
       event: 'short-game-load',
-      panelType: 'short-game',
-      panelId: id
+      panelType: type,
+      panelId: id,
+      randomFraction: fraction
     }));
 
     const csrfToken = document
@@ -35,17 +37,19 @@ const SidePanel = ({ localParticipant, roomName }) => {
       },
       body: JSON.stringify({
         panel_id: id,
-        panel_type: panelType,
+        panel_type: type,
+        random_fraction: fraction
       })
     });
 
     updateRoomDetails({
       panelType: 'short-game',
-      panelId: id
+      panelId: id,
+      randomFraction: fraction
     });
   }, [panelId]);
 
-  const game = games[panelId]
+  const game = getGame(panelId, randomFraction)
 
   return (
     <>

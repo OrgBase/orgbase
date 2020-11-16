@@ -67,12 +67,6 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     window.open('/lobby', '_self');
   }
 
-  const copyToClipboard = (e) => {
-    e.preventDefault();
-    urlInputRef.current.select();
-    document.execCommand('copy');
-  }
-
   const remoteParticipants = () => {
     if(participants.length) {
       return participants.map(participant => (
@@ -103,14 +97,6 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
         </div>
         <div className="column is-two-fifths">
           <div className="columns is-gapless is-multiline full-room-height">
-            {/*<div className="column is-full has-text-right">*/}
-            {/*  <button className="button is-primary leave-room-btn is-small" onClick={handleExit}>*/}
-            {/*    <span className='icon'>*/}
-            {/*      <i className="fas fa-sign-out-alt"></i>*/}
-            {/*    </span>*/}
-            {/*    <span>Exit Room</span>*/}
-            {/*  </button>*/}
-            {/*</div>*/}
             {participants.length == 2 && renderLocalParticipant()}
             <div className={`column ${participants.length == 2 ? 'is-half-height' : ''}`}>
               <div className={`shared-panel has-text-centered is-flex`}>
