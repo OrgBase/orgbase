@@ -3,6 +3,8 @@ import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "../video/Participant";
 import SidePanel from "../video/SidePanel";
 import RoomContextProvider from "../../context/RoomContextProvider";
+import cameraImage from '../../stylesheets/img/camera-button.svg';
+import videoFilter from '../../stylesheets/img/video-filter.svg';
 
 const Room = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
@@ -91,7 +93,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
 
   return (
     <RoomContextProvider roomShared={roomShared}>
-      <div className="columns room is-mobile room-container is-desktop">
+      <div className="columns room is-mobile room-container is-desktop is-vcentered">
         <div className='column'></div>
         <div className="column is-two-fifths remote-participants has-text-centered">
           <div className='columns is-gapless is-multiline full-room-height'>
@@ -124,7 +126,29 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
             </div>
           </div>
         </div>
-        <div className='column'></div>
+        <div className='column has-text-centered'>
+          <button className="button is-primary leave-room-btn is-small my-3" onClick={handleExit}>
+            <span className='icon'>
+              <i className="fas fa-sign-out-alt"></i>
+            </span>
+            <span>Exit Session</span>
+          </button>
+          <div className='my-6'>
+            <div>
+              <img src={videoFilter} width='80px' />
+            </div>
+            <div className="field ml-2">
+              <input id="switchRoundedDefault" type="checkbox" name="switchRoundedDefault"
+                     className="switch is-rounded"
+                     onChange={(e) => console.log(`Filter: ${e.target.checked}`)}
+              />
+              <label htmlFor="switchRoundedDefault"></label>
+            </div>
+          </div>
+          <div className='is-clickable my-3'>
+            <img src={cameraImage}/>
+          </div>
+        </div>
       </div>
     </RoomContextProvider>
   );
