@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'login/password', to: 'devise/sessions#new', as: :'password_login'
     get 'logout', to: 'devise/sessions#destroy', as: :logout
-    get 'signup', to: 'devise/registrations#new', as: :signup
+    get 'signup/password', to: 'devise/registrations#new', as: :signup
   end
 
   resource :passwordless_link, only: :create do
@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   end
 
   get 'login', to: 'passwordless_links#request_link', as: :passwordless_link_login
+
+  get 'signup' => 'passwordless_links#register_link', as: :passwordless_link_signup
+  post 'signup' => 'passwordless_links#register', as: :signup_passwordless_link
 
   get '/lobby', to: 'home#index', as: :home
 

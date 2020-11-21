@@ -22,10 +22,11 @@ class PasswordlessLinkService
     token_matches && token_not_expired
   end
 
-  def send_token!
+  def send_token!(sign_up=false)
     if @user
       token = generate_token!
-      AuthMailer.passwordless_link_email(@user.id, token).deliver_now!
+
+      AuthMailer.passwordless_link_email(@user.id, token, sign_up: sign_up).deliver_now!
     end
   end
 

@@ -1,9 +1,9 @@
 <div class="columns is-centered is-mobile">
   <div class="column is-three-quarters-mobile is-two-thirds-tablet
     is-half-desktop is-one-third-widescreen is-one-third-fullhd has-text-centered">
-    <h1 class="title">Sign in to Jally</h1>
+    <h1 class="title">Sign up to Jally</h1>
 
-    <%= form_with url: passwordless_link_path, method: :post, local: true do |f| %>
+    <%= form_with url: signup_passwordless_link_path, method: :post, local: true do |f| %>
       <% flash.each do |message_type, message| %>
         <div class="notification is-<%= message_type %>">
           <%= message %>
@@ -13,8 +13,9 @@
       <div class="field">
         <div class="control has-icons-left">
           <%= f.email_field :email, autofocus: true,
-                            autocomplete: "email", class: "input",
-                            required: 'true', placeholder: "name@your-company.com" %>
+                            autocomplete: "email",
+                            class: "input", required: 'true',
+                            placeholder: "name@your-company.com" %>
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
           </span>
@@ -22,16 +23,17 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign in with email", class: "button jally-button is-fullwidth mb-3" %>
+        <%= f.submit "Continue with email", class: "button jally-button is-fullwidth mb-3" %>
       </div>
     <% end %>
 
     <div class="notification is-primary is-light">
-      ⚡ We’ll email you a magic link for signing in without a password. Or you can <%= link_to "login manually", password_login_path %>.<br />
+      ⚡ We’ll send you a magic link to confirm your email address.
     </div>
 
     <div>
-      Don't have an account yet? <a href="<%= passwordless_link_signup_path %>">Sign up</a>
+      Already have an account? <a href="<%= passwordless_link_login_path %>">Login</a>
     </div>
+
   </div>
 </div>

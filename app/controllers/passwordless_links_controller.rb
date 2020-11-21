@@ -9,6 +9,14 @@ class PasswordlessLinksController < ApplicationController
     render layout: "home"
   end
 
+  def register_link
+    if user_signed_in?
+      return redirect_to root_path, flash: { warning: "You are already logged in" }
+    end
+
+    render layout: "home"
+  end
+
   def create
     if params[:email].blank?
       return redirect_to passwordless_link_login_path, flash: { warning: "Email can't be empty." }
@@ -21,7 +29,26 @@ class PasswordlessLinksController < ApplicationController
     end
     PasswordlessLinkService.new(@user).send_token!
 
-    redirect_to passwordless_link_login_path, flash: { success: "We just sent the login link to #{email_requested}." }
+    redirect_to passwordless_link_login_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
+  end
+
+  def register
+    if params[:email].blank?
+      return redirect_to passwordless_link_signup_path, flash: { warning: "Email invalid." }
+    end
+
+    email_requested = params[:email]
+
+    @user = User.find_by(email: email_requested) || User.where("email ILIKE ?", email_requested).first
+
+    if @user.present?
+      return redirect_to passwordless_link_login_path, flash: { warning: "Uh oh! There is already an account with that email. Did you mean to log in instead?" }
+    end
+    @user = User.create!(email: email_requested,
+                         password: SecureRandom.alphanumeric(8))
+
+    PasswordlessLinkService.new(@user).send_token!(sign_up: true)
+    redirect_to passwordless_link_signup_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
   end
 
   def login

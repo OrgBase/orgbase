@@ -3,10 +3,21 @@ class AuthMailer < ApplicationMailer
   layout 'mailer'
 
   def passwordless_link_email(user_id, token, validate: true,
-                       subject: "Jally Login Link",
-                       message: nil,
-                       after_path: nil)
+                              subject: nil, message: nil,
+                              after_path: nil, sign_up: false)
     @user = User.find(user_id)
+    @sign_up = sign_up
+    if sign_up
+      @title = "Verify your email address"
+      @link_text = "Verify your email ⚡"
+      @message = message || "Before we set up your account we need to quickly confirm your email address. All you need to do is click the link below:"
+      subject ||= "Verify your email address"
+    else
+      @title = "Sign in with magic link"
+      @link_text = "Sign In ⚡"
+      @message = message || "To sign in, all you need to do is click the link below:"
+      subject ||= "Sign in with magic link"
+    end
 
     if validate && !PasswordlessLinkService.new(@user).validate_token(token)
       raise "Sending an invalid token"
@@ -17,8 +28,6 @@ class AuthMailer < ApplicationMailer
     else
       @link = login_passwordless_link_url(user: user_id, token: token)
     end
-
-    @message = message || "We received a request from you for a login link to Jally. Please click this link to login:"
 
     mail(to: @user.email, from: "Jally <team@jally.co>", subject: subject)
   end
