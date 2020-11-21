@@ -6,15 +6,14 @@ class JallySessionController < ApplicationController
 
   def join_session
     @user = current_user
-    authorize(@user, :participate?)
-    @employee = @user.employee
-    @company = @employee&.company
-
     params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
                   :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds)
 
     @session_slug = params[:identifier]
     if @session_slug.blank?
+      authorize(@user, :participate?)
+      @employee = @user.employee
+      @company = @employee&.company
       @session = JallySessionService.create_session(
           company: @company,
           created_by: @user,
@@ -33,11 +32,24 @@ class JallySessionController < ApplicationController
       return render json: {session_slug: @session.slug}
     else
       @session = JallySession.find_by(slug: @session_slug)
-      company = @session&.company
+      @company = @session&.company
       team = @session&.team
 
-      if company
-        authorize(company, :show?)
+      # If we hit this, it means the user was invited with the session link
+      if @company
+        if @user.employee.blank?
+          @employee = Employee.create!(user: @user,
+                           company: @company,
+                           title: 'Team Member')
+          if team
+            TeamMember.create!(team: team,
+                               employee: @employee)
+          end
+        end
+      end
+
+      if @company
+        authorize(@company, :show?)
         if team
           authorize(team, :participate?)
         end
