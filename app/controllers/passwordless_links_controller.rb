@@ -18,6 +18,7 @@ class PasswordlessLinksController < ApplicationController
   end
 
   def create
+    params = params.permit(:email)
     if params[:email].blank?
       return redirect_to passwordless_link_login_path, flash: { warning: "Email can't be empty." }
     end
@@ -35,11 +36,13 @@ class PasswordlessLinksController < ApplicationController
   end
 
   def register
+    params = params.permit(:name, :email)
     if params[:email].blank?
       return redirect_to passwordless_link_signup_path, flash: { warning: "Email invalid." }
     end
 
     email_requested = params[:email]
+    name = params[:name]
 
     @user = User.find_by(email: email_requested) || User.where("email ILIKE ?", email_requested).first
 
@@ -47,6 +50,7 @@ class PasswordlessLinksController < ApplicationController
       return redirect_to passwordless_link_login_path, flash: { warning: "Uh oh! There is already an account with that email. Did you mean to log in instead?" }
     end
     @user = User.create!(email: email_requested,
+                         name: name,
                          password: SecureRandom.alphanumeric(8))
 
     PasswordlessLinkService.new(@user).send_token!(sign_up: true)
