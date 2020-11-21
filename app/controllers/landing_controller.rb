@@ -16,7 +16,7 @@ class LandingController < ApplicationController
       redirect_to root_path, flash: { notice: "We might not get back to you." } and return
     end
 
-    Slack.new_lead(data)
+    Slack.new_sign_up(data)
 
     redirect_to request.referrer || root_path, flash: { notice: 'Thank you for your interest! We will get in touch with you soon.' }
   end

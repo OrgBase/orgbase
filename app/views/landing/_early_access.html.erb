@@ -1,19 +1,19 @@
-<%= form_tag(early_access_path, method: 'post', class: 'landing-form') do %>
-  <input type="text" class="is-hidden form-check-field" name="early_access[checkField]" placeholder="Are you real?">
-  <div class="field has-addons">
+<%= form_tag(signup_passwordless_link_path, method: 'post', class: 'landing-form') do %>
+  <input type="text" class="is-hidden form-check-field" name="checkField" placeholder="Are you real?">
+  <div class="field is-grouped">
     <div class="control">
       <input
         class="input"
         type="email"
         required
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        name="early_access[email]"
-        placeholder="Your work email"
+        name="email"
+        placeholder="name@company.com"
       />
     </div>
     <div class="control">
-      <button class="landing-submit-button button" type="submit">
-        Request an invite
+      <button class="landing-submit-button button px-5" type="submit">
+        Sign Up
       </button>
     </div>
   </div>

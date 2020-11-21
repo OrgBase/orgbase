@@ -18,7 +18,6 @@ class PasswordlessLinksController < ApplicationController
   end
 
   def create
-    params = params.permit(:email)
     if params[:email].blank?
       return redirect_to passwordless_link_login_path, flash: { warning: "Email can't be empty." }
     end
@@ -36,9 +35,15 @@ class PasswordlessLinksController < ApplicationController
   end
 
   def register
-    params = params.permit(:name, :email)
     if params[:email].blank?
       return redirect_to passwordless_link_signup_path, flash: { warning: "Email invalid." }
+    end
+
+    if params["checkField"].present?
+      # Spam Likely, filled out a hidden field
+      Rails.logger.debug("Likely spam submission #{data}")
+      Slack.spam_request(data)
+      redirect_to root_path, flash: { notice: "We might not get back to you." } and return
     end
 
     email_requested = params[:email]
@@ -54,7 +59,10 @@ class PasswordlessLinksController < ApplicationController
                          password: SecureRandom.alphanumeric(8))
 
     PasswordlessLinkService.new(@user).send_token!(sign_up: true)
-    redirect_to passwordless_link_signup_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
+
+    Slack.new_sign_up({email: email_requested})
+
+    redirect_to root_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
   end
 
   def login

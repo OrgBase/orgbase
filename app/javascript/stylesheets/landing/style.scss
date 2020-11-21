@@ -89,16 +89,22 @@ $family-primary: 'DM Sans';
 }
 .landing-submit-button {
   background-color: #F12587;
+  font-weight: 700;
+  color: white;
+}
+
+.landing-submit-button:hover {
+  opacity: 0.8;
   color: white;
 }
 
 .alert {
   padding: 12px;
   text-align: center;
-  &.alert-notice {
+  &.alert-success {
     background: #55EBD0;
   }
-  &.alert-error {
+  &.alert-warning {
     background: #B00100;
   }
 }
