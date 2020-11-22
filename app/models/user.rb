@@ -31,6 +31,7 @@ class User < ApplicationRecord
   before_save :default_values
   validates :email, presence: true
   has_one :employee
+  has_one :company, through: :employee
 
   def first_name
     name.split.select { |x| ["Mrs.", "Mrs", "Ms.", "Ms", "M/s.", "M/s", "Mr.", "Mr", "Dr.", "Dr"].exclude?(x) }.first

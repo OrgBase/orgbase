@@ -155,3 +155,22 @@ textarea.textarea:not([rows]) {
   font-size: 0.8em;
   font-style: italic;
 }
+.dropdown-content {
+  padding-top: 0;
+}
+.dropdown-item.playspace-name {
+  display: flex;
+  align-items: center;
+  background-color: rgba(97, 209, 219, 0.15);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  img {
+    margin-right: 4px;
+  }
+  span {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
