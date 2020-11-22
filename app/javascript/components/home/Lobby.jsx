@@ -12,13 +12,13 @@ const Lobby = props => {
 };
 
 Lobby.defaultProps = {
-  name: 'user',
-  errorMessage: ''
+  errorMessage: '',
+  notice: ''
 }
 
 Lobby.propTypes = {
-  name: PropTypes.string,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  notice: PropTypes.string
 }
 
 export default Lobby;

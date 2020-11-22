@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const CreatePlayspaceForm = ({toggleCreatePlayspaceModal}) => {
+const CreatePlayspaceForm = () => {
   const [playspaceName, setPlayspaceName] = useState('')
   const [companyUrl, setCompanyUrl] = useState('')
   const [formError, setFormError] = useState('')
@@ -10,8 +10,6 @@ const CreatePlayspaceForm = ({toggleCreatePlayspaceModal}) => {
     event.preventDefault();
     setFormError('')
 
-    console.log(playspaceName)
-
     fetchWrapper('/company', 'POST', {
       playspace_name: playspaceName,
       website: companyUrl
@@ -19,7 +17,7 @@ const CreatePlayspaceForm = ({toggleCreatePlayspaceModal}) => {
       .then(response => response.json())
       .then(data => {
         if(data.success) {
-          window.location.href = "/"
+          window.location.href = "/lobby?notice=This is your playspace now. Happy Jally'ing! 🎉 "
         }
       })
       .catch(error => {

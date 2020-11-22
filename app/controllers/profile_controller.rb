@@ -14,7 +14,9 @@ class ProfileController < ApplicationController
       end
 
       if(password.present? && password == password_confirmation)
-        @user.reset_password(password, password_confirmation)
+        if @user.reset_password(password, password_confirmation)
+          bypass_sign_in(@user)
+        end
       end
     end
     render json: {

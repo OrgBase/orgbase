@@ -6,6 +6,14 @@ class HomeController < ApplicationController
     @user = current_user
     @employee = @user.employee
     @error_message = params[:error_message] || ''
+    @notice = params[:notice] || ''
+    email_domain = @user.email.split('@').last
+    @domain_playspaces = CompanyEmailDomain.where(domain: email_domain).map do |ced|
+      {
+          company_id: ced.company_id,
+          playspace_name: ced.company.name
+      }
+    end
 
     if @employee.present?
       @company = @employee.company

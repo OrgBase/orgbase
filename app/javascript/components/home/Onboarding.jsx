@@ -2,13 +2,34 @@ import React, {useState} from 'react';
 import Modal from "../common/modal";
 import SetupProfileForm from "./SetupProfileForm";
 import CreatePlayspaceForm from "./CreatePlayspaceForm";
+import JoinPlayspaceForm from "./JoinPlayspaceForm";
 
-const Onboarding = ({ name, errorMessage }) => {
+const Onboarding = ({ name, errorMessage, domainPlayspaces }) => {
   const [profileModalState, setProfileModalState] = useState(true)
   const [createPlayspaceModalState, setCreatePlayspaceModalState] = useState(false)
+  const [joinPlayspaceModalState, setJoinPlayspaceModalState] = useState(false)
 
-  const toggleProfileModal = () => setProfileModalState(!profileModalState)
-  const toggleCreatePlayspaceModal = () => setCreatePlayspaceModalState(!createPlayspaceModalState)
+  const toggleProfileModal = () => {
+    if(!profileModalState) {
+      setCreatePlayspaceModalState(false)
+      setJoinPlayspaceModalState(false)
+    }
+    setProfileModalState(!profileModalState)
+  }
+  const toggleCreatePlayspaceModal = () => {
+    if(!createPlayspaceModalState) {
+      setJoinPlayspaceModalState(false)
+      setProfileModalState(false)
+    }
+    setCreatePlayspaceModalState(!createPlayspaceModalState)
+  }
+  const toggleJoinPlayspaceModal = () => {
+    if(!joinPlayspaceModalState) {
+      setProfileModalState(false)
+      setCreatePlayspaceModalState(false)
+    }
+    setJoinPlayspaceModalState(!joinPlayspaceModalState)
+  }
 
   return (
     <>
@@ -40,8 +61,18 @@ const Onboarding = ({ name, errorMessage }) => {
       >
         <SetupProfileForm
           name={name}
-          toggleProfileModal={toggleProfileModal}
-          nextStep={toggleCreatePlayspaceModal}
+          nextStep={domainPlayspaces.length ? toggleJoinPlayspaceModal : toggleCreatePlayspaceModal}
+        />
+      </Modal>
+
+      <Modal
+        modalState={joinPlayspaceModalState}
+        modalTitle='Join a Playspace'
+        closeModal={toggleJoinPlayspaceModal}
+      >
+        <JoinPlayspaceForm
+          domainPlayspaces={domainPlayspaces}
+          toggleCreatePlayspaceModal={toggleCreatePlayspaceModal}
         />
       </Modal>
 
@@ -50,9 +81,7 @@ const Onboarding = ({ name, errorMessage }) => {
         modalTitle='Create a Playspace'
         closeModal={toggleCreatePlayspaceModal}
       >
-        <CreatePlayspaceForm
-          toggleCreatePlayspaceModal={toggleCreatePlayspaceModal}
-        />
+        <CreatePlayspaceForm />
       </Modal>
     </>
   );

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Modal from "../common/modal";
 import CreateJallyForm from "../home/CreateJallyForm";
 
-const VideoChat = ({ name, errorMessage }) => {
+const VideoChat = ({ errorMessage, notice }) => {
   const [startModalState, setStartModalState] = useState(false)
   const [scheduleModalState, setScheduleModalState] = useState(false)
 
@@ -12,8 +12,11 @@ const VideoChat = ({ name, errorMessage }) => {
   return (
     <>
       <div className="has-text-centered mt-6">
-        {errorMessage && <p className="notification is-warning">
+        {errorMessage && <p className="notification is-warning mx-6">
           {errorMessage}
+        </p>}
+        {notice && <p className="notification is-success mx-6">
+          {notice}
         </p>}
         <div>
           <div className='columns is-centered ml-2 mr-2'>

@@ -8,6 +8,7 @@
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 @import "room";
+@import "radio-cards";
 
 html, body {
   height: 100%;
@@ -144,4 +145,13 @@ input[type="range"].slider.has-output-tooltip.jally-slider + output {
 }
 textarea.textarea:not([rows]) {
   min-height: 6em;
+}
+.link {
+  color: $link;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.disclaimer-text {
+  font-size: 0.8em;
+  font-style: italic;
 }
