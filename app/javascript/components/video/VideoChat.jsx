@@ -3,14 +3,8 @@ import Modal from "../common/modal";
 import CreateJallyForm from "../home/CreateJallyForm";
 
 const VideoChat = ({ name, errorMessage }) => {
-  const [sessionLoading, setSessionLoading] = useState(false)
   const [startModalState, setStartModalState] = useState(false)
   const [scheduleModalState, setScheduleModalState] = useState(false)
-
-  const createAndRedirectToSession = () => {
-    setSessionLoading(true);
-    window.open('/session/new', '_self')
-  }
 
   const toggleStartModal = () => setStartModalState(!startModalState)
   const toggleScheduleModal = () => setScheduleModalState(!scheduleModalState)

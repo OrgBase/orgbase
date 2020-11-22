@@ -37,7 +37,8 @@ class JallySessionController < ApplicationController
 
       # If we hit this, it means the user was invited with the session link
       if @company
-        if @user.employee.blank?
+        @employee = @user.employee
+        if @employee.blank?
           @employee = Employee.create!(user: @user,
                            company: @company,
                            title: 'Team Member')
@@ -46,15 +47,13 @@ class JallySessionController < ApplicationController
                                employee: @employee)
           end
         end
-      end
-
-      if @company
-        authorize(@company, :show?)
-        if team
-          authorize(team, :participate?)
-        end
       else
         return redirect_to home_path(error_message: "Uh oh! That seems like an invalid session url.")
+      end
+
+      authorize(@company, :show?)
+      if team
+        authorize(team, :participate?)
       end
     end
 

@@ -31,7 +31,7 @@ class PasswordlessLinksController < ApplicationController
     end
     PasswordlessLinkService.new(@user).send_token!
 
-    redirect_to passwordless_link_login_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
+    redirect_to passwordless_link_login_path, flash: { success: "We just sent the magic link to #{email_requested}." }
   end
 
   def register
@@ -62,7 +62,7 @@ class PasswordlessLinksController < ApplicationController
 
     Slack.new_sign_up({email: email_requested})
 
-    redirect_to root_path, flash: { success: "We just sent the magic link to #{email_requested}. Please open that link in this browser." }
+    redirect_to root_path, flash: { success: "We just sent the magic link to #{email_requested}." }
   end
 
   def login

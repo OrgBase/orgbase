@@ -101,7 +101,7 @@ $family-primary: 'DM Sans';
 .alert {
   padding: 12px;
   text-align: center;
-  &.alert-success {
+  &.alert-success, &.alert-notice {
     background: #55EBD0;
   }
   &.alert-warning {
