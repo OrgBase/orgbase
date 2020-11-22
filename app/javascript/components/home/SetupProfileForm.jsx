@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const SetupProfileForm = ({name, nextStep}) => {
+const SetupProfileForm = ({name, submitButtonText, nextStep}) => {
   const [fullName, setFullName] = useState(name)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [formError, setFormError] = useState('')
+  const [loading, setLoading] = useState(false);
 
   const setupProfile = (event) => {
     event.preventDefault();
     setFormError('')
+    setLoading(true)
     if (password || confirmPassword) {
       if (password != confirmPassword) {
         setFormError('Password and confirm password fields should match.')
@@ -25,20 +27,22 @@ const SetupProfileForm = ({name, nextStep}) => {
       .then(response => response.json())
       .then(data => {
         if(data.success) {
+          setLoading(false)
           if (nextStep) {
             nextStep()
           }
         }
       })
       .catch(error => {
-        setFormError('Something went wrong, sorry. Please refresh and try again.')
+        setLoading(false)
+        setFormError(error.toString())
       })
   }
   return <>
     {formError && <div className="notification is-warning mt-5">
       {formError}
     </div>}
-    <form className='px-6' onSubmit={(e) => setupProfile(e)}>
+    <form className={`px-6 ${loading ? 'pending' : ''}`} onSubmit={(e) => setupProfile(e)}>
       <div className="field">
         <label className="label jally-label dark-grey-text">
           Full Name
@@ -96,7 +100,8 @@ const SetupProfileForm = ({name, nextStep}) => {
         <button
           className="button is-centered mb-3 jally-button"
           type='submit'
-        >Next</button>
+          disabled={loading}
+        >{submitButtonText}</button>
       </div>
     </form>
   </>

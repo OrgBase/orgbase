@@ -61,6 +61,7 @@ const Onboarding = ({ name, errorMessage, domainPlayspaces }) => {
       >
         <SetupProfileForm
           name={name}
+          submitButtonText='Next'
           nextStep={domainPlayspaces.length ? toggleJoinPlayspaceModal : toggleCreatePlayspaceModal}
         />
       </Modal>

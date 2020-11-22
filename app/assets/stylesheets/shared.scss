@@ -130,11 +130,15 @@
   border-radius: 10px;
   padding-left: 2em;
   padding-right: 2em;
-
+  &:disabled {
+    background-color: #F12587;
+    opacity: 0.5;
+    color: white;
+  }
 }
 
 .jally-button:hover {
-  opacity: 0.8;
+  opacity: 0.9;
   color: white;
 }
 
