@@ -10,6 +10,13 @@ class CompanyController < ApplicationController
       @company = Company.find(company_id) if company_id.present?
       if playspace_name.present?
         @company ||= Company.create!(name: playspace_name, website: params[:website])
+
+        email_domain = @user.email.split('@').last
+
+        CompanyEmailDomain.where(
+            company: @company,
+            domain:email_domain).first_or_create unless EmailProvidersService.free_email_provider(email_domain)
+
         Slack.new_playspace({
                                 name: playspace_name,
                                 email: @user.email
