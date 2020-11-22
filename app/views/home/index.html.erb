@@ -1,6 +1,4 @@
-
-<p class="mt-6 mx-6">
-  Hey <%= @user.name %>! There is no PlaySpace associated with this account.
-  Please <%= mail_to "Jally Support <help@jally.co>", "contact us", subject: "Onboarding our team to Jally" %>
-  if you need further assistance.
-</p>
+<%= react_component('Onboarding', {
+    name: @user.name,
+    errorMessage: @error_message
+}) %>
