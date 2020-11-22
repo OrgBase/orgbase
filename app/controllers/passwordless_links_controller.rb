@@ -41,9 +41,9 @@ class PasswordlessLinksController < ApplicationController
 
     if params["checkField"].present?
       # Spam Likely, filled out a hidden field
-      Rails.logger.debug("Likely spam submission #{data}")
-      Slack.spam_request(data)
-      redirect_to root_path, flash: { notice: "We might not get back to you." } and return
+      Rails.logger.debug("Likely spam submission #{params}")
+      Slack.spam_request(params)
+      redirect_to root_path and return
     end
 
     email_requested = params[:email]

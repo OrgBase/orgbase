@@ -7,6 +7,7 @@ class Slack
 
   TESTING_CHANNEL = "#local-notifications"
   LEADS_CHANNEL = '#inbound-leads'
+  USER_ACTIVITY= '#user-activity'
 
   class << self
     def send_message(channel, message, options = {})
@@ -32,11 +33,15 @@ class Slack
       "<#{url}|#{escape_text(text)}>"
     end
 
-    def new_sign_up(data = {})
-      send_message(LEADS_CHANNEL, "<!here|here>: New Sign up! :tada:. email: #{data[:email]}")
+    def new_sign_up(data = {email: ""})
+      send_message(USER_ACTIVITY, "New Sign up! email: #{data[:email]}")
+    end
+
+    def new_playspace(data = {name: "", email: ""})
+      send_message(LEADS_CHANNEL, "<!here|here>: New Playspace created! :tada:. Name: #{data[:name]}, created by: #{data[:email]}")
     end
     def spam_request(data={})
-      send_message(LEADS_CHANNEL, "Mostly Spam :face_with_raised_eyebrow: #{JSON.pretty_generate(data)}")
+      send_message(USER_ACTIVITY, "Mostly Spam :face_with_raised_eyebrow: #{JSON.pretty_generate(data)}")
     end
 
     def log_data(data = {})

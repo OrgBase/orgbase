@@ -38,4 +38,5 @@ Rails.application.routes.draw do
   post '/session' => "jally_session#join_session", :as => :create_jally_session
 
   post '/profile' => "profile#update_profile", :as => :update_profile
+  post '/company' => "company#join_company", :as => :join_company
 end

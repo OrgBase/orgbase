@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const SetupProfileForm = ({name, toggleProfileModal}) => {
+const SetupProfileForm = ({name, toggleProfileModal, nextStep}) => {
   const [fullName, setFullName] = useState(name)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [formError, setFormError] = useState('')
+
+  useEffect(() => {
+    return () => {
+      if (nextStep) {
+        nextStep()
+      }
+    }
+  })
 
   const setupProfile = (event) => {
     event.preventDefault();
