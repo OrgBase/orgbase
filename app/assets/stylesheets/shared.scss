@@ -109,7 +109,7 @@
 }
 
 .jally-dropdown-menu {
-  min-width: 20px;
+  width: 50px;
   .dropdown-content {
     background-color: #F9F9F9;
     border-radius: 10px;
@@ -153,4 +153,16 @@
 
 .slider-field {
   position: relative;
+}
+
+.hide-in-five {
+  animation: hideAnimation 0s ease-in 5s forwards;
+  animation-fill-mode: forwards;
+}
+@keyframes hideAnimation {
+  to {
+    width:0;
+    height:0;
+    opacity: 0;
+  }
 }

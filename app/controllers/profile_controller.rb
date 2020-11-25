@@ -23,4 +23,17 @@ class ProfileController < ApplicationController
         success: true
     }
   end
+
+  def invite_users
+    @user = current_user
+    authorize(@user, :participate?)
+    invitees = params[:invitees]
+    invitees&.each do |invitee|
+      JallySessionService.create_account_and_send_invite(invitee, @user.company, @user)
+    end
+
+    render json: {
+        success: true
+    }
+  end
 end
