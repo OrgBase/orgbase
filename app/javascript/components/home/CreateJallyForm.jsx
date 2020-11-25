@@ -266,6 +266,7 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
         <button
           className="button is-centered mb-3 jally-button"
           onClick={createJally}
+          disabled={loading}
         >{submitButtonText}</button>
       </div>
     </form>}

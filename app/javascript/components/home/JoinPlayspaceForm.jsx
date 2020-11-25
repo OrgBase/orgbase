@@ -4,10 +4,12 @@ import fetchWrapper from "../../helpers/fetchWrapper";
 const JoinPlayspaceForm = ({domainPlayspaces, toggleCreatePlayspaceModal}) => {
   const [companyId, setCompanyId] = useState(domainPlayspaces.length && domainPlayspaces[0].company_id)
   const [formError, setFormError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const createPlaySpace = (event) => {
     event.preventDefault();
-    setFormError('')
+    setFormError('');
+    setLoading(true);
 
     fetchWrapper('/company', 'POST', {
       company_id: companyId
@@ -19,6 +21,7 @@ const JoinPlayspaceForm = ({domainPlayspaces, toggleCreatePlayspaceModal}) => {
         }
       })
       .catch(error => {
+        setLoading(false)
         setFormError(error.toString())
       })
   }
@@ -39,7 +42,7 @@ const JoinPlayspaceForm = ({domainPlayspaces, toggleCreatePlayspaceModal}) => {
     <div className='my-4 mx-6 has-text-centered'>
       Your teammates are already on Jally! Please select an existing playspace to join
     </div>
-    <form className='px-6' onSubmit={(e) => createPlaySpace(e)}>
+    <form className={`px-6 ${loading ? 'pending' : ''}`} onSubmit={(e) => createPlaySpace(e)}>
       <div className='grid width-66' onChange={handlePlayspaceSelection.bind(this)}>
         {renderDomainPlayspaces()}
       </div>
@@ -48,6 +51,7 @@ const JoinPlayspaceForm = ({domainPlayspaces, toggleCreatePlayspaceModal}) => {
         <button
           className="button is-centered mt-4 mb-2 jally-button"
           type='submit'
+          disabled={loading}
         >Join Now!</button>
       </div>
       <div className='has-text-centered'>
