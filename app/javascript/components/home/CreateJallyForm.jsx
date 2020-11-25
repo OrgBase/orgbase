@@ -2,8 +2,9 @@ import React, {useState, useEffect, useRef} from 'react'
 import bulmaSlider from "bulma-slider/src/js";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import Flatpickr from "react-flatpickr";
+import AutoCompleteSelect from "../common/AutoCompleteSelect";
 
-const CreateJallyForm = ({ isImpromptu }) => {
+const CreateJallyForm = ({ isImpromptu, users }) => {
   //Nasty hack to make changes to absolute positioning of slider outputs. Sorry! -Midhun
   function usePrevious(value) {
     const ref = useRef();
@@ -86,10 +87,11 @@ const CreateJallyForm = ({ isImpromptu }) => {
       </div>}
       <div className="field">
         <label className="label jally-label dark-grey-text">Invite People</label>
-        <textarea className="textarea"
-          placeholder='Enter their names or email'
+        <AutoCompleteSelect
+          users={users}
+          updateSelection={setInvitees}
         />
-        {isImpromptu && <p className='light-grey-text'>you can also share via an invite link later if you prefer</p>}
+        {isImpromptu && <p className='light-grey-text mt-1'>you can also share via an invite link later if you prefer</p>}
       </div>
       <div className='columns my-0'>
         {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Modal from "../common/modal";
 import CreateJallyForm from "./CreateJallyForm";
 
-const Lobby = ({ errorMessage, notice }) => {
+const Lobby = ({ errorMessage, notice, users }) => {
   const [startModalState, setStartModalState] = useState(false)
   const [scheduleModalState, setScheduleModalState] = useState(false)
 
@@ -54,6 +54,7 @@ const Lobby = ({ errorMessage, notice }) => {
       >
         <CreateJallyForm
           isImpromptu={false}
+          users={users}
         />
       </Modal>
       <Modal
@@ -64,6 +65,7 @@ const Lobby = ({ errorMessage, notice }) => {
       >
         <CreateJallyForm
           isImpromptu={true}
+          users={users}
         />
       </Modal>
     </>
