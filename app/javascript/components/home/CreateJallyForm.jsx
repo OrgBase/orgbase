@@ -3,6 +3,7 @@ import bulmaSlider from "bulma-slider/src/js";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import Flatpickr from "react-flatpickr";
 import AutoCompleteSelect from "../common/AutoCompleteSelect";
+import sessionScheduledIllustration from "../../stylesheets/img/05-illustration-landing.svg"
 
 const CreateJallyForm = ({ isImpromptu, users }) => {
   //Nasty hack to make changes to absolute positioning of slider outputs. Sorry! -Midhun
@@ -24,16 +25,22 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
   const [recurring, setRecurring] = useState(true)
   const [frequencyLength, setFrequencyLength] = useState(1);
   const [frequencyUnit, setFrequencyUnit] = useState('weeks');
+  const [loading, setLoading] = useState(false)
+  const [formError, setFormError] = useState("")
+  const [sessionScheduled, setSessionScheduled] = useState(false)
   const submitButtonText = isImpromptu ? 'Start Jally' : 'Schedule Jally';
   const durationSliderOutputRef = useRef();
   const swapSliderOutputRef = useRef();
 
   useEffect(() => {
     bulmaSlider.attach();
-    let left = Number(durationSliderOutputRef.current.style.left.slice(0, -2));
-    if(!isNaN(left) && prevSessionDuration != sessionDuration) {
-      left -= 32;
-      durationSliderOutputRef.current.style.left = `${left}px`
+    let left;
+    if(durationSliderOutputRef.current) {
+      left = Number(durationSliderOutputRef.current.style.left.slice(0, -2));
+      if (!isNaN(left) && prevSessionDuration != sessionDuration) {
+        left -= 32;
+        durationSliderOutputRef.current.style.left = `${left}px`
+      }
     }
 
     if(swapSliderOutputRef.current) {
@@ -46,11 +53,13 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
   });
 
   const createJally = () => {
+    setLoading(true)
+    setFormError("")
     const session_duration_seconds = sessionDuration * 60;
     const switch_after_seconds = switchDuration * 60;
     let scheduled_at, frequency_length, frequency_unit;
     if(isImpromptu) {
-      scheduled_at = Math.floor(+ new Date()/1000);
+      scheduled_at = null;
       frequency_length = 1;
       frequency_unit = 'weeks'
     } else {
@@ -68,15 +77,35 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
       frequency_length,
       frequency_unit,
       name,
+      invitees,
     })
       .then(response => response.json())
-      .then(data => window.location.href = `/session/${data.session_slug}`)
-      .catch(error => console.error(error));
+      .then(data => {
+        setLoading(false)
+        setFormError("")
+        if(data.scheduled) {
+          setSessionScheduled(true)
+        } else {
+          window.location.href = `/session/${data.session_slug}`
+        }
+      })
+      .catch(error => {
+        setLoading(false)
+        setFormError(error.toString())
+        console.error(error)
+      });
   }
 
 
   return <>
-    <form className='px-6' onSubmit={(e) => e.preventDefault()}>
+    {formError && <div className="notification is-warning mt-5">
+      {formError}
+    </div>}
+    {sessionScheduled ? <div>
+      <h2 className='has-text-centered subtitle'>Your Jally has been Scheduled!</h2>
+      <p className='has-text-centered my-6'>We’ll notify everyone you invited and send them their invites!</p>
+      <img src={sessionScheduledIllustration} />
+    </div> : <form className={`px-6 ${loading ? 'pending' : ''}`} onSubmit={(e) => e.preventDefault()}>
       {!isImpromptu && <div className="field">
         <label className="label jally-label dark-grey-text">Name</label>
         <input
@@ -91,7 +120,8 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
           users={users}
           updateSelection={setInvitees}
         />
-        {isImpromptu && <p className='light-grey-text mt-1'>you can also share via an invite link later if you prefer</p>}
+        {isImpromptu &&
+        <p className='light-grey-text mt-1'>you can also share via an invite link later if you prefer</p>}
       </div>
       <div className='columns my-0'>
         {
@@ -128,7 +158,9 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
               defaultValue={sessionDuration}
               onChange={(e) => setSessionDuration(e.target.value)}
             />
-            <output ref={durationSliderOutputRef} className='jally-output' htmlFor="jally-duration" data-postfix=' Mins'>30 Mins</output>
+            <output ref={durationSliderOutputRef} className='jally-output' htmlFor="jally-duration"
+                    data-postfix=' Mins'>30 Mins
+            </output>
           </div>
         </div>
       </div>
@@ -224,7 +256,9 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
               defaultValue={switchDuration}
               onChange={(e) => setSwitchDuration(e.target.value)}
             />
-            <output ref={swapSliderOutputRef} className='jally-output' htmlFor="jally-swap-duration" data-postfix=' Mins'>15 Mins</output>
+            <output ref={swapSliderOutputRef} className='jally-output' htmlFor="jally-swap-duration"
+                    data-postfix=' Mins'>15 Mins
+            </output>
           </div>}
         </div>
       </div>
@@ -234,7 +268,7 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
           onClick={createJally}
         >{submitButtonText}</button>
       </div>
-    </form>
+    </form>}
   </>
 }
 

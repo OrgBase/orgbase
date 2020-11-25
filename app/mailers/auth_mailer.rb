@@ -4,14 +4,23 @@ class AuthMailer < ApplicationMailer
 
   def passwordless_link_email(user_id, token, validate: true,
                               subject: nil, message: nil,
-                              after_path: nil, sign_up: false)
+                              after_path: nil, sign_up: false,
+                              invite: false, invited_by_user: nil)
     @user = User.find(user_id)
     @sign_up = sign_up
+    @invite = invite
     if sign_up
       @title = "Verify your email address"
       @link_text = "Verify your email ⚡"
       @message = message || "Before we set up your account we need to quickly confirm your email address. All you need to do is click the link below:"
       subject ||= "Verify your email address"
+    elsif invite
+      company = invited_by_user&.company
+      playspace_name = company&.name
+      @title = "You’ve been invited to Jally!"
+      @link_text = "Accept Invitation ⚡"
+      @message = message || "Your teammate, #{invited_by_user&.name || ''}, has invited you to join the #{playspace_name || ''} Jally playspace. To sign up, all you need to do is click the link below:"
+      subject ||= "Welcome to Jally"
     else
       @title = "Sign in with magic link"
       @link_text = "Sign In ⚡"

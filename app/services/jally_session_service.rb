@@ -44,7 +44,7 @@ class JallySessionService
       )
     end
 
-    def create_or_clear_participant(employee:, jally_session:)
+    def create_or_clear_participant(employee:, jally_session:, schedule_match_job: true)
       participant = SessionParticipant.find_by(employee: employee, jally_session: jally_session)
       if participant.present?
         if participant.room.present?
@@ -62,7 +62,7 @@ class JallySessionService
         )
       end
 
-      MatchSessionParticipantJob.perform_later(participant.id, 3)
+      MatchSessionParticipantJob.perform_later(participant.id, 3) if schedule_match_job
 
       participant
     end
