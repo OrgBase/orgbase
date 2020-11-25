@@ -29,6 +29,10 @@ class CompanyController < ApplicationController
             company: @company,
             title: 'Team Member'
         )
+        invitees = params[:invitees]
+        invitees&.each do |invitee|
+          JallySessionService.create_account_and_send_invite(invitee, @company, @user)
+        end
       end
     end
 

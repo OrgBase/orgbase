@@ -33,32 +33,8 @@ class JallySessionController < ApplicationController
           frequency_unit: params[:frequency_unit])
 
       invitees = params[:invitees]
-      invitees.each do |invitee|
-        invited_user = ''
-        skip_invitation = false
-        if invitee[:value].is_a? Integer
-          skip_invitation = true
-          invited_user_id = invitee[:value]
-          invited_user = User.find(invited_user_id)
-          invited_employee = Employee.find_by(user: invited_user)
-        elsif invitee[:value] =~ Devise.email_regexp
-          invited_user = User.find_by(email: invitee[:value])
-          skip_invitation = invited_user.present? #account exists
-          invited_user ||= User.create!(email: invitee[:value],
-                       password: SecureRandom.alphanumeric(8))
-          invited_employee = invited_user&.employee
-          invited_employee ||= Employee.create!(user: invited_user, company: @company)
-        end
-        if invited_employee.present?
-          # JallySessionService.create_or_clear_participant(
-          #     employee: invited_employee,
-          #     jally_session: @session,
-          #     schedule_match_job: false
-          # )
-
-          PasswordlessLinkService.new(invited_user).send_token!(invite: true,
-                                                                invited_by_user: @user) if !skip_invitation
-        end
+      invitees&.each do |invitee|
+        JallySessionService.create_account_and_send_invite(invitee, @company, @user)
       end
       if params[:scheduled_at].present?
         return render json: {scheduled: true}

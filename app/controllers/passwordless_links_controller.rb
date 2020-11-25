@@ -50,19 +50,16 @@ class PasswordlessLinksController < ApplicationController
     name = params[:name]
 
     @user = User.find_by(email: email_requested) || User.where("email ILIKE ?", email_requested).first
-
-    if @user.present?
-      return redirect_to passwordless_link_login_path, flash: { warning: "Uh oh! There is already an account with that email. Did you mean to log in instead?" }
-    end
-    @user = User.create!(email: email_requested,
+    new_user = @user.nil?
+    @user ||= User.create!(email: email_requested,
                          name: name,
                          password: SecureRandom.alphanumeric(8))
 
-    PasswordlessLinkService.new(@user).send_token!(sign_up: true)
+    PasswordlessLinkService.new(@user).send_token!(sign_up: new_user)
 
     Slack.new_sign_up({email: email_requested})
 
-    redirect_to root_path, flash: { success: "We just sent the magic link to #{email_requested}." }
+    redirect_to passwordless_link_signup_path, flash: { success: "We just sent the magic link to #{email_requested}." }
   end
 
   def login
