@@ -44,12 +44,12 @@ class JallySessionService
       )
     end
 
-    def create_or_clear_participant(employee:, jally_session:, schedule_match_job: true)
+    def create_or_clear_participant(employee:, jally_session:)
       participant = SessionParticipant.find_by(employee: employee, jally_session: jally_session)
       if participant.present?
         if participant.room.present?
           if participant.room.created_at > jally_session.config.scheduled_at &&
-              participant.room.created_at < jally_session.config.scheduled_at + (jally_session.config.cut_off_seconds+5).seconds
+              participant.room.created_at < jally_session.config.scheduled_at + (jally_session.config.session_duration_seconds).seconds
             return participant
           end
           participant.room = nil
@@ -61,8 +61,6 @@ class JallySessionService
             jally_session: jally_session
         )
       end
-
-      MatchSessionParticipantJob.perform_later(participant.id, 3) if schedule_match_job
 
       participant
     end
