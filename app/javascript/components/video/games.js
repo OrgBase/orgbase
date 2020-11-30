@@ -189,7 +189,7 @@ const games = (randomFraction) => [
   },
   {
     name: 'Would you rather',
-    rules: `${getRandomVariant(wouldYouRatherVariants, randomFraction)}. Take it in turns to reveal which one you’d choose, and why.`,
+    rules: `${getRandomVariant(wouldYouRatherVariants, randomFraction)} Take it in turns to reveal which one you’d choose, and why.`,
     weight: 25
   },
   {
