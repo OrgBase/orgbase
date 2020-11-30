@@ -33,11 +33,12 @@ class User < ApplicationRecord
   has_one :company, through: :employee
 
   def first_name
-    name.split.select { |x| ["Mrs.", "Mrs", "Ms.", "Ms", "M/s.", "M/s", "Mr.", "Mr", "Dr.", "Dr"].exclude?(x) }.first
+    return nil if name.blank?
+    name&.split&.select { |x| ["Mrs.", "Mrs", "Ms.", "Ms", "M/s.", "M/s", "Mr.", "Mr", "Dr.", "Dr"].exclude?(x) }.first
   end
 
   def last_name
-    if name.split.length > 1
+    if name&.split&.length > 1
       name.split.last
     else
       ""

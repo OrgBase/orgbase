@@ -46,9 +46,10 @@ class JallySessionController < ApplicationController
       @company = @session&.company
       team = @session&.team
 
-      # If we hit this, it means the user was invited with the session link
+
       if @company
         @employee = @user.employee
+        # If we hit this, it means the user was invited with the session link
         if @employee.blank?
           @employee = Employee.create!(user: @user,
                            company: @company,

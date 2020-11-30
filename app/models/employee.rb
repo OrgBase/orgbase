@@ -29,7 +29,9 @@ class Employee < ApplicationRecord
 
   private
   def generate_slug
-    self.slug = self.user.name.parameterize if self.slug.nil?
+    name = self.user.name
+    name ||= self.user.email.split('@').first
+    self.slug = name.parameterize if self.slug.nil?
     idx=1
 
     while Employee.find_by(slug: self.slug).present?

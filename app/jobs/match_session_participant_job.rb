@@ -3,9 +3,10 @@ class MatchSessionParticipantJob < ApplicationJob
 
   def perform(session_id, room_capacity=3)
     session = JallySession.find(session_id)
-    participants = session&.session_participants
-    return if participants.blank?
+    participants = session&.session_participants&.select {|sp| sp.room.blank?}
     num_participants = participants.length
+
+    return if num_participants == 0
 
     if num_participants == 1
       room_with_space = session.rooms.find do |room|

@@ -6,7 +6,7 @@ import JallyVerticalLogo from '../../stylesheets/img/jally-vertical-logo.svg'
 import InviteTeammatesForm from "./InviteTeammatesForm";
 
 const JallyAvatar = ({ name, size, round, playspaceName }) => {
-  const [editProfileModalState, setEditProfileModalState] = useState(false)
+  const [editProfileModalState, setEditProfileModalState] = useState(!name && !!playspaceName)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [addTeammatesModalState, setAddTeammatesModalState] = useState(false)
 

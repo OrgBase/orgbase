@@ -23,7 +23,8 @@ class RoomController < ApplicationController
     client = TwilioService.client(@room.slug)
     @twilio_room = client.video.rooms.list(unique_name: @room.slug).try(:first)
 
-    participant_identity = "#{@user.first_name}-$-#{@employee.slug}"[0..127]
+    #twilio only allows a max of 128 chars
+    participant_identity = "#{@user.first_name || @user.email}-$-#{@employee.slug}"[0..127]
     connected_participants = @twilio_room&.participants&.list({status: 'connected'}) || []
     already_connected = connected_participants.map(&:identity).include?(participant_identity)
 

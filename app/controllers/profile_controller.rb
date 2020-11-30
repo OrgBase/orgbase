@@ -8,7 +8,7 @@ class ProfileController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @user = current_user
-      if @user.name
+      if name
         @user.name = name
         @user.save!
       end
