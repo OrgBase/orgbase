@@ -1,25 +1,35 @@
 class MatchSessionParticipantJob < ApplicationJob
   queue_as :default
 
-  def perform(participant_id, room_capacity)
-    session_participant = SessionParticipant.find(participant_id)
-    session = session_participant.jally_session
-    employee = session_participant.employee
-    participant_match = SessionParticipant.where(
-        jally_session: session,
-        room: nil
-    ).where.not(id: participant_id).sample
-    if participant_match.present?
-      ActiveRecord::Base.transaction do
-        room = RoomService.create_room(company: employee.company, capacity: room_capacity)
-        room.jally_session = session
-        room.save!
+  def perform(session_id, room_capacity=3)
+    session = JallySession.find(session_id)
+    participants = session&.session_participants
+    return if participants.blank?
+    num_participants = participants.length
 
-        session_participant.room = room
-        session_participant.save!
-        participant_match.room = room
-        participant_match.save!
+    if num_participants == 1
+      room_with_space = session.rooms.find do |room|
+        room.session_participants.length < room_capacity
       end
+
+      return if room_with_space.blank?
+
+      session_participant = participants.last
+      session_participant.room = room_with_space
+      session_participant.save!
+    end
+
+    participants = participants.shuffle
+
+    groups = []
+    if (num_participants % 2) == 1
+      groups.push participants.pop(3)
+    end
+
+    groups += participants.each_slice(2).to_a
+
+    groups.each do |group|
+      RoomService.create_room_for_group(group, room_capacity)
     end
   end
 end

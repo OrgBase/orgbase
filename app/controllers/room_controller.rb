@@ -8,29 +8,22 @@ class RoomController < ApplicationController
     @employee = @user.employee
     @company = @employee&.company
 
-    capacity = params[:capacity] || 3
     @room_name = params[:identifier]
-    if @room_name.blank? || @room_name == 'new'
-      @room = RoomService.create_room(
-          company: @company,
-          capacity: capacity
-      )
-      return redirect_to room_path(identifier: @room.slug)
-    else
-      @room = Room.find_by(slug: @room_name)
-      company = @room&.company
 
-      if company
-        authorize(company, :show?)
-      else
-        return redirect_to home_path(error_message: "Uh oh! That seems like an invalid room.")
-      end
+    return redirect_to home_path if @room_name.blank?
+
+    @room = Room.find_by(slug: @room_name)
+
+    if @room
+      authorize(@room, :join?)
+    else
+      return redirect_to home_path(error_message: "Uh oh! That seems like an invalid room.")
     end
 
     client = TwilioService.client(@room.slug)
     @twilio_room = client.video.rooms.list(unique_name: @room.slug).try(:first)
 
-    participant_identity = "#{@user.first_name}-$-#{@employee.slug}"
+    participant_identity = "#{@user.first_name}-$-#{@employee.slug}"[0..127]
     connected_participants = @twilio_room&.participants&.list({status: 'connected'}) || []
     already_connected = connected_participants.map(&:identity).include?(participant_identity)
 
