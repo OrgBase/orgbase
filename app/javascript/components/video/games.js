@@ -154,20 +154,26 @@ const atoZVariants = ["a country", "an animal", "a famous actor/actress", "a fam
   "a celebrity", "a song", "a body part", "a household item", "a drink brand", "a company",
   "a physical activity / sport"]
 
-const twentyOneVariants = ["instead of saying the number 10, you have to say “Octopus”",
-  "every time you say a number divisible by 6 you have to clap",
-  "you have to sing rather than say the number 21",
-  "you have to duck out of view when saying the number 15",
-  "instead of saying the number 12, you have to say 11",
-  "instead of saying the number 8 you have to moo",
-  "you have to say the number 1 in a different language",
-  "you have to say the number 9 in roman numeral form (IX)",
-  "instead of saying the number 10, you have to knock twice on your desk",
-  "instead of saying the number 21, you have to say the name of a celebrity crush",
-  "instead of saying the number 3 normally, you have to whisper it",
-  "every time you say a multiple of 4 you have to bow",
-  "instead of saying the number 10, you have to say a word which rhymes with 10",
-  "instead of saying the number 17, you have to say “20 minus 3”"]
+const twentyOneVariants = ["1. Instead of saying the number 10, you have to say “Octopus”\n" +
+"2. You have to sing rather than say the number 21",
+  "1. Instead of saying the number 10, you have to say a word which rhymes with 10\n" +
+  "2. Every time you say a number divisible by 6 you have to clap",
+  "1. Instead of saying the number 10, you have to knock twice on your desk\n" +
+  "2. Instead of saying the number 12, you have to say 11 (13 still comes next)",
+  "1. You have to say the number 1 in a different language\n" +
+  "2. You have to duck out of view when saying the number 15",
+  "1. Instead of saying the number 8, you have to moo\n" +
+  "2. You have to say the number 9 in roman numeral form (IX)",
+  "1. Instead of saying the number 5, you have to say \"cinco de mayo\"\n" +
+  "2. Instead of saying the number 21, you have to say the name of a celebrity crush",
+  "1. Instead of saying the number 3 normally, you have to whisper it\n" +
+  "2. You have to replace every multiple of 7 (including 7) with a movie quote",
+  "1. Every time you say a multiple of 4 you have to bow\n" +
+  "2. Instead of saying the number 17, you have to say “20 minus 3”",
+  "1. You have to say the number 21 in slow motion\n" +
+  "2. Instead of saying the number 10, you have to wink 10 times",
+  "1. Instead of saying the number 5, you have to high five your camera (just don't break it!)\n" +
+  "2. Instead of saying the number 21, you have to give a 21 gun salute (open to interpretation!)"]
 
 const getRandomVariant = (variants, randomFraction=Math.random()) => {
   return variants[Math.floor( randomFraction * variants.length)]
@@ -250,10 +256,11 @@ const games = (randomFraction) => [
   },
   {
     name: '21',
-    rules: 'Together, you have to count to 21 one digit at a time, with each player taking alternate turns. ' +
-      'When you get to 21, the person who landed on it gets to add in a new rule, ' +
-      'then you start over again. Play until someone slips up!\n' +
-      `We’ll give you your first rule... ${getRandomVariant(twentyOneVariants, randomFraction)}`,
+    rules: 'Together, you have to count to 21 one digit at a time, with each player taking alternate turns.' +
+      ' There is a catch though, you will have to follow some counterintuitive rules as you do this, ' +
+      'and everytime you reach 21, the person who landed on it gets to add an additional rule ' +
+      "into the mix. Repeat until someone slips up! " +
+      `We’ll give you your first two rules... \n ${getRandomVariant(twentyOneVariants, randomFraction)}`,
     weight: 10
   }
 ];

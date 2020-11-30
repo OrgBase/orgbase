@@ -56,7 +56,7 @@ const SidePanel = ({ localParticipant, roomName }) => {
       {panelType && game ? (
         <>
           <h3 className="title has-text-white"> {game.name} </h3>
-          <p className="game-rules px-2">{game.rules}</p>
+          <p className="game-rules px-2 mb-2">{game.rules}</p>
           <button className="button jally-button" key={+new Date()} onClick={loadRandomGame}>
             <span className='icon'>
             <i className="fas fa-random"></i>
