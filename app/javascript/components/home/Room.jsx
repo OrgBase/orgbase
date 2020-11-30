@@ -88,14 +88,14 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   return (
     <RoomContextProvider roomShared={roomShared}>
       <div className="columns room is-mobile room-container is-desktop is-vcentered">
-        <div className='column'></div>
-        <div className="column is-two-fifths remote-participants has-text-centered">
+        {/*<div className='column'></div>*/}
+        <div className="column is-half remote-participants has-text-centered">
           <div className='columns is-gapless is-multiline full-room-height'>
             {remoteParticipants()}
             {participants.length < 2 && renderLocalParticipant()}
           </div>
         </div>
-        <div className="column is-two-fifths">
+        <div className="column is-half">
           <div className="columns is-gapless is-multiline full-room-height">
             {participants.length == 2 && renderLocalParticipant()}
             <div className={`column ${participants.length == 2 ? 'is-half-height' : ''}`}>
@@ -112,29 +112,29 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
             </div>
           </div>
         </div>
-        <div className='column has-text-centered'>
-          <button className="button is-primary leave-room-btn is-small my-3" onClick={handleExit}>
-            <span className='icon'>
-              <i className="fas fa-sign-out-alt"></i>
-            </span>
-            <span>Exit Session</span>
-          </button>
-          <div className='my-6'>
-            <div>
-              <img src={videoFilter} width='80px' />
-            </div>
-            <div className="field ml-2">
-              <input id="switchRoundedDefault" type="checkbox" name="switchRoundedDefault"
-                     className="switch is-rounded"
-                     onChange={(e) => console.log(`Filter: ${e.target.checked}`)}
-              />
-              <label htmlFor="switchRoundedDefault"></label>
-            </div>
-          </div>
-          <div className='is-clickable my-3'>
-            <img src={cameraImage}/>
-          </div>
-        </div>
+        {/*<div className='column has-text-centered'>*/}
+        {/*  <button className="button is-primary leave-room-btn is-small my-3" onClick={handleExit}>*/}
+        {/*    <span className='icon'>*/}
+        {/*      <i className="fas fa-sign-out-alt"></i>*/}
+        {/*    </span>*/}
+        {/*    <span>Exit Session</span>*/}
+        {/*  </button>*/}
+        {/*  <div className='my-6'>*/}
+        {/*    <div>*/}
+        {/*      <img src={videoFilter} width='80px' />*/}
+        {/*    </div>*/}
+        {/*    <div className="field ml-2">*/}
+        {/*      <input id="switchRoundedDefault" type="checkbox" name="switchRoundedDefault"*/}
+        {/*             className="switch is-rounded"*/}
+        {/*             onChange={(e) => console.log(`Filter: ${e.target.checked}`)}*/}
+        {/*      />*/}
+        {/*      <label htmlFor="switchRoundedDefault"></label>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*  <div className='is-clickable my-3'>*/}
+        {/*    <img src={cameraImage}/>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
     </RoomContextProvider>
   );
