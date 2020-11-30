@@ -27,6 +27,7 @@
 class JallySessionSetting < ApplicationRecord
   belongs_to :jally_session
   after_create :schedule_clear_session_job
+  after_save :schedule_participant_matching
 
 
   FREQUENCY_UNITS = %w(days weeks months)
@@ -39,6 +40,21 @@ class JallySessionSetting < ApplicationRecord
   def schedule_clear_session_job
     return unless recurring
     job_schedule_time = scheduled_at + (session_duration_seconds + 3600).seconds
-    ClearRecurringSessionJob.set(wait_until: job_schedule_time).perform_later(session_id)
+    ClearRecurringSessionJob.set(wait_until: job_schedule_time).perform_later(jally_session_id)
+  end
+
+  def schedule_participant_matching
+    if saved_change_to_attribute?("scheduled_at")
+      if scheduled_at >= DateTime.now
+        start_at = scheduled_at
+        cut_off_time = scheduled_at + cut_off_seconds.seconds
+        while start_at <= cut_off_time
+          start_at += 20.seconds
+          MatchSessionParticipantJob.set(wait_until: start_at).perform_later(jally_session_id)
+        end
+      else
+        MatchSessionParticipantJob.perform_later(jally_session_id)
+      end
+    end
   end
 end
