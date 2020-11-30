@@ -18,6 +18,7 @@ class HomeController < ApplicationController
     if @employee.present?
       @company = @employee.company
       @selectable_users = Employee.where(company: @company).map {|e| {value: e.user.id, label: e.user.name}}
+      @selectable_users -= [@user]
       return render template: 'home/lobby'
     else
       render template: 'home/index'
