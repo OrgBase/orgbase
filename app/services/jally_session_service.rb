@@ -87,5 +87,23 @@ class JallySessionService
                                                               invited_by_user: invited_by_user) if !skip_invitation
       end
     end
+
+    def clear_recurring_session(session_id)
+      session = JallySession.find(session_id)
+      config = session.config
+
+      return unless config&.recurring
+      #make sure its atleast 30 mins after the session has ended
+      return unless DateTime.now > config.scheduled_at + (config.session_duration_seconds + 1800).seconds
+
+      session.rooms.each(&:destroy!)
+      session.session_participants.each(&:destroy!)
+
+      config.scheduled_at += config.frequency_length.send(config.frequency_unit)
+      config.save!
+
+      schedule_time = config.scheduled_at + (config.session_duration_seconds + 3600).seconds
+      ClearRecurringSessionJob.set(wait_until: schedule_time).perform_later(session_id)
+    end
   end
 end

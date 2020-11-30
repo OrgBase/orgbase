@@ -26,6 +26,7 @@
 #
 class JallySessionSetting < ApplicationRecord
   belongs_to :jally_session
+  after_create :schedule_clear_session_job
 
 
   FREQUENCY_UNITS = %w(days weeks months)
@@ -33,4 +34,11 @@ class JallySessionSetting < ApplicationRecord
   validates :frequency_unit, allow_nil: true, inclusion: { in: FREQUENCY_UNITS }
   validates :scheduled_at, presence: true
   validates :cut_off_seconds, presence: true
+
+  private
+  def schedule_clear_session_job
+    return unless recurring
+    job_schedule_time = scheduled_at + (session_duration_seconds + 3600).seconds
+    ClearRecurringSessionJob.set(wait_until: job_schedule_time).perform_later(session_id)
+  end
 end
