@@ -17,7 +17,7 @@ const JoinPlayspaceForm = ({domainPlayspaces, toggleCreatePlayspaceModal}) => {
       .then(response => response.json())
       .then(data => {
         if(data.success) {
-          window.location.href = "/lobby?notice=This is your playspace now. Happy Jally'ing! 🎉 "
+          window.location.href = "/lobby?notice=Welcome to your Jally playspace! This is where you’ll create, join and participate in fun Jally sessions with your colleagues. Why not schedule in a Jally session for you and some colleagues now?"
         }
       })
       .catch(error => {

@@ -14,10 +14,10 @@ const Lobby = ({ errorMessage, notice, users }) => {
   return (
     <>
       <div className="has-text-centered mt-6">
-        {errorMessage && <p className="notification is-warning mx-6 hide-in-five">
+        {errorMessage && <p className="notification is-warning mx-6">
           {errorMessage}
         </p>}
-        {notice && <p className="notification is-success mx-6 hide-in-five">
+        {notice && <p className="notification is-success mx-6">
           {notice}
         </p>}
         <div>
