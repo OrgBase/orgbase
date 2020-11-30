@@ -126,8 +126,11 @@ body {
   color: rgba(0, 0, 0, 0.7);
 }
 .notification.is-notice{
-  background-color: #48c774;
+  background-color: $primary;
   color: #fff;
+}
+.notification.is-success {
+  background-color: $primary;
 }
 
 input[type="range"].slider.has-output-tooltip.jally-slider + output {

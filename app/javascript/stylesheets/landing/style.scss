@@ -102,7 +102,7 @@ $family-primary: 'DM Sans';
   padding: 12px;
   text-align: center;
   &.alert-success, &.alert-notice {
-    background: #55EBD0;
+    background: $primary;
   }
   &.alert-warning {
     background: #B00100;
