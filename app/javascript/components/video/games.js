@@ -272,6 +272,36 @@ const dontDodgeVariants = ["What songs make you feel like you could take on a wh
   "If you had a chance to broadcast one song to all the 7.8 billion people on this planet, which song would you choose?",
   "What for you is the adult version of “there is no Santa Claus”?"]
 
+const vowelVariants = [
+  'movie',
+  'tv programme',
+  'savoury food',
+  'country',
+  'city',
+  'colour',
+  'restaurant',
+  'sweet food',
+  'car',
+  'hobby',
+  'sport',
+  'board game',
+  'book',
+  'song',
+  'artist',
+  'instrument',
+  'actor',
+  'actress',
+  'smell',
+  'animal',
+  'type of pet',
+  'dinoaur',
+  'item of clothing',
+  'brand',
+  'company',
+  'charity',
+  'exercise'
+]
+
 const getRandomVariant = (variants, randomFraction=Math.random()) => {
   return variants[Math.floor( randomFraction * variants.length)]
 }
@@ -364,7 +394,13 @@ const games = (randomFraction) => [
     rules: "Take it in turns to share your true, unflitered answer to the following question:\n\n" +
       `${getRandomVariant(dontDodgeVariants, randomFraction)}`,
     weight: 15
-  }
+  },
+  {
+    name: 'Vowel movement',
+    rules: `Take it in turns to name your favourite ${getRandomVariant(vowelVariants, randomFraction)} ` +
+      "without your lips touching. Everyone else has to guess what it is!",
+    weight: 5
+  },
 ];
 
 const getGame = (i, randomFraction=Math.random()) => {
