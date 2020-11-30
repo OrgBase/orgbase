@@ -329,7 +329,7 @@ const games = (randomFraction) => [
     name: '10 Questions',
     rules: `Take it in turns to think of ${getRandomVariant(tenQuestionsVariants, randomFraction)}, ` +
       'everyone else can then ask 10 questions (yes or no answers only) to figure out what it is.',
-    weight: 7
+    weight: 5
   },
   {
     name: 'Drawkward',
@@ -346,26 +346,26 @@ const games = (randomFraction) => [
       'same letter as the first letter of the last name before it. If it takes you longer than 5 seconds to ' +
       'think of a name that works, you lose!\n' +
       `Get started with ${getRandomVariant(chainTheNameVariants, randomFraction)}...`,
-    weight: 8
+    weight: 5
   },
   {
     name: 'Yes! No!',
     rules: `Time to have a chat about your ${getRandomVariant(yesNoVariants, randomFraction)}. ` +
       'There’s just one catch, if you say either ‘yes’ or ‘no’, you lose!',
-    weight: 7
+    weight: 5
   },
   {
     name: 'A to Z',
     rules: `Work together to name ${getRandomVariant(atoZVariants, randomFraction)} for each letter of the alphabet. ` +
       'The aim is to go from ‘a’ all the way to ‘z’. If you can’t think of one along the way then you both lose... ' +
       'unless one doesn’t actually exist for the letter in question (ask the internet)!',
-    weight: 10
+    weight: 5
   },
   {
     name: 'Dum didum dum di dum dum 🎶🎤',
     rules: 'Take it in turns to pick a song. You then have to sing it without using the lyrics, ' +
       'and everyone else has to guess the name of the song. If the song is guessed correctly, you all win!',
-    weight: 3
+    weight: 4
   },
   {
     name: 'Virtual band practice',
@@ -387,7 +387,7 @@ const games = (randomFraction) => [
       'and everytime you reach 21, the person who landed on it gets to add an additional rule ' +
       "into the mix. Repeat until someone slips up! " +
       `We’ll give you your first two rules... \n ${getRandomVariant(twentyOneVariants, randomFraction)}`,
-    weight: 10
+    weight: 8
   },
   {
     name: 'Don\'t Dodge The Question',
