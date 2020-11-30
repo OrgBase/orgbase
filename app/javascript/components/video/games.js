@@ -235,10 +235,9 @@ const games = (randomFraction) => [
     weight: 10
   },
   {
-    name: 'Dum dum di dum 🎶🎤',
-    rules: 'Take it in turns to pick a song. You then have to “sing” that song using only the sounds ' +
-      '‘dum’ and ‘di’, and everyone else has to guess the name of the song. ' +
-      'If the song is guessed correctly, you all win!',
+    name: 'Dum didum dum di dum dum 🎶🎤',
+    rules: 'Take it in turns to pick a song. You then have to sing it without using the lyrics, ' +
+      'and everyone else has to guess the name of the song. If the song is guessed correctly, you all win!',
     weight: 3
   },
   {
