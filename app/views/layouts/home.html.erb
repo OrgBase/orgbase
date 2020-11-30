@@ -17,27 +17,15 @@
 
 <body>
   <!-- ******  Header ********** -->
-  <div class="jally-header columns is-mobile mb-0">
-    <div class="column boxed-container">
-      <div class="columns mb-0">
-        <div class="column blob-container">
-          <div class="top-left-blob blob">
-            <img src="<%= asset_pack_path('media/stylesheets/img/top-left-blob.svg') %>" class="blob-img">
-          </div>
-          <div class="logo-text-container">
-            <a href="/">
-              <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-text-white.svg') %>" class="jally-logo-img">
-            </a>
-          </div>
-        </div>
-        <div class="column blob-container">
-          <div class="top-right-blob blob is-hidden-mobile">
-            <img src="<%= asset_pack_path('media/stylesheets/img/top-right-blob.svg') %>" class="blob-img">
-          </div>
-          <div class="jally-avatar">
-            <%= render partial: 'home/jally_avatar' %>
-          </div>
-        </div>
+  <div class="navbar jally-navbar boxed-container">
+    <div class="navbar-brand is-narrow">
+      <div class=" navbar-item ml-5">
+        <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-main.svg') %>" class="jally-logo-img">
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="jally-avatar">
+        <%= render partial: 'home/jally_avatar' %>
       </div>
     </div>
   </div>
@@ -48,23 +36,8 @@
   </div>
 
   <!-- ******  Footer ********** -->
-  <div class="columns">
-    <div class="column boxed-container">
-      <div class="footer jally-footer blob-container">
-        <div class="bottom-left-blob blob is-hidden-mobile">
-          <img src="<%= asset_pack_path('media/stylesheets/img/bottom-left-blob.svg') %>" class="blob-img">
-        </div>
-        <div class="blob-container team-jally-text is-hidden-mobile">
-          Made with ❤️ by team Jally
-          <div class="bottom-center-blob blob">
-            <img src="<%= asset_pack_path('media/stylesheets/img/bottom-center-blob.svg') %>" class="blob-img">
-          </div>
-        </div>
-        <div class="bottom-right-blob blob is-hidden-mobile">
-          <img src="<%= asset_pack_path('media/stylesheets/img/bottom-right-blob.svg') %>" class="blob-img">
-        </div>
-      </div>
-    </div>
+  <div class="boxed-container has-text-centered jally-footer">
+    Made with ❤️ by team Jally
   </div>
 </body>
 </html>

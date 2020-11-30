@@ -29,14 +29,10 @@ body {
   flex: 1 0 auto;
 }
 
-.footer.jally-footer {
-  background: white;
-  color: black;
-  text-align: center;
-  padding: 0.5rem;
-  a {
-    text-decoration: underline;
-  }
+.jally-footer {
+  color: white;
+  padding: 18px;
+  background: url('../img/bottom-center-blob.svg') no-repeat center;
 }
 
 .input:focus {
@@ -180,4 +176,10 @@ textarea.textarea:not([rows]) {
 
 .jally-output {
   z-index: 0 !important;
+}
+
+.jally-navbar {
+  margin: auto;
+  left: 0;
+  right: 0;
 }
