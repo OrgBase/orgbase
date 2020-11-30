@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   get '/session/:identifier' => "jally_session#join_session", :as => :jally_session
   post '/session' => "jally_session#join_session", :as => :create_jally_session
+  post '/session-room' => "jally_session#get_room", :as => :get_session_room
 
   post '/profile' => "profile#update_profile", :as => :update_profile
   post '/company' => "company#join_company", :as => :join_company

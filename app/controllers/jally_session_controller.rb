@@ -79,4 +79,21 @@ class JallySessionController < ApplicationController
 
     render template: 'session/session'
   end
+
+  def get_room
+    session_slug = params[:session_slug]
+    session = JallySession.find_by(slug: session_slug)
+
+    user = current_user
+    employee = user&.employee
+
+    session_participant = SessionParticipant.find_by(
+        employee: employee,
+        jally_session: session
+    )
+
+    render json: {
+        room_slug: session_participant&.room&.slug
+    }
+  end
 end

@@ -2,6 +2,7 @@ import React, { createRef} from 'react';
 import moment from 'moment';
 import Countdown from 'react-countdown';
 import useInterval from "../../helpers/useInterval";
+import fetchWrapper from "../../helpers/fetchWrapper";
 
 
 const Session = ({ sessionSlug, config }) => {
@@ -59,11 +60,26 @@ const Session = ({ sessionSlug, config }) => {
     </button>
   )
 
+  const getSessionRoom = () => {
+    fetchWrapper('/session-room', 'POST', {
+      session_slug: sessionSlug
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(data.room_slug) {
+          window.location.href = `/room/${data.room_slug}`
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      });
+  }
+
   const allowedToJoin = () => {
     const now = Math.floor(new Date().getTime()/1000);
     const allowed = now >= config.scheduledAt && now <= config.scheduledAt + config.cutOffSeconds;
     if(allowed) {
-      useInterval(() => window.location.reload(), 5000)
+      useInterval(getSessionRoom, 5000)
     }
     return allowed
   }
