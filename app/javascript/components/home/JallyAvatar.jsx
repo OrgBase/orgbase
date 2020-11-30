@@ -30,8 +30,8 @@ const JallyAvatar = ({ name, size, round, playspaceName }) => {
           name={name}
           size={size}
           round={round}
-          color='#FFFFFF'
-          fgColor='#FF3E8F'
+          color='#6361DB'
+          fgColor='#FFFFFF'
         />
       </div>
       {dropdownOpen && <div className="dropdown-menu jally-dropdown-menu" role="menu">
