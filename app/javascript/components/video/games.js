@@ -68,7 +68,7 @@ const wouldYouRatherVariants = ["Would you rather the aliens that make first con
   "Would you rather travel the world for a year all expenses paid or have $40,000 to spend on whatever you want?",
   "Would you rather be the absolute best at something that no one takes seriously or be well above average but not anywhere near the best at something well respected?",
   "Would you rather it be impossible for you to be woken up for 11 straight hours every day, but you wake up feeling amazing, or you can be woken up normally but never feel totally rested?",
-  "Would you rather super sensitive taste or super sensitive hearing?",
+  "Would you rather have super sensitive taste or super sensitive hearing?",
   "Would you rather never lose your phone again or never lose your keys again?",
   "Would you rather lose all your money and valuables or all the pictures you have ever taken?",
   "Would you rather find your true love or a suitcase with five million dollars inside?",

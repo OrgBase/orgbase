@@ -1,4 +1,5 @@
 $primary: #61D1DB;
+$navbar-breakpoint: 300px;
 $family-primary: 'DM Sans';
 @import "bulma/bulma";
 /*--------------------------------------------------------------
@@ -9,10 +10,6 @@ $family-primary: 'DM Sans';
 @import "normalize";
 @import "layout/main";
 
-.top-logo-container {
-  position: relative;
-  height: 150px;
-}
 .blob-container {
   position: relative;
   padding-top: 40px;
@@ -39,11 +36,32 @@ $family-primary: 'DM Sans';
     height: 100%;
   }
 }
+.top-offset-navbar {
+  margin-top: 50px;
+}
 .logo-text-container {
   width: 260px;
 }
 .jally-logo-img {
-  height: 50px;
+  height: 45px;
+}
+
+.jally-navbar {
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+.section-container {
+  display: flex;
+  justify-content: center;
+}
+.bg-light-grey {
+  background-color: #FBF9FC;
+}
+
+.bg-primary {
+  background-color: $primary;
 }
 
 .login-link {
@@ -62,6 +80,7 @@ $family-primary: 'DM Sans';
 .medium-p {
   display: inline-block;
   max-width: 650px;
+  width:100%;
   margin-bottom: 20px;
 }
 
@@ -110,33 +129,8 @@ $family-primary: 'DM Sans';
 }
 
 .footer-container {
-  position: relative;
-  height: 200px;
-  color: white;
-  .footer-blob-div {
-    z-index: -999;
-    position: absolute;
-    height: 235px;
-    img {
-      height: 100%;
-      width: 100%;
-    }
-  }
-  .footer-color-patch {
-    position: absolute;
-    bottom: -50px;
-    right: 0;
-    z-index: -99;
-    height: 110px;
-    width: 100%;
-    background-color: #61d0db;
-  }
-  .footer-content-div {
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    margin-left: -207px;
-  }
+  padding-top: 55px;
+  background: #FBF9FC url('../img/footer-blob.svg') no-repeat;
 }
 
 @media screen and (max-width: 768px) {
