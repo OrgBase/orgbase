@@ -47,12 +47,10 @@ class PasswordlessLinksController < ApplicationController
     end
 
     email_requested = params[:email]
-    name = params[:name]
 
     @user = User.find_by(email: email_requested) || User.where("email ILIKE ?", email_requested).first
     new_user = @user.nil?
     @user ||= User.create!(email: email_requested,
-                         name: name,
                          password: SecureRandom.alphanumeric(8))
 
     PasswordlessLinkService.new(@user).send_token!(sign_up: new_user)

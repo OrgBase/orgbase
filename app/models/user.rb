@@ -28,7 +28,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
 
-  before_save :default_values
   validates :email, presence: true
   has_one :employee
   has_one :company, through: :employee
@@ -47,10 +46,5 @@ class User < ApplicationRecord
 
   def remember_me
     (super == nil) ? "1" : super
-  end
-
-  private
-  def default_values
-    self.name = email.split('@').first.titleize if self.name.nil?
   end
 end
