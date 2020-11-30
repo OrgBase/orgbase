@@ -128,7 +128,22 @@ const wouldYouRatherVariants = ["Would you rather the aliens that make first con
   "Would you rather only be able to live in a fairly remote area your entire life or only be able to live in the heart of a huge city your entire life?",
   "Would you rather give up all technology (cell phones, computers, etc.) or give up all movies, television, and books?",
   "Would you rather live in a world where people take everything too seriously or a world where people don’t take anything seriously?",
-  "Would you rather be liked by everyone you’ve ever met or have everything you’ve ever wanted?"];
+  "Would you rather be liked by everyone you’ve ever met or have everything you’ve ever wanted?",
+  "Would you rather have hiccups for the rest of your life or constantly feel like you have to sneeze?",
+  "Would you rather be surrounded by people who brag all the time or by people who complain all the time?",
+  "Would you rather be a strawberry with human thoughts or a human with strawberry thoughts?",
+  "Would you rather speak every language fluently or play every instrument perfectly?",
+  "Would you rather have tastebuds on your fingertips or a tongue twice the size?",
+  "Would you rather have chopsticks for hands or office chair wheels for feet?",
+  "Would you rather have the brains of a squirell (but still be human) or have the brains of a human but be a squirell?",
+  "Would you rather fight Mike Tyson once or talk like Mike Tyson for the rest of your life?",
+  "Would you rather change gender every time you sneeze or not be able to tell the difference between a muffin and a baby?",
+  "Would you rather have a cat with a human face or a dog with human hands?",
+  "Would you rather eat ice cream flavored poo, or poo flavored ice cream?",
+  "Would you rather become the smartest person in the world by increasing your own intelligence, " +
+  "or become the dumbest person in the world because everyone else has increased theirs?",
+  "Would you rather be really hairy or really slimy?"
+];
 
 const tenQuestionsVariants = ["one of your favourite hobbies", "one of your favourite meals", "your favourite actor",
   "your favourite movie", "your favourite book", "your favourite sport", "your favourite city",
@@ -278,7 +293,7 @@ const games = (randomFraction) => [
   {
     name: 'Would you rather',
     rules: `${getRandomVariant(wouldYouRatherVariants, randomFraction)} Take it in turns to reveal which one you’d choose, and why.`,
-    weight: 25
+    weight: 20
   },
   {
     name: '10 Questions',
