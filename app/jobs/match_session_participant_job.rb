@@ -14,9 +14,10 @@ class MatchSessionParticipantJob < ApplicationJob
 
       return if room_with_space.blank?
 
-      session_participant = participants.last
+      session_participant = participants.pop
       session_participant.room = room_with_space
       session_participant.save!
+      return
     end
 
     participants = participants.shuffle

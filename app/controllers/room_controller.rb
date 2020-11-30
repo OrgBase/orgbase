@@ -31,6 +31,8 @@ class RoomController < ApplicationController
       return redirect_to home_path(error_message: "Uh oh! That room is full.")
     end
 
+    @token = TwilioService.jwt_access_token(participant_identity, @room_name)
+
     # create a room if it doesn't exist
     if @twilio_room.blank?
       if Rails.env == 'development'
@@ -39,10 +41,13 @@ class RoomController < ApplicationController
         room_type = @room.capacity <= 3 ? 'peer-to-peer' : 'group'
       end
 
-      @twilio_room = TwilioService.p2p_room(client, @room_name, room_type)
-    end
+      begin
+        @twilio_room = TwilioService.p2p_room(client, @room_name, room_type)
+      rescue Exception
+        return redirect_to room_path(identifier: @room.slug)
+      end
 
-    @token = TwilioService.jwt_access_token(participant_identity, @room_name)
+    end
 
     render template: 'room/room'
   end

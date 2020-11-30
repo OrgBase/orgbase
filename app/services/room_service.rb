@@ -25,19 +25,17 @@ class RoomService
     end
 
     def create_room_for_group(group, capacity)
-      session = group.last&.session
+      session = group.last&.jally_session
       company = session&.company
       return if company.blank?
-      ActiveRecord::Base.transaction do
-        room = create_room(company:company, capacity:capacity)
-        room.jally_session = session
-        room.save!
+      room = create_room(company:company, capacity:capacity)
+      room.jally_session = session
+      room.save!
 
-        if group.length <= capacity
-          group.each do |session_participant|
-            session_participant.room = room
-            session_participant.save!
-          end
+      if group.length <= capacity
+        group.each do |session_participant|
+          session_participant.room = room
+          session_participant.save!
         end
       end
     end

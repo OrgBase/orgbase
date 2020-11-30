@@ -101,9 +101,6 @@ class JallySessionService
 
       config.scheduled_at += config.frequency_length.send(config.frequency_unit)
       config.save!
-
-      schedule_time = config.scheduled_at + (config.session_duration_seconds + 3600).seconds
-      ClearRecurringSessionJob.set(wait_until: schedule_time).perform_later(session_id)
     end
   end
 end
