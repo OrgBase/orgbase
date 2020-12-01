@@ -1,5 +1,6 @@
 <%= form_tag(signup_passwordless_link_path, method: 'post', class: 'landing-form') do %>
-  <input type="text" class="is-hidden form-check-field" name="checkField" placeholder="Are you real?">
+  <input type="text" class="is-hidden" name="checkField" placeholder="Are you real?">
+  <input type="text" class="is-hidden" name="requestPage" value="lander">
   <div class="field is-grouped">
     <div class="control">
       <input

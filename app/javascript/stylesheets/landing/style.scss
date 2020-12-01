@@ -138,6 +138,47 @@ $family-primary: 'DM Sans';
   }
 }
 
+.alert {
+  -moz-animation: hidein8 0s ease-in 5s forwards;
+  /* Firefox */
+  -webkit-animation: hidein8 0s ease-in 5s forwards;
+  /* Safari and Chrome */
+  -o-animation: hidein8 0s ease-in 8s forwards;
+  /* Opera */
+  animation: hidein8 0s ease-in 8s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hidein8 {
+  to {
+    color: transparent;
+    display: none !important;
+    height: 0;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    mso-hide: all;
+    visibility: hidden;
+    width: 0;
+  }
+}
+@-webkit-keyframes hidein8 {
+  to {
+    color: transparent;
+    display: none !important;
+    height: 0;
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    mso-hide: all;
+    visibility: hidden;
+    width: 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .medium-p {
     max-width: 100%;

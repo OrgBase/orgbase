@@ -57,7 +57,14 @@ class PasswordlessLinksController < ApplicationController
 
     Slack.new_sign_up({email: email_requested})
 
-    redirect_to passwordless_link_signup_path, flash: { success: "We just sent the magic link to #{email_requested}." }
+    request_page = params[:requestPage]
+
+
+    if request_page == 'lander'
+      redirect_to root_path, flash: { success: "We just sent the magic link to #{email_requested}." }
+    else
+      redirect_to passwordless_link_signup_path, flash: { success: "We just sent the magic link to #{email_requested}." }
+    end
   end
 
   def login
