@@ -3,8 +3,8 @@ import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "../video/Participant";
 import SidePanel from "../video/SidePanel";
 import RoomContextProvider from "../../context/RoomContextProvider";
-import cameraImage from '../../stylesheets/img/camera-button.svg';
-import videoFilter from '../../stylesheets/img/video-filter.svg';
+// import cameraImage from '../../stylesheets/img/camera-button.svg';
+// import videoFilter from '../../stylesheets/img/video-filter.svg';
 
 const Room = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
