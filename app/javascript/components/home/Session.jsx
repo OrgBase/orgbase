@@ -1,4 +1,4 @@
-import React, { createRef} from 'react';
+import React, { createRef, useState} from 'react';
 import moment from 'moment';
 import Countdown from 'react-countdown';
 import useInterval from "../../helpers/useInterval";
@@ -7,6 +7,7 @@ import fetchWrapper from "../../helpers/fetchWrapper";
 
 const Session = ({ sessionSlug, config }) => {
   const urlInputRef = createRef();
+  const [copyText, setCopyText] = useState('Copy')
 
   const handleExit = () => {
     window.open('/lobby', '_self');
@@ -16,35 +17,28 @@ const Session = ({ sessionSlug, config }) => {
     e.preventDefault();
     urlInputRef.current.select();
     document.execCommand('copy');
+    setCopyText('Copied!')
   }
 
   const urlCopier = () => {
     return (
       <>
-        <p className='mb-3 is-family-monospace'>
-        You'll be matched randomly with one of your colleagues as they join this Jally session!
-        Feel free to share this url with your team to invite them directly.
-        </p>
-        <div className='columns is-centered'>
+        <div className='columns is-centered is-multiline is-centered'>
+          <div className='column is-four-fifths mt-6'>
+            <h1 className='mb-3'>
+              Hold on tight.. we’ll get you matched up with some teammates shortly
+            </h1>
+          </div>
           <div className='column is-narrow'>
-            <div className="field has-addons">
-              <div className="control">
-                <input
-                  className='input room-url'
-                  ref={urlInputRef}
-                  defaultValue={window.location.href.split('?')[0]}
-                  readOnly
-                />
-              </div>
-              <div className="control">
-                <button className='button is-primary' onClick={copyToClipboard}>
-                      <span className='icon'>
-                        <i className="fas fa-copy"></i>
-                      </span>
-                  <span>Copy</span>
-                </button>
-              </div>
-            </div>
+            <input
+              className='input room-url'
+              ref={urlInputRef}
+              defaultValue={window.location.href.split('?')[0]}
+              readOnly
+            />
+            <button className='jally-button height-40 ml-2 px-3 has-text-weight-normal' onClick={copyToClipboard}>
+              <span>{copyText}</span>
+            </button>
           </div>
         </div>
       </>
@@ -143,7 +137,7 @@ const Session = ({ sessionSlug, config }) => {
       }
       {allowedToJoin() &&
         <>
-          <div className='subtitle has-text-centered'>We're searching for your match. Please wait and do not close the window.</div>
+          <p className='has-text-centered'>We're searching for your match. Please wait and do not close the window.</p>
           <div className='loading-box pending has-text-centered'></div>
         </>
       }

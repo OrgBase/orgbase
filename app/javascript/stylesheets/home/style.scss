@@ -191,6 +191,22 @@ h2 {
   line-height: 43px;
   color: #3D4250;
 }
+
+h1 {
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 43px;
+  color: #3D4250;
+  display: block;
+}
+.max-width-600 {
+  width: 100%;
+  max-width: 600px;
+}
+.session-container {
+  display: flex;
+  justify-content: center;
+}
 p {
   color: #696D91;
 }
@@ -201,4 +217,8 @@ p {
 
 .is-text-primary {
   color: $primary;
+}
+
+.height-40 {
+  height: 40px;
 }
