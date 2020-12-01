@@ -87,6 +87,15 @@ const Session = ({ sessionSlug, config }) => {
   }
 
   const countDownRenderer = ({ days, hours, minutes, seconds, completed }) => {
+    return <>
+      <p className='mt-6 mb-2'>Come back later or start your meditation marathon for the next ..</p>
+      <div className='columns is-centered is-p-color is-gapless is-mobile'>
+        {days && <div className='column is-narrow subtitle'>{days} {days > 1 ? 'days' : 'day'},&nbsp;</div>}
+        <div className='column is-narrow subtitle'>{hours} {hours > 1 ? 'hours' : 'hour'},&nbsp;</div>
+        <div className='column is-narrow subtitle'>{minutes} {minutes > 1 ? 'minutes' : 'minute'} and &nbsp;</div>
+        <div className='column is-narrow subtitle'>{seconds} {seconds > 1 ? 'seconds' : 'second'}.</div>
+      </div>
+    </>
     if (completed) {
       window.location.reload();
     } else {
@@ -115,29 +124,21 @@ const Session = ({ sessionSlug, config }) => {
         </>
         }
         {showCountDown() && <>
-          <div className='mt-3'>
-            This session is scheduled for {moment(config.scheduledAt * 1000).format('MMMM Do, h:mm a')}.
+          <h1 className='my-6'>
+            You’re early! This Jally hasn’t started yet.
+          </h1>
+          <div className='has-text-centered'>
+            <Countdown
+              date={new Date(config.scheduledAt * 1000)}
+              renderer={countDownRenderer}
+            />
           </div>
-          <div className="column is-narrow">
-            {exitButton()}
-          </div>
+          <button className='button jally-button height-40 ml-2 px-3 has-text-weight-normal my-6' onClick={() => window.location.href = "/lobby"}>
+            Back to Lobby
+          </button>
         </>
         }
       </div>
-      {showCountDown() &&
-      <div className='has-text-centered'>
-        <p> Starts in... </p>
-        <Countdown
-          date={new Date(config.scheduledAt * 1000)}
-          renderer={countDownRenderer}
-        />
-      </div>
-      }
-      {allowedToJoin() &&
-        <>
-
-        </>
-      }
     </div>
   );
 };
