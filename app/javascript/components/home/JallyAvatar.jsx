@@ -17,7 +17,7 @@ const JallyAvatar = ({ name, size, round, playspaceName }) => {
   }
   const toggleAddTeammatesModal = () => {
     setDropdownOpen(false)
-    setAddTeammatesModalState(!editProfileModalState)
+    setAddTeammatesModalState(!addTeammatesModalState)
   }
 
   return <>
