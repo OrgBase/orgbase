@@ -23,23 +23,19 @@ const Session = ({ sessionSlug, config }) => {
   const urlCopier = () => {
     return (
       <>
-        <div className='columns is-centered is-multiline is-centered'>
-          <div className='column is-four-fifths mt-6'>
-            <h1 className='mb-3'>
-              Hold on tight.. we’ll get you matched up with some teammates shortly
-            </h1>
-          </div>
-          <div className='column is-narrow'>
-            <input
-              className='input room-url'
-              ref={urlInputRef}
-              defaultValue={window.location.href.split('?')[0]}
-              readOnly
-            />
-            <button className='jally-button height-40 ml-2 px-3 has-text-weight-normal' onClick={copyToClipboard}>
-              <span>{copyText}</span>
-            </button>
-          </div>
+        <h1 className='mb-3 max-width-600 my-6'>
+          Hold on tight.. we’ll get you matched up with some teammates shortly
+        </h1>
+        <div>
+          <input
+            className='input room-url'
+            ref={urlInputRef}
+            defaultValue={window.location.href.split('?')[0]}
+            readOnly
+          />
+          <button className='jally-button height-40 ml-2 px-3 has-text-weight-normal' onClick={copyToClipboard}>
+            <span>{copyText}</span>
+          </button>
         </div>
       </>
     )
@@ -103,17 +99,17 @@ const Session = ({ sessionSlug, config }) => {
   };
 
   return (
-    <>
+    <div className='session-container'>
       <div className="has-text-centered">
-        {allowedToJoin() &&
-        <div className="column has-text-centered">
+        {allowedToJoin() && <>
           {urlCopier()}
-        </div>
+          <div className='loading-box pending has-text-centered my-6'></div>
+        </>
         }
         {sessionIsClosed() && <>
           <h1 className='ml-2 mt-2 my-6'>Oops! You’ve missed it</h1>
           <div className='subtitle is-p-color'>Unfortunately this Jally has already taken place. Feel free to start or schedule a new one!</div>
-          <button className='jally-button height-40 ml-2 px-3 has-text-weight-normal my-6' onClick={copyToClipboard}>
+          <button className='button jally-button height-40 ml-2 px-3 has-text-weight-normal my-6' onClick={() => window.location.href = "/lobby"}>
             Back to Lobby
           </button>
         </>
@@ -139,10 +135,10 @@ const Session = ({ sessionSlug, config }) => {
       }
       {allowedToJoin() &&
         <>
-          <div className='loading-box pending has-text-centered mt-6'></div>
+
         </>
       }
-    </>
+    </div>
   );
 };
 
