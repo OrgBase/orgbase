@@ -121,6 +121,7 @@ $family-primary: 'DM Sans';
   margin-top: 60px;
   padding: 12px;
   text-align: center;
+  color: white;
   &.alert-success, &.alert-notice {
     background: $primary;
   }
@@ -132,6 +133,9 @@ $family-primary: 'DM Sans';
 .footer-container {
   padding-top: 55px;
   background: #FBF9FC url('../img/footer-blob.svg') no-repeat;
+  .footer-content-div {
+    color: white;
+  }
 }
 
 @media screen and (max-width: 768px) {
