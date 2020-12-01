@@ -104,27 +104,29 @@ const Session = ({ sessionSlug, config }) => {
 
   return (
     <>
-      <div className="columns room is-mobile room-container is-centered">
+      <div className="has-text-centered">
         {allowedToJoin() &&
         <div className="column has-text-centered">
           {urlCopier()}
         </div>
         }
-        {sessionIsClosed() &&
-        <p className='ml-2 mt-2'>Uh oh! This jally session is currently not accepting new participants. <br />
-          Please head to Lobby to create a new room or start a new Session.</p>
+        {sessionIsClosed() && <>
+          <h1 className='ml-2 mt-2 my-6'>Oops! You’ve missed it</h1>
+          <div className='subtitle is-p-color'>Unfortunately this Jally has already taken place. Feel free to start or schedule a new one!</div>
+          <button className='jally-button height-40 ml-2 px-3 has-text-weight-normal my-6' onClick={copyToClipboard}>
+            Back to Lobby
+          </button>
+        </>
         }
-        {showCountDown() &&
-        <div className='mt-3'>
-          This session is scheduled for {moment(config.scheduledAt * 1000).format('MMMM Do, h:mm a')}.
-        </div>
+        {showCountDown() && <>
+          <div className='mt-3'>
+            This session is scheduled for {moment(config.scheduledAt * 1000).format('MMMM Do, h:mm a')}.
+          </div>
+          <div className="column is-narrow">
+            {exitButton()}
+          </div>
+        </>
         }
-        {!allowedToJoin() &&
-        <div className="column is-narrow">
-          {exitButton()}
-        </div>
-        }
-
       </div>
       {showCountDown() &&
       <div className='has-text-centered'>
@@ -137,8 +139,7 @@ const Session = ({ sessionSlug, config }) => {
       }
       {allowedToJoin() &&
         <>
-          <p className='has-text-centered'>We're searching for your match. Please wait and do not close the window.</p>
-          <div className='loading-box pending has-text-centered'></div>
+          <div className='loading-box pending has-text-centered mt-6'></div>
         </>
       }
     </>
