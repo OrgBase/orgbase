@@ -102,5 +102,28 @@ class JallySessionService
       config.scheduled_at += config.frequency_length.send(config.frequency_unit)
       config.save!
     end
+
+    def upcoming_jally_sessions(employee)
+      company = employee&.company
+      sessions = company&.jally_sessions
+
+      sessions.select do |session|
+        config = session.config
+        config.scheduled_at > DateTime.now
+      end
+    end
+
+    def active_jally_sessions(employee)
+      company = employee&.company
+      sessions = company&.jally_sessions
+      return [] if sessions.blank?
+
+      sessions = sessions.sort_by {|s| s.config.scheduled_at}
+
+      sessions.select do |session|
+        config = session.config
+        config.scheduled_at < DateTime.now && (config.scheduled_at + config.cut_off_seconds.seconds) > DateTime.now
+      end
+    end
   end
 end

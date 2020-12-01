@@ -13,6 +13,7 @@
 #
 class Company < ApplicationRecord
   before_create :generate_slug
+  has_many :jally_sessions
 
   private
   def generate_slug

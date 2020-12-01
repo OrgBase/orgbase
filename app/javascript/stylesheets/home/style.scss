@@ -184,3 +184,21 @@ textarea.textarea:not([rows]) {
   left: 0;
   right: 0;
 }
+
+h2 {
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 43px;
+  color: #3D4250;
+}
+p {
+  color: #696D91;
+}
+
+.is-p-color {
+  color: #696D91;
+}
+
+.is-text-primary {
+  color: $primary;
+}
