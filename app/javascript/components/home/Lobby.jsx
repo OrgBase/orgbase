@@ -42,7 +42,7 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
   const renderUpcomingJallies = (upcomingSessions) => {
 
     if (upcomingSessions && upcomingSessions.length) {
-      return <div className='mt-3 mb-3 is-p-color'>
+      return <div className='mt-3 mb-6 is-p-color'>
         {upcomingSessions.map(session => (
           <div key={session.slug} className='mt-3'>
             {session.recurring && <span className="icon">
@@ -54,7 +54,7 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
         ))}
       </div>
     } else {
-      return <div className='mt-6 mb-3'>
+      return <div className='mt-3 mb-6'>
         <p>There are no scheduled jallys on your playspace.</p>
       </div>
     }
