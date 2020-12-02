@@ -34,14 +34,14 @@ class Slack
     end
 
     def new_sign_up(data = {email: ""})
-      send_message(USER_ACTIVITY, "New Sign up! email: #{data[:email]}")
+      send_message(LEADS_CHANNEL, "New Sign up! email: #{data[:email]}")
     end
 
     def new_playspace(data = {name: "", email: ""})
-      send_message(LEADS_CHANNEL, "<!here|here>: New Playspace created! :tada:. Name: #{data[:name]}, created by: #{data[:email]}")
+      send_message(USER_ACTIVITY, "<!here|here>: New Playspace created! :tada:. Name: #{data[:name]}, created by: #{data[:email]}")
     end
     def spam_request(data={})
-      send_message(USER_ACTIVITY, "Mostly Spam :face_with_raised_eyebrow: #{JSON.pretty_generate(data)}")
+      send_message(LEADS_CHANNEL, "Mostly Spam :face_with_raised_eyebrow: #{JSON.pretty_generate(data)}")
     end
 
     def log_data(data = {})
