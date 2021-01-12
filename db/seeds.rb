@@ -32,6 +32,37 @@ Employee.create!(user: test_user,
                  slug: 'test',
                  title: 'Test User')
 
+wyr = Game.create!(name: 'Would you rather...',
+             game_type: 'ice-breaker',
+             instructions: 'Take it in turns to reveal which option you’d choose, and why')
+
+wyr_variants = ["Would you rather work 80 hours one week and have the next week off or work 40 hours both weeks, spread across seven days including weekends?",
+            "Would you rather do something you love and make just enough money to get by or do something you hate but make millions?",
+            "Would you rather live in a big city or a small town?",
+            "Would you rather get paid your entire salary plus benefits all at once for the year or get paid little by little throughout the year?",
+            "Would you rather run a country or a business?",
+            "Would you rather eat the oldest thing in your fridge or do a deep clean of your neighbour’s bathroom?"]
+
+wyr_variants.each do |v|
+  GameVariant.create!(game: wyr,
+                      variant: v)
+end
+
+ddtq = Game.create!(name: 'Don’t dodge the question!',
+                   game_type: 'ice-breaker',
+                   instructions: 'Take it in turns to share your true, unfiltered answers to the question shown')
+
+ddtq_variants = ["What’s the best trip (travel) you ever had?",
+                "What’s your favorite thing about the place you live?",
+                "If you could live anywhere in the world for a year, where would it be?",
+                "Where is your favorite vacation spot?",
+                "What’s your favorite seat on an airplane?",
+                "Have you ever been on a cruise?"]
+
+ddtq_variants.each do |v|
+  GameVariant.create!(game: ddtq,
+                      variant: v)
+end
 
 CompanyParticipant.create!(user: midhun,
                            company: company,

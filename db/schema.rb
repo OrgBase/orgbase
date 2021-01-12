@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_104014) do
+ActiveRecord::Schema.define(version: 2021_01_12_122717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(version: 2020_11_22_104014) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "game_variants", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.string "variant"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_game_variants_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "name"
+    t.string "game_type"
+    t.string "instructions"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "jally_session_settings", force: :cascade do |t|
@@ -161,6 +177,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_104014) do
   add_foreign_key "company_participants", "users"
   add_foreign_key "employees", "companies"
   add_foreign_key "employees", "users"
+  add_foreign_key "game_variants", "games"
   add_foreign_key "jally_session_settings", "jally_sessions"
   add_foreign_key "jally_sessions", "companies"
   add_foreign_key "jally_sessions", "teams"
