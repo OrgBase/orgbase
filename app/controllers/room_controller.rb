@@ -1,6 +1,6 @@
 class RoomController < ApplicationController
   before_action :authenticate_user!
-  layout 'home'
+  layout 'room'
 
   def join_room
     @user = current_user

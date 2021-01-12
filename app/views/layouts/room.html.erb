@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jally</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= javascript_pack_tag 'room' %>
+  <%= stylesheet_pack_tag 'room', media: 'all' %>
+  <%= stylesheet_link_tag 'application.css' %>
+  <%= favicon_link_tag asset_path('favicon.ico') %>
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('/favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('/favicon-16x16.png') %>">
+  <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
+</head>
+
+<body>
+  <div class="boxed-container jally-content">
+    <%= yield %>
+  </div>
+</body>
+</html>
