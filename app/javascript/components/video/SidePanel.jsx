@@ -2,6 +2,7 @@ import React, {useCallback, useContext, useState, useEffect} from 'react';
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import iceBreakerLogo from "../../stylesheets/img/ice-breaker.svg"
+import gameChangeLogo from "../../stylesheets/img/dice.svg"
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
   const {panelId, randomFraction, updateRoomDetails} = useContext(RoomContext);
@@ -101,6 +102,10 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
           Next Question
         </button>
       </>}
+
+      <div className='panel-bottom-container'>
+        <img className='panel-bottom-logo' src={gameChangeLogo} />
+      </div>
     </>
   );
 }
