@@ -62,13 +62,11 @@ class RoomController < ApplicationController
     room_slug = params[:identifier]
     room = Room.find_by(slug: room_slug)
     panel_id = params[:panel_id]
-    panel_type = params[:panel_type]
     random_fraction = params[:random_fraction]
 
     authorize(room, :update?)
     room.update_attributes(
         panel_id: panel_id,
-        panel_type: panel_type,
         random_fraction: random_fraction,
     )
   end

@@ -9,7 +9,8 @@ class GameController < ApplicationController
     game = Game.find(id) if id.present?
 
     if game.present?
-      return render json: { title: game.name, instructions: game.instructions, variants: game.game_variants}
+      return render json: { title: game.name, instructions: game.instructions,
+                            variants: game.game_variants, type: game.game_type}
     end
   end
 end

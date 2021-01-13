@@ -1,6 +1,7 @@
 import React, {useCallback, useContext, useState, useEffect} from 'react';
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
+import iceBreakerLogo from "../../stylesheets/img/ice-breaker.svg"
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
   const {panelId, randomFraction, updateRoomDetails} = useContext(RoomContext);
@@ -46,45 +47,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     });
   }
 
-  const loadRandomGame = useCallback(event => {
-    const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
-    let id = panelId;
-    const type = 'short-game';
-    const fraction = Math.random()
-
-    dataTrack.send(JSON.stringify({
-      event: 'short-game-load',
-      panelType: type,
-      panelId: id,
-      randomFraction: fraction
-    }));
-
-    const csrfToken = document
-      .querySelector('meta[name="csrf-token"]')
-      .getAttribute('content');
-
-    fetch(`/room/${roomName}/panel-update`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify({
-        panel_id: id,
-        panel_type: type,
-        random_fraction: fraction
-      })
-    });
-
-    updateRoomDetails({
-      panelType: 'short-game',
-      panelId: id,
-      randomFraction: fraction
-    });
-  }, [panelId]);
-
-  const { title, instructions, variants } = gameData
+  const { title, instructions, variants, type } = gameData
 
   const handleExit = () => {
     if(room) {
@@ -112,6 +75,8 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
 
   return (
     <>
+      {type == 'ice-breaker' && <img className='game-type-logo' src={iceBreakerLogo}/>}
+
       <button
         className='jally-button-small exit-button'
         onClick={handleExit}
