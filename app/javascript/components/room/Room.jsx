@@ -55,29 +55,17 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     };
   }, [roomName, token]);
 
-  const handleExit = () => {
-    if(room) {
-      room.localParticipant.tracks.forEach(function(trackPublication) {
-        if (trackPublication.track.kind !== 'data') {
-          trackPublication.track.stop();
-        }
-      });
-      room.disconnect();
-    }
-    window.open('/lobby', '_self');
-  }
-
   const remoteParticipants = () => {
     if(participants.length) {
       return participants.map(participant => (
-        <div key={participant.sid} className='column is-full is-half-height is-relative'>
+        <div key={participant.sid} className='column is-half is-relative'>
           <Participant participant={participant} />
         </div>
       ));
     }
   }
 
-  const renderLocalParticipant = () => <div className='column is-full is-half-height is-relative pt-1'>
+  const renderLocalParticipant = () => <div className='column is-half is-relative'>
     {room ? (
       <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
     ) : (
@@ -88,20 +76,19 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   return (
     <RoomContextProvider roomShared={roomShared}>
       <div className="columns room is-mobile room-container is-desktop is-vcentered">
-        {/*<div className='column'></div>*/}
         <div className="column is-half remote-participants has-text-centered">
-          <div className='columns is-gapless is-multiline full-room-height'>
+          <div className='columns is-multiline'>
             {remoteParticipants()}
-            {participants.length < 2 && renderLocalParticipant()}
+            {renderLocalParticipant()}
           </div>
         </div>
         <div className="column is-half">
           <div className="columns is-gapless is-multiline full-room-height">
-            {participants.length == 2 && renderLocalParticipant()}
-            <div className={`column ${participants.length == 2 ? 'is-half-height' : ''}`}>
+            <div className='column position-relative'>
               <div className={`shared-panel has-text-centered is-flex`}>
                 {room ? (
                   <SidePanel
+                    room={room}
                     localParticipant={room.localParticipant}
                     roomName={roomName}
                   />

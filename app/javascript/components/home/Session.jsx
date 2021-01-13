@@ -28,7 +28,7 @@ const Session = ({ sessionSlug, config }) => {
         </h1>
         <div>
           <input
-            className='input room-url'
+            className='input copy-url'
             ref={urlInputRef}
             defaultValue={window.location.href.split('?')[0]}
             readOnly

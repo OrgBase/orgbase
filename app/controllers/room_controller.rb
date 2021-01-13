@@ -39,7 +39,7 @@ class RoomController < ApplicationController
       if Rails.env == 'development'
         room_type = @room.capacity > 2  ? 'peer-to-peer' : 'go'
       else
-        room_type = @room.capacity <= 3 ? 'peer-to-peer' : 'group'
+        room_type = @room.capacity <= 10 ? 'peer-to-peer' : 'group'
       end
 
       begin
@@ -49,6 +49,10 @@ class RoomController < ApplicationController
       end
 
     end
+
+    @starting_game = @room&.jally_session&.starting_game
+    @starting_game ||= Game.all.sample
+
 
     render template: 'room/room'
   end

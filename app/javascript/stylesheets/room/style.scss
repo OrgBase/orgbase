@@ -33,13 +33,13 @@
 
 .name {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 17px;
+  left: 17px;
   margin: 0;
   padding: 0.2em 0.5em;
   background: $jally-pink;
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
   border-radius: 10px;
@@ -50,6 +50,7 @@
 }
 
 .shared-panel {
+  position: relative;
   height: 100%;
   border-radius: 6px;
   flex-direction: column;
@@ -60,7 +61,7 @@
   overflow: auto;
 }
 .full-room-height {
-  height: 82vh;
+  height: 95vh;
 }
 .is-half-height {
   height: 49%;
@@ -68,4 +69,52 @@
 
 .game-rules {
   white-space: pre-wrap;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.exit-button {
+  background-color: $primary;
+  border-color: $primary;
+  border-radius: 10px !important;
+  height: 30px !important;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.jally-button-small {
+  height: 33px;
+  background-color: $primary;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 14px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  &:disabled {
+    background-color: #F12587;
+    opacity: 0.5;
+    color: white;
+  }
+}
+
+.jally-button-small:hover {
+  opacity: 0.9;
+  color: white;
+  cursor: pointer;
+}
+
+.transparent-button {
+  background: transparent !important;
+  border: 1px solid white !important;
+}
+
+.game-title {
+  font-weight: 700;
+  font-size: 50px;
 }

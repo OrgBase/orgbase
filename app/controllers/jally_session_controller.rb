@@ -37,9 +37,9 @@ class JallySessionController < ApplicationController
         JallySessionService.create_account_and_send_invite(invitee, @company, @user)
       end
       if params[:scheduled_at].present?
-        return render json: {scheduled: true}
+        return render json: {session_id: @session.id, scheduled: true}
       else
-        return render json: {session_slug: @session.slug}
+        return render json: {session_id: @session.id, session_slug: @session.slug}
       end
     else
       @session = JallySession.find_by(slug: @session_slug)

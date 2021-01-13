@@ -1,9 +1,10 @@
-import React, {useCallback, useContext} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {getGame, getRandomGameIndex} from "./games";
 import {RoomContext} from "../../context/context";
 
-const SidePanel = ({ localParticipant, roomName }) => {
+const SidePanel = ({ localParticipant, roomName, room }) => {
   const {panelId, panelType, randomFraction, updateRoomDetails} = useContext(RoomContext);
+  const [showInstructions, setShowInstructions] = useState(false)
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -51,27 +52,46 @@ const SidePanel = ({ localParticipant, roomName }) => {
 
   const game = getGame(panelId, randomFraction)
 
+  const handleExit = () => {
+    if(room) {
+      room.localParticipant.tracks.forEach(function(trackPublication) {
+        if (trackPublication.track.kind !== 'data') {
+          trackPublication.track.stop();
+        }
+      });
+      room.disconnect();
+    }
+    window.open('/lobby', '_self');
+  }
+
+  const toggleInstructions = () => setShowInstructions(!showInstructions)
+
   return (
     <>
-      {panelType && game ? (
-        <>
-          <h3 className="title has-text-white"> {game.name} </h3>
-          <div className="game-rules px-2 mb-2">{game.rules}</div>
-          <button className="button jally-button" key={+new Date()} onClick={loadRandomGame}>
-            <span className='icon'>
-            <i className="fas fa-random"></i>
-          </span>
-            <span>Change Game</span>
-          </button>
-        </>
-      ) : (
-        <button className="button jally-button" key={+new Date()} onClick={loadRandomGame}>
-          <span className='icon'>
-            <i className="fas fa-flag-checkered"></i>
-          </span>
-          <span>Start Game</span>
+      <button
+        className='jally-button-small exit-button'
+        onClick={handleExit}
+      >
+        Exit
+      </button>
+      <h3 className="game-title has-text-white"> {game.name} </h3>
+      {showInstructions ? <>
+        <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Back</button>
+        <div className="game-rules px-2 mb-2">
+          Take it in turns to reveal which option you’d choose, and why
+        </div>
+      </> : <>
+        <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
+        <div className="game-rules px-2 mb-2">
+          Would you rather have everything on your phone right now (browsing history, photos, etc.) made public to anyone who searches your name or never use a cell phone again?
+        </div>
+        <button
+          className="button jally-button my-3"
+          onClick={loadRandomGame}
+        >
+          Next Question
         </button>
-      )}
+      </>}
     </>
   );
 }

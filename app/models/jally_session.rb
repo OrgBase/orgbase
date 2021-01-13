@@ -2,21 +2,23 @@
 #
 # Table name: jally_sessions
 #
-#  id            :bigint           not null, primary key
-#  name          :string
-#  slug          :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  company_id    :bigint           not null
-#  created_by_id :bigint
-#  team_id       :bigint
+#  id               :bigint           not null, primary key
+#  name             :string
+#  slug             :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  company_id       :bigint           not null
+#  created_by_id    :bigint
+#  starting_game_id :bigint
+#  team_id          :bigint
 #
 # Indexes
 #
-#  index_jally_sessions_on_company_id     (company_id)
-#  index_jally_sessions_on_created_by_id  (created_by_id)
-#  index_jally_sessions_on_slug           (slug)
-#  index_jally_sessions_on_team_id        (team_id)
+#  index_jally_sessions_on_company_id        (company_id)
+#  index_jally_sessions_on_created_by_id     (created_by_id)
+#  index_jally_sessions_on_slug              (slug)
+#  index_jally_sessions_on_starting_game_id  (starting_game_id)
+#  index_jally_sessions_on_team_id           (team_id)
 #
 # Foreign Keys
 #
@@ -28,6 +30,7 @@ class JallySession < ApplicationRecord
   belongs_to :company
   belongs_to :team, optional: true
   belongs_to :created_by, class_name: "User", foreign_key: "created_by_id"
+  belongs_to :starting_game, class_name: "Game", foreign_key: "starting_game_id", optional: true
 
   has_one :jally_session_setting
   has_many :session_participants
