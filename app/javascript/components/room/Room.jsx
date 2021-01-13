@@ -75,7 +75,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
 
   return (
     <RoomContextProvider roomShared={roomShared}>
-      <div className="columns room is-mobile room-container is-desktop is-vcentered">
+      <div className="columns room is-mobile room-container is-gapless is-desktop is-vcentered">
         <div className="column is-half remote-participants has-text-centered">
           <div className='columns is-multiline'>
             {remoteParticipants()}

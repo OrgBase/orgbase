@@ -5,6 +5,6 @@
     roomShared: {
         panelType: @room.panel_type || @starting_game.game_type,
         panelId: @room.panel_id || @starting_game.id,
-        randomFraction: @room.random_fraction,
+        randomFraction: @room.random_fraction || rand(),
     }
 }) %>

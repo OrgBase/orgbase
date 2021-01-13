@@ -1,22 +1,56 @@
-import React, {useCallback, useContext, useState} from 'react';
-import {getGame, getRandomGameIndex} from "./games";
+import React, {useCallback, useContext, useState, useEffect} from 'react';
 import {RoomContext} from "../../context/context";
+import fetchWrapper from "../../helpers/fetchWrapper";
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
-  const {panelId, panelType, randomFraction, updateRoomDetails} = useContext(RoomContext);
+  const {panelId, randomFraction, updateRoomDetails} = useContext(RoomContext);
   const [showInstructions, setShowInstructions] = useState(false)
+  const [gameData, setGameData] = useState({})
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
     .filter(track => track !== null);
+
+  useEffect(() => {
+    async function fetchGameData() {
+      try {
+        fetchWrapper(`/game/${panelId}`)
+          .then(response => response.json())
+          .then(data => {
+            setGameData(data)
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    fetchGameData();
+  }, [panelId])
+
+  const syncGameData = (panelId, randomFraction) => {
+    const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
+    dataTrack.send(JSON.stringify({
+      panelId: panelId,
+      randomFraction: randomFraction
+    }));
+
+    fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
+      {
+        panel_id: panelId,
+        random_fraction: randomFraction
+      });
+
+    updateRoomDetails({
+      panelId: panelId,
+      randomFraction: randomFraction
+    });
+  }
 
   const loadRandomGame = useCallback(event => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     let id = panelId;
     const type = 'short-game';
     const fraction = Math.random()
-
-    while(id === panelId) id = getRandomGameIndex(fraction);
 
     dataTrack.send(JSON.stringify({
       event: 'short-game-load',
@@ -50,7 +84,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     });
   }, [panelId]);
 
-  const game = getGame(panelId, randomFraction)
+  const { title, instructions, variants } = gameData
 
   const handleExit = () => {
     if(room) {
@@ -66,6 +100,16 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
 
   const toggleInstructions = () => setShowInstructions(!showInstructions)
 
+  const changeVariant = () => {
+    let fraction = Math.random()
+
+    while (Math.floor(variants.length * fraction) === Math.floor(variants.length * randomFraction)) {
+      fraction = Math.random()
+    }
+
+    syncGameData(panelId, fraction)
+  }
+
   return (
     <>
       <button
@@ -74,20 +118,20 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
       >
         Exit
       </button>
-      <h3 className="game-title has-text-white"> {game.name} </h3>
+      <h3 className="game-title has-text-white"> { title } </h3>
       {showInstructions ? <>
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Back</button>
         <div className="game-rules px-2 mb-2">
-          Take it in turns to reveal which option you’d choose, and why
+          {instructions}
         </div>
       </> : <>
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
         <div className="game-rules px-2 mb-2">
-          Would you rather have everything on your phone right now (browsing history, photos, etc.) made public to anyone who searches your name or never use a cell phone again?
+          {variants && variants[Math.floor(variants.length * randomFraction)].variant}
         </div>
         <button
           className="button jally-button my-3"
-          onClick={loadRandomGame}
+          onClick={changeVariant}
         >
           Next Question
         </button>

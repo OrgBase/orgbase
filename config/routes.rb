@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   post '/profile' => "profile#update_profile", :as => :update_profile
   post '/company' => "company#join_company", :as => :join_company
   post '/invite' => "profile#invite_users", :as => :invite_users
+
+  get '/game/:game_id' => "game#game_data", :as => :fetch_game_data
 end
