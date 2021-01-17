@@ -8,7 +8,7 @@ class JallySessionController < ApplicationController
     @user = current_user
     params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
                   :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds,
-                  :starting_game_id)
+                  :starting_game_slug)
         .with_defaults(party: false,
                        recurring: false,
                        session_duration_seconds: 3600,
@@ -17,7 +17,7 @@ class JallySessionController < ApplicationController
                        frequency_unit: nil,
                        name: nil,
                        invitees: [],
-                       starting_game_id: 1)
+                       starting_game_slug: 'ddtq')
 
     @session_slug = params[:identifier]
     if @session_slug.blank?
@@ -29,7 +29,8 @@ class JallySessionController < ApplicationController
       @session = JallySessionService.create_session(
           company: @company,
           created_by: @user,
-          name: params[:name] || nil
+          name: params[:name] || nil,
+          starting_game_slug: params[:starting_game_slug]
       )
 
       JallySessionService.configure_session(

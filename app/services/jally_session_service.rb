@@ -1,6 +1,6 @@
 class JallySessionService
   class << self
-    def create_session(company:, created_by:, name:nil, team:nil)
+    def create_session(company:, created_by:, starting_game_slug:, name:nil, team:nil)
       slug = SecureRandom.urlsafe_base64(6)
       while (JallySession.find_by(slug: slug).present?)
         # TODO: add slack notification here to increase slug length
@@ -12,7 +12,8 @@ class JallySessionService
           slug: slug,
           created_by: created_by,
           team: team,
-          name: name
+          name: name,
+          starting_game_slug: starting_game_slug
       )
 
       session

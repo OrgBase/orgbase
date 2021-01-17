@@ -33,6 +33,7 @@ Employee.create!(user: test_user,
                  title: 'Test User')
 
 wyr = Game.create!(name: 'Would you rather...',
+                   slug: 'wyr',
              game_type: 'ice-breaker',
              instructions: 'Take it in turns to reveal which option you’d choose, and why')
 
@@ -49,6 +50,7 @@ wyr_variants.each do |v|
 end
 
 ddtq = Game.create!(name: 'Don’t dodge the question!',
+                    slug: 'ddtq',
                    game_type: 'ice-breaker',
                    instructions: 'Take it in turns to share your true, unfiltered answers to the question shown')
 
@@ -72,32 +74,32 @@ CompanyParticipant.create!(user: alex,
                            company: company,
                            role: 'admin')
 
-teams = [Team.create!(company: company,
-                      name: 'Engineering',
-                      slug: 'engineering'),
-         Team.create!(company: company,
-                      name: 'Product',
-                      slug: 'product'),
-         Team.create!(company: company,
-                      name: 'Design',
-                      slug: 'design'),
-         Team.create!(company: company,
-                      name: 'HR and People Ops',
-                      slug: 'hr')
-]
+# teams = [Team.create!(company: company,
+#                       name: 'Engineering',
+#                       slug: 'engineering'),
+#          Team.create!(company: company,
+#                       name: 'Product',
+#                       slug: 'product'),
+#          Team.create!(company: company,
+#                       name: 'Design',
+#                       slug: 'design'),
+#          Team.create!(company: company,
+#                       name: 'HR and People Ops',
+#                       slug: 'hr')
+# ]
 
-30.times.map do
-  fake_name = Faker::Name.unique.name
-  user = User.create!(name: fake_name,
-                      email: Faker::Internet.safe_email(name: fake_name),
-                      password: SecureRandom.alphanumeric(8))
-  team_idx = [0, 1, 2, 3].sample
-
-  employee = Employee.create!(user: user,
-                              company: company,
-                              slug: fake_name.parameterize,
-                              title: Faker::Company.profession.titleize)
-  TeamMember.create!(team: teams[team_idx],
-                     employee: employee)
-
-end
+# 30.times.map do
+#   fake_name = Faker::Name.unique.name
+#   user = User.create!(name: fake_name,
+#                       email: Faker::Internet.safe_email(name: fake_name),
+#                       password: SecureRandom.alphanumeric(8))
+#   team_idx = [0, 1, 2, 3].sample
+#
+#   employee = Employee.create!(user: user,
+#                               company: company,
+#                               slug: fake_name.parameterize,
+#                               title: Faker::Company.profession.titleize)
+#   TeamMember.create!(team: teams[team_idx],
+#                      employee: employee)
+#
+# end

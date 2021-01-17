@@ -5,14 +5,14 @@ import fetchWrapper from "../../helpers/fetchWrapper";
 
 const SelectGameForm = ({ syncGameData, closeModal, changeGame }) => {
   const [loading, setLoading] = useState(false)
-  const handleGameSelection = (gameId) => {
+  const handleGameSelection = (gameSlug) => {
     if(changeGame) {
-      syncGameData(gameId, Math.random())
+      syncGameData(gameSlug, Math.random())
       closeModal()
     } else {
       setLoading(true)
       fetchWrapper('/session', 'POST', {
-        starting_game_id: gameId
+        starting_game_slug: gameSlug
       })
         .then(response => response.json())
         .then(data => {
@@ -31,13 +31,13 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame }) => {
         <div className='column is-narrow'>
           <img src={ddtq}
                className='max-width-150'
-               onClick={handleGameSelection.bind(null, 2)}
+               onClick={handleGameSelection.bind(null, 'ddtq')}
           />
         </div>
         <div className='column is-narrow'>
           <img src={wyr}
                className='max-width-150'
-               onClick={handleGameSelection.bind(null, 1)}
+               onClick={handleGameSelection.bind(null, 'wyr')}
           />
         </div>
       </div>

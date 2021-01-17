@@ -2,11 +2,11 @@ class GameController < ApplicationController
   before_action :authenticate_user!
 
   def game_data
-    params.permit(:game_id)
+    params.permit(:game_slug)
 
-    id = params[:game_id]
+    slug = params[:game_slug]
 
-    game = Game.find(id) if id.present?
+    game = Game.find_by(slug: slug) if slug.present?
 
     if game.present?
       return render json: { title: game.name, instructions: game.instructions,

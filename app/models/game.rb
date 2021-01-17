@@ -6,6 +6,7 @@
 #  game_type    :string
 #  instructions :string
 #  name         :string
+#  slug         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

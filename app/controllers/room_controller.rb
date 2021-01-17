@@ -50,9 +50,9 @@ class RoomController < ApplicationController
 
     end
 
-    @starting_game = @room&.jally_session&.starting_game
+    starting_game_slug = @room&.jally_session&.starting_game_slug
+    @starting_game = Game.find_by(slug: starting_game_slug) if starting_game_slug.present?
     @starting_game ||= Game.all.sample
-
 
     render template: 'room/room'
   end
@@ -61,13 +61,12 @@ class RoomController < ApplicationController
     authorize(current_user, :participate?)
     room_slug = params[:identifier]
     room = Room.find_by(slug: room_slug)
-    panel_id = params[:panel_id]
+    game_slug = params[:game_slug]
     random_fraction = params[:random_fraction]
 
     authorize(room, :update?)
-    room.update_attributes(
-        panel_id: panel_id,
-        random_fraction: random_fraction,
-    )
+    room.game_slug = game_slug if game_slug.present?
+    room.random_fraction = random_fraction if random_fraction.present?
+    room.save!
   end
 end

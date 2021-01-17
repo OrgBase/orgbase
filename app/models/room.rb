@@ -4,14 +4,13 @@
 #
 #  id               :bigint           not null, primary key
 #  capacity         :integer
-#  panel_type       :string
+#  game_slug        :string
 #  random_fraction  :decimal(, )      default(0.0)
 #  slug             :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  company_id       :bigint           not null
 #  jally_session_id :bigint
-#  panel_id         :bigint
 #
 # Indexes
 #
@@ -30,8 +29,4 @@ class Room < ApplicationRecord
   has_many :room_participants, dependent: :destroy
   has_many :employees, through: :room_participants
   has_many :session_participants
-
-  PANEL_TYPES = %w(short-game ice-breaker)
-
-  validates :panel_type, allow_nil: true, inclusion: { in: PANEL_TYPES }
 end

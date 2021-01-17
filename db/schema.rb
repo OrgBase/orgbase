@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_160623) do
+ActiveRecord::Schema.define(version: 2021_01_17_170117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_160623) do
     t.string "instructions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
   end
 
   create_table "jally_session_settings", force: :cascade do |t|
@@ -94,11 +95,10 @@ ActiveRecord::Schema.define(version: 2021_01_12_160623) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.bigint "starting_game_id"
+    t.string "starting_game_slug"
     t.index ["company_id"], name: "index_jally_sessions_on_company_id"
     t.index ["created_by_id"], name: "index_jally_sessions_on_created_by_id"
     t.index ["slug"], name: "index_jally_sessions_on_slug"
-    t.index ["starting_game_id"], name: "index_jally_sessions_on_starting_game_id"
     t.index ["team_id"], name: "index_jally_sessions_on_team_id"
   end
 
@@ -114,13 +114,12 @@ ActiveRecord::Schema.define(version: 2021_01_12_160623) do
   create_table "rooms", force: :cascade do |t|
     t.string "slug"
     t.integer "capacity"
-    t.string "panel_type"
-    t.bigint "panel_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "company_id", null: false
     t.bigint "jally_session_id"
     t.decimal "random_fraction", default: "0.0"
+    t.string "game_slug"
     t.index ["company_id"], name: "index_rooms_on_company_id"
     t.index ["jally_session_id"], name: "index_rooms_on_jally_session_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true

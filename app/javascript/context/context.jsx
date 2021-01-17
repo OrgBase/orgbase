@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
 export const RoomContext = createContext({
-  panelId: 1,
+  gameSlug: 'ddtq',
   randomFraction: 0.0,
 });

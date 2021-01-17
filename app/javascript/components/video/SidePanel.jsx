@@ -7,7 +7,7 @@ import Modal from "../common/modal";
 import SelectGameForm from "../common/SelectGameForm";
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
-  const {panelId, randomFraction, updateRoomDetails} = useContext(RoomContext);
+  const {gameSlug, randomFraction, updateRoomDetails} = useContext(RoomContext);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [gameData, setGameData] = useState({})
@@ -19,7 +19,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
   useEffect(() => {
     async function fetchGameData() {
       try {
-        fetchWrapper(`/game/${panelId}`)
+        fetchWrapper(`/game/${gameSlug}`)
           .then(response => response.json())
           .then(data => {
             setGameData(data)
@@ -30,23 +30,23 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     }
 
     fetchGameData();
-  }, [panelId])
+  }, [gameSlug])
 
-  const syncGameData = (panelId, randomFraction) => {
+  const syncGameData = (gameSlug, randomFraction) => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
-      panelId: panelId,
+      gameSlug: gameSlug,
       randomFraction: randomFraction
     }));
 
     fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
       {
-        panel_id: panelId,
+        game_slug: gameSlug,
         random_fraction: randomFraction
       });
 
     updateRoomDetails({
-      panelId: panelId,
+      gameSlug: gameSlug,
       randomFraction: randomFraction
     });
   }
@@ -74,7 +74,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
       fraction = Math.random()
     }
 
-    syncGameData(panelId, fraction)
+    syncGameData(gameSlug, fraction)
   }
 
   const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
