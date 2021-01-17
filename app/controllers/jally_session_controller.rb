@@ -7,7 +7,17 @@ class JallySessionController < ApplicationController
   def join_session
     @user = current_user
     params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
-                  :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds)
+                  :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds,
+                  :starting_game_id)
+        .with_defaults(party: false,
+                       recurring: false,
+                       session_duration_seconds: 3600,
+                       switch_after_seconds: nil,
+                       frequency_length: nil,
+                       frequency_unit: nil,
+                       name: nil,
+                       invitees: [],
+                       starting_game_id: 1)
 
     @session_slug = params[:identifier]
     if @session_slug.blank?
