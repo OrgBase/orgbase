@@ -87,6 +87,7 @@
 }
 
 .jally-modal {
+  color: black;
   .modal-card-head {
     background-color: white;
     border-top-left-radius: 30px;
@@ -157,6 +158,10 @@
 .hide-in-five {
   animation: hideAnimation 0s ease-in 5s forwards;
   animation-fill-mode: forwards;
+}
+
+.max-width-150 {
+  max-width: 150px;
 }
 @keyframes hideAnimation {
   to {

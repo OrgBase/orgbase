@@ -3,9 +3,12 @@ import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import iceBreakerLogo from "../../stylesheets/img/ice-breaker.svg"
 import gameChangeLogo from "../../stylesheets/img/dice.svg"
+import Modal from "../common/modal";
+import SelectGameForm from "../common/SelectGameForm";
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
   const {panelId, randomFraction, updateRoomDetails} = useContext(RoomContext);
+  const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [gameData, setGameData] = useState({})
 
@@ -74,6 +77,8 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     syncGameData(panelId, fraction)
   }
 
+  const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
+
   return (
     <>
       {type == 'ice-breaker' && <img className='game-type-logo' src={iceBreakerLogo}/>}
@@ -93,7 +98,9 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
       </> : <>
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
         <div className="game-rules px-2 mb-2">
-          {variants && variants[Math.floor(variants.length * randomFraction)].variant}
+          {variants &&
+            variants[Math.floor(variants.length * randomFraction)] &&
+            variants[Math.floor(variants.length * randomFraction)].variant}
         </div>
         <button
           className="button jally-button my-3"
@@ -104,8 +111,24 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
       </>}
 
       <div className='panel-bottom-container'>
-        <img className='panel-bottom-logo' src={gameChangeLogo} />
+        <img
+          className='panel-bottom-logo' src={gameChangeLogo}
+          onClick={toggleChangeGameModal}
+        />
       </div>
+
+      <Modal
+        modalState={changeGameModalState}
+        closeModal={toggleChangeGameModal}
+        modalTitle='Select the next activity'
+        className='jally-modal'
+      >
+        <SelectGameForm
+          changeGame={true}
+          syncGameData={syncGameData}
+          closeModal={toggleChangeGameModal}
+        />
+      </Modal>
     </>
   );
 }
