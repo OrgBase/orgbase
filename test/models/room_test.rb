@@ -4,8 +4,6 @@
 #
 #  id               :bigint           not null, primary key
 #  capacity         :integer
-#  game_slug        :string
-#  random_fraction  :decimal(, )      default(0.0)
 #  slug             :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
