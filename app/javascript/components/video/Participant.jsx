@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import {RoomContext} from "../../context/context";
+import fetchWrapper from "../../helpers/fetchWrapper";
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [dataTracks, setDataTracks] = useState([]);
+  const [roomParticipant, setRoomParticipant] = useState({})
   const { updateRoomDetails } = useContext(RoomContext);
 
   const videoRef = useRef();
@@ -13,6 +15,14 @@ const Participant = ({ participant }) => {
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
     .filter(track => track !== null);
+
+  useEffect(() => {
+    fetchWrapper(`/room_participant/${participant.identity}`)
+      .then(response => response.json())
+      .then(data => {
+        setRoomParticipant(data)
+      });
+  }, [participant])
 
   useEffect(() => {
     const trackSubscribed = track => {
@@ -85,7 +95,7 @@ const Participant = ({ participant }) => {
 
   return (
     <div className="participant">
-      <span className="name">{participant.identity.split('-$-')[0]}</span>
+      <span className="name">{roomParticipant.firstName}</span>
       <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} />
     </div>

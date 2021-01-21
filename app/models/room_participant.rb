@@ -14,4 +14,6 @@
 #  index_room_participants_on_room_id      (room_id)
 #
 class RoomParticipant < ApplicationRecord
+  belongs_to :room
+  belongs_to :employee
 end

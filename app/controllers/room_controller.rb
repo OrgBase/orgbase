@@ -23,8 +23,8 @@ class RoomController < ApplicationController
     client = TwilioService.client(@room.slug)
     @twilio_room = client.video.rooms.list(unique_name: @room.slug).try(:first)
 
-    #twilio only allows a max of 128 chars
-    participant_identity = "#{@user.first_name || @user.email}-$-#{@employee.slug}"[0..127]
+    #twilio only allows a max of 128 chars for identity
+    participant_identity = "#{@employee.id}"
     connected_participants = @twilio_room&.participants&.list({status: 'connected'}) || []
     already_connected = connected_participants.map(&:identity).include?(participant_identity)
 
@@ -33,6 +33,7 @@ class RoomController < ApplicationController
     end
 
     @token = TwilioService.jwt_access_token(participant_identity, @room_name)
+    RoomParticipant.where(room: @room, employee: @employee).first_or_create
 
     # create a room if it doesn't exist
     if @twilio_room.blank?
@@ -68,5 +69,16 @@ class RoomController < ApplicationController
     room.game_slug = game_slug if game_slug.present?
     room.random_fraction = random_fraction if random_fraction.present?
     room.save!
+  end
+
+  def participant_data
+    params.permit(:employee_id)
+    employee = Employee.find_by(id: params[:employee_id]) if params[:employee_id].present?
+
+    if employee.present?
+      render json: {
+          firstName: employee.user.first_name
+      }
+    end
   end
 end

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get '/room/new' => "room#join_room", :as => :new_room
   get '/room/:identifier' => "room#join_room", :as => :room
 
+  get '/room_participant/:employee_id' => "room#participant_data"
+
   get '/session/:identifier' => "jally_session#join_session", :as => :jally_session
   post '/session' => "jally_session#join_session", :as => :create_jally_session
   post '/session-room' => "jally_session#get_room", :as => :get_session_room
