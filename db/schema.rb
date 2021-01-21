@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_170117) do
+ActiveRecord::Schema.define(version: 2021_01_21_132812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,25 @@ ActiveRecord::Schema.define(version: 2021_01_17_170117) do
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
+  create_table "game_configs", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.string "game_type"
+    t.string "name"
+    t.string "instructions"
+    t.string "winner_selection_criteria"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_game_configs_on_game_id"
+  end
+
   create_table "game_variants", force: :cascade do |t|
     t.bigint "game_id", null: false
     t.string "variant"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "caution"
+    t.string "hint"
     t.index ["game_id"], name: "index_game_variants_on_game_id"
   end
 
@@ -102,11 +116,24 @@ ActiveRecord::Schema.define(version: 2021_01_17_170117) do
     t.index ["team_id"], name: "index_jally_sessions_on_team_id"
   end
 
+  create_table "room_configs", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.string "game_slug"
+    t.decimal "random_fraction", default: "0.245118596034709"
+    t.bigint "active_participant_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["active_participant_id"], name: "index_room_configs_on_active_participant_id"
+    t.index ["room_id"], name: "index_room_configs_on_room_id"
+  end
+
   create_table "room_participants", force: :cascade do |t|
     t.bigint "room_id"
     t.bigint "employee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "color"
+    t.integer "score", default: 0
     t.index ["employee_id"], name: "index_room_participants_on_employee_id"
     t.index ["room_id"], name: "index_room_participants_on_room_id"
   end
@@ -178,11 +205,14 @@ ActiveRecord::Schema.define(version: 2021_01_17_170117) do
   add_foreign_key "company_participants", "users"
   add_foreign_key "employees", "companies"
   add_foreign_key "employees", "users"
+  add_foreign_key "game_configs", "games"
   add_foreign_key "game_variants", "games"
   add_foreign_key "jally_session_settings", "jally_sessions"
   add_foreign_key "jally_sessions", "companies"
   add_foreign_key "jally_sessions", "teams"
   add_foreign_key "jally_sessions", "users", column: "created_by_id"
+  add_foreign_key "room_configs", "room_participants", column: "active_participant_id"
+  add_foreign_key "room_configs", "rooms"
   add_foreign_key "rooms", "companies"
   add_foreign_key "rooms", "jally_sessions"
   add_foreign_key "session_participants", "employees"

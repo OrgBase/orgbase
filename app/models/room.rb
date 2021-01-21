@@ -29,4 +29,5 @@ class Room < ApplicationRecord
   has_many :room_participants, dependent: :destroy
   has_many :employees, through: :room_participants
   has_many :session_participants
+  has_one :room_config
 end

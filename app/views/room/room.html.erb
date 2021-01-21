@@ -3,7 +3,7 @@
     token: @token,
     roomSid: @twilio_room.sid,
     roomShared: {
-        gameSlug: @room.game_slug || @starting_game.slug,
-      randomFraction: @room.random_fraction || rand(),
+        gameSlug: @room.room_config&.game_slug || @starting_game.slug,
+        randomFraction: @room.room_config&.random_fraction || rand(),
     }
 }) %>

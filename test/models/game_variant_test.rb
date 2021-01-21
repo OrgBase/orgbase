@@ -3,6 +3,9 @@
 # Table name: game_variants
 #
 #  id         :bigint           not null, primary key
+#  caution    :string
+#  hint       :string
+#  title      :string
 #  variant    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

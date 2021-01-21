@@ -3,6 +3,8 @@
 # Table name: room_participants
 #
 #  id          :bigint           not null, primary key
+#  color       :string
+#  score       :integer          default(0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  employee_id :bigint

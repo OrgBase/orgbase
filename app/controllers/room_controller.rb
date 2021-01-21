@@ -33,7 +33,12 @@ class RoomController < ApplicationController
     end
 
     @token = TwilioService.jwt_access_token(participant_identity, @room_name)
-    RoomParticipant.where(room: @room, employee: @employee).first_or_create
+    room_participant = RoomParticipant.where(room: @room, employee: @employee).first_or_create
+
+    @room_config = RoomConfig.where(room: @room).first_or_create do |config|
+      config.active_participant = room_participant
+    end
+
 
     # create a room if it doesn't exist
     if @twilio_room.blank?
@@ -66,9 +71,11 @@ class RoomController < ApplicationController
     random_fraction = params[:random_fraction]
 
     authorize(room, :update?)
-    room.game_slug = game_slug if game_slug.present?
-    room.random_fraction = random_fraction if random_fraction.present?
-    room.save!
+
+    config = room.room_config
+    config&.game_slug = game_slug if game_slug.present?
+    config&.random_fraction = random_fraction if random_fraction.present?
+    config.save!
   end
 
   def participant_data
