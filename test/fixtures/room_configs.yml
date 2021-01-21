@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room: one
+  game_slug: MyString
+  random_fraction: 9.99
+  active_participant_id: 1
+
+two:
+  room: two
+  game_slug: MyString
+  random_fraction: 9.99
+  active_participant_id: 1
