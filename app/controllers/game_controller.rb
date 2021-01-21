@@ -7,10 +7,12 @@ class GameController < ApplicationController
     slug = params[:game_slug]
 
     game = Game.find_by(slug: slug) if slug.present?
+    config = game&.game_config
 
-    if game.present?
-      return render json: { title: game.name, instructions: game.instructions,
-                            variants: game.game_variants, type: game.game_type}
+    if config.present?
+      return render json: { title: config.name, instructions: config.instructions,
+                            variants: game.game_variants, type: config.game_type,
+                            winnerSelectionCriteria: config.winner_selection_criteria}
     end
   end
 end

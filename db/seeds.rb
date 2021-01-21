@@ -32,10 +32,10 @@ Employee.create!(user: test_user,
                  slug: 'test',
                  title: 'Test User')
 
-wyr = Game.create!(name: 'Would you rather...',
-                   slug: 'wyr',
-             game_type: 'ice-breaker',
-             instructions: 'Take it in turns to reveal which option you’d choose, and why')
+wyr = Game.create!(slug: 'wyr')
+wyr_config = GameConfig.create!(game: wyr, name: 'Would you rather...',
+                                game_type: 'ice-breaker',
+                                instructions: 'Take it in turns to reveal which option you’d choose, and why')
 
 wyr_variants = ["Would you rather work 80 hours one week and have the next week off or work 40 hours both weeks, spread across seven days including weekends?",
             "Would you rather do something you love and make just enough money to get by or do something you hate but make millions?",
@@ -49,10 +49,10 @@ wyr_variants.each do |v|
                       variant: v)
 end
 
-ddtq = Game.create!(name: 'Don’t dodge the question!',
-                    slug: 'ddtq',
-                   game_type: 'ice-breaker',
-                   instructions: 'Take it in turns to share your true, unfiltered answers to the question shown')
+ddtq = Game.create!(slug: 'ddtq')
+ddtq_config = GameConfig.create!(game: ddtq, name: 'Don’t dodge the question!',
+                                 game_type: 'ice-breaker',
+                                 instructions: 'Take it in turns to share your true, unfiltered answers to the question shown.')
 
 ddtq_variants = ["What’s the best trip (travel) you ever had?",
                 "What’s your favorite thing about the place you live?",

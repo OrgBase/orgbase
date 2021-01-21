@@ -2,13 +2,10 @@
 #
 # Table name: games
 #
-#  id           :bigint           not null, primary key
-#  game_type    :string
-#  instructions :string
-#  name         :string
-#  slug         :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id         :bigint           not null, primary key
+#  slug       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 one:

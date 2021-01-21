@@ -21,4 +21,7 @@
 #
 class GameConfig < ApplicationRecord
   belongs_to :game
+  GAME_TYPES = %w(ice-breaker default-game)
+
+  validates :game_type, allow_nil: false, inclusion: { in: GAME_TYPES }
 end
