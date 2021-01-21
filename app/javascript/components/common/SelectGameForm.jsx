@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ddtq from '../../stylesheets/img/ddtq.svg'
 import wyr from '../../stylesheets/img/wyr.svg'
+import charades from '../../stylesheets/img/charades.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
 
 const SelectGameForm = ({ syncGameData, closeModal, changeGame }) => {
@@ -38,6 +39,12 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame }) => {
           <img src={wyr}
                className='max-width-150'
                onClick={handleGameSelection.bind(null, 'wyr')}
+          />
+        </div>
+        <div className='column is-narrow'>
+          <img src={charades}
+               className='max-width-150'
+               onClick={handleGameSelection.bind(null, 'charades')}
           />
         </div>
       </div>

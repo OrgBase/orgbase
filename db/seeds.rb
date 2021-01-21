@@ -33,7 +33,7 @@ Employee.create!(user: test_user,
                  title: 'Test User')
 
 wyr = Game.create!(slug: 'wyr')
-wyr_config = GameConfig.create!(game: wyr, name: 'Would you rather...',
+GameConfig.create!(game: wyr, name: 'Would you rather...',
                                 game_type: 'ice-breaker',
                                 instructions: 'Take it in turns to reveal which option you’d choose, and why')
 
@@ -50,7 +50,7 @@ wyr_variants.each do |v|
 end
 
 ddtq = Game.create!(slug: 'ddtq')
-ddtq_config = GameConfig.create!(game: ddtq, name: 'Don’t dodge the question!',
+GameConfig.create!(game: ddtq, name: 'Don’t dodge the question!',
                                  game_type: 'ice-breaker',
                                  instructions: 'Take it in turns to share your true, unfiltered answers to the question shown.')
 
@@ -64,6 +64,29 @@ ddtq_variants = ["What’s the best trip (travel) you ever had?",
 ddtq_variants.each do |v|
   GameVariant.create!(game: ddtq,
                       variant: v)
+end
+
+charades = Game.create!(slug: 'charades')
+GameConfig.create!(game: charades, name: 'Charades',
+                                 game_type: 'default-game',
+                                 instructions: "Whoever’s turn it is will be given a film, book or tv show title that they need to “act out” without speaking. Everyone else has to try and guess what it is. \n\n The person who guesses correctly first is awarded a point!")
+charades_variants = ['Alice in Wonderland',
+'Alien',
+'All About Eve',
+'Alvin and the Chipmunks',
+'Amelie',
+'American Beauty',
+'American Dad',
+'American Gangster',
+'American Hustle',
+'American Idol',
+'American Pie',
+'American Pie 2']
+
+charades_variants.each do |v|
+  GameVariant.create!(game: charades,
+                      variant: v,
+                      title: 'Your word/phrase')
 end
 
 CompanyParticipant.create!(user: midhun,

@@ -39,6 +39,13 @@ class RoomController < ApplicationController
       config.active_participant = room_participant
     end
 
+    active_participant = @room_config.active_participant || room_participant
+
+    @active_participant_data = {
+        name: active_participant.employee.user.name,
+        identity: active_participant.employee_id
+    }
+
 
     # create a room if it doesn't exist
     if @twilio_room.blank?
