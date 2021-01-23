@@ -31,7 +31,9 @@ class Room < ApplicationRecord
 
   def room_participants_data
     room_participants.map do |participant|
-      {name: participant.employee.user.first_name, identity: participant.employee_id, color: participant.color}
+      {name: participant.employee.user.first_name,
+       identity: participant.employee_id, color: participant.color,
+       score: participant.score}
     end
   end
 end

@@ -8,7 +8,7 @@ import Modal from "../common/modal";
 import SelectGameForm from "../common/SelectGameForm";
 import ParticipantSelectionList from "../common/ParticipantSelectionList";
 
-const SidePanel = ({ localParticipant, roomName, room }) => {
+const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers }) => {
   const {gameSlug, randomFraction, activeParticipant, roomParticipants, updateRoomDetails} = useContext(RoomContext);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [selectWinnerModalState, setSelectWinnerModalState] = useState(false)
@@ -19,7 +19,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     .map(publication => publication.track)
     .filter(track => track !== null);
 
-  const isActiveParticipant = () => activeParticipant.identity == localParticipant.identity
+  const isActiveParticipant = () => (activeParticipant && activeParticipant.identity) == localParticipant.identity
 
   useEffect(() => {
     async function fetchGameData() {
@@ -38,27 +38,31 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
   }, [gameSlug])
 
   useEffect(() => {
-    syncGameData(gameSlug, randomFraction, roomParticipants)
+    syncGameData(gameSlug, randomFraction, roomParticipants, activeParticipant)
   }, [])
 
-  const syncGameData = (gameSlug=gameSlug, randomFraction=randomFraction, roomParticipants=roomParticipants) => {
+  const syncGameData = (gameSlug=gameSlug, randomFraction=randomFraction,
+                        roomParticipants=roomParticipants, activeParticipant=activeParticipant) => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
       gameSlug: gameSlug,
       randomFraction: randomFraction,
-      roomParticipants: roomParticipants
+      roomParticipants: roomParticipants,
+      activeParticipant: activeParticipant
     }));
 
     fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
       {
         game_slug: gameSlug,
-        random_fraction: randomFraction
+        random_fraction: randomFraction,
+        employee_id: activeParticipant && activeParticipant.identity
       });
 
     updateRoomDetails({
       gameSlug: gameSlug,
       randomFraction: randomFraction,
-      roomParticipants: roomParticipants
+      roomParticipants: roomParticipants,
+      activeParticipant: activeParticipant
     });
   }
 
@@ -85,17 +89,34 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
       fraction = Math.random()
     }
 
-    syncGameData(gameSlug, fraction)
+    syncGameData(gameSlug, fraction, roomParticipants, activeParticipant)
   }
 
-  const changeTurn = () => {
+  const changeTurn = (winnerIndices=[]) => {
     let fraction = Math.random()
-
     while (Math.floor(variants.length * fraction) === Math.floor(variants.length * randomFraction)) {
       fraction = Math.random()
     }
 
-    syncGameData(gameSlug, fraction)
+    let active_index = roomParticipants.findIndex(p => p.identity == activeParticipant.identity);
+    const length = (roomParticipants && roomParticipants.length) || 1
+    let nextParticipant = roomParticipants[(active_index + 1) % length]
+    while (participantIdentifiers.indexOf(JSON.stringify(nextParticipant.identity)) < 0) {
+      active_index += 1
+      nextParticipant = roomParticipants[(active_index + 1) % length]
+    }
+
+    fetchWrapper('/room-participant', 'POST', {
+      room_slug: roomName,
+      winner_ids: winnerIndices.map((i) => roomParticipants[i] && roomParticipants[i].identity)
+    })
+      .then(response => response.json())
+      .then(data => {
+        syncGameData(gameSlug, fraction, data, nextParticipant)
+      })
+      .catch(error => {
+        console.error(error)
+      });
   }
 
   const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
@@ -136,7 +157,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
         {(type == 'ice-breaker' || isActiveParticipant()) ? renderVariant()  :
           <div className="game-rules px-2 mb-2">
-            {`Its ${activeParticipant.name}'s turn`}
+            {`Its ${activeParticipant && activeParticipant.name}'s turn`}
           </div>
         }
       </>}
@@ -181,7 +202,13 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
         modalTitle='Who won this round?'
         className='jally-modal'
       >
-        <ParticipantSelectionList cardContents={roomParticipants} multiple maxSelectable={roomParticipants && roomParticipants.length} />
+        <ParticipantSelectionList
+          cardContents={roomParticipants}
+          multiple
+          maxSelectable={roomParticipants && roomParticipants.length}
+          changeTurn={changeTurn}
+          closeModal={toggleSelectWinnerModal}
+        />
       </Modal>
     </>
   );

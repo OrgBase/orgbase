@@ -42,9 +42,10 @@ class RoomController < ApplicationController
     active_participant = @room_config.active_participant || room_participant
 
     @active_participant_data = {
-        name: active_participant.employee.user.name,
+        name: active_participant.employee.user.first_name,
         identity: active_participant.employee_id,
-        color: active_participant.color
+        color: active_participant.color,
+        score: active_participant.score
     }
 
 
@@ -77,12 +78,16 @@ class RoomController < ApplicationController
     room = Room.find_by(slug: room_slug)
     game_slug = params[:game_slug]
     random_fraction = params[:random_fraction]
+    employee_id = params[:employee_id]
 
     authorize(room, :update?)
+
+    active_participant = RoomParticipant.where(room: room, employee_id:employee_id).first if employee_id.present?
 
     config = room.room_config
     config&.game_slug = game_slug if game_slug.present?
     config&.random_fraction = random_fraction if random_fraction.present?
+    config&.active_participant = active_participant if active_participant.present?
     config.save!
   end
 
@@ -94,6 +99,31 @@ class RoomController < ApplicationController
       render json: {
           firstName: employee.user.first_name
       }
+    end
+  end
+
+  def update_participant
+    params.permit(:winner_ids, :room_slug, :reset_scores)
+    room = Room.find_by(slug: params[:room_slug]) if params[:room_slug].present?
+
+    if room.present?
+      authorize(room, :update?)
+      if params[:reset_scores]
+        room.room_participants.each do |participant|
+          participant.score = 0
+          participant.save!
+        end
+      elsif params[:winner_ids].kind_of?(Array)
+        params[:winner_ids].each do |employee_id|
+          participant = RoomParticipant.where(room:room, employee_id: employee_id).first
+          if participant.present?
+            participant.score += 1
+            participant.save!
+          end
+        end
+      end
+
+      render json: room.room_participants_data
     end
   end
 end

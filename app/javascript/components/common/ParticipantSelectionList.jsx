@@ -112,13 +112,17 @@ class SelectableCardList extends React.Component {
 }
 
 class ParticipantSelectionList extends React.Component {
+
   onListChanged(selected) {
     this.setState({
       selected: selected
     });
   }
   submit() {
-    window.alert("Selected: " + this.state.selected);
+    if (this.state && this.state.selected) {
+      this.props.changeTurn(this.state.selected)
+      this.props.closeModal()
+    }
   }
   render() {
     return (

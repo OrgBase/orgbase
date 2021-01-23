@@ -91,6 +91,11 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
                     room={room}
                     localParticipant={room.localParticipant}
                     roomName={roomName}
+                    participantIdentifiers = {[
+                      room.localParticipant.identity,
+                        ...participants.map((p) => p.identity)
+                    ]}
+
                   />
                 ) : (
                   ''
