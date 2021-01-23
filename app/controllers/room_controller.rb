@@ -43,7 +43,8 @@ class RoomController < ApplicationController
 
     @active_participant_data = {
         name: active_participant.employee.user.name,
-        identity: active_participant.employee_id
+        identity: active_participant.employee_id,
+        color: active_participant.color
     }
 
 

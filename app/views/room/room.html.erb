@@ -5,6 +5,7 @@
     roomShared: {
         gameSlug: @room.room_config&.game_slug || @starting_game.slug,
         randomFraction: @room.room_config&.random_fraction || rand(),
-        activeParticipant: @active_participant_data
+        activeParticipant: @active_participant_data,
+        roomParticipants: @room.room_participants_data
     }
 }) %>

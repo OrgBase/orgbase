@@ -28,4 +28,10 @@ class Room < ApplicationRecord
   has_many :employees, through: :room_participants
   has_many :session_participants
   has_one :room_config
+
+  def room_participants_data
+    room_participants.map do |participant|
+      {name: participant.employee.user.first_name, identity: participant.employee_id, color: participant.color}
+    end
+  end
 end

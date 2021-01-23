@@ -1,5 +1,6 @@
 @import "bulma-defaults";
 @import "~bulma";
+@import "selectable-card";
 
 .room-container {
   min-width: 720px;
@@ -69,7 +70,6 @@
 
 .game-rules {
   white-space: pre-wrap;
-  font-weight: 500;
   font-size: 25px;
 }
 

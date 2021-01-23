@@ -6,9 +6,10 @@ import gameLogo from "../../stylesheets/img/game-icon.svg"
 import gameChangeLogo from "../../stylesheets/img/dice.svg"
 import Modal from "../common/modal";
 import SelectGameForm from "../common/SelectGameForm";
+import ParticipantSelectionList from "../common/ParticipantSelectionList";
 
 const SidePanel = ({ localParticipant, roomName, room }) => {
-  const {gameSlug, randomFraction, activeParticipant, updateRoomDetails} = useContext(RoomContext);
+  const {gameSlug, randomFraction, activeParticipant, roomParticipants, updateRoomDetails} = useContext(RoomContext);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [selectWinnerModalState, setSelectWinnerModalState] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
@@ -36,11 +37,16 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
     fetchGameData();
   }, [gameSlug])
 
-  const syncGameData = (gameSlug, randomFraction) => {
+  useEffect(() => {
+    syncGameData(gameSlug, randomFraction, roomParticipants)
+  }, [])
+
+  const syncGameData = (gameSlug=gameSlug, randomFraction=randomFraction, roomParticipants=roomParticipants) => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
       gameSlug: gameSlug,
-      randomFraction: randomFraction
+      randomFraction: randomFraction,
+      roomParticipants: roomParticipants
     }));
 
     fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
@@ -51,7 +57,8 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
 
     updateRoomDetails({
       gameSlug: gameSlug,
-      randomFraction: randomFraction
+      randomFraction: randomFraction,
+      roomParticipants: roomParticipants
     });
   }
 
@@ -174,7 +181,7 @@ const SidePanel = ({ localParticipant, roomName, room }) => {
         modalTitle='Who won this round?'
         className='jally-modal'
       >
-        Participant Cards here
+        <ParticipantSelectionList cardContents={roomParticipants} multiple maxSelectable={roomParticipants && roomParticipants.length} />
       </Modal>
     </>
   );
