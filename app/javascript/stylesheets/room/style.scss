@@ -50,6 +50,20 @@
   font-size: 10px;
 }
 
+.score {
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  margin: 0;
+  padding: 0.2em 0.5em;
+  background: $jally-pink;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 10px;
+}
+
 .shared-panel {
   position: relative;
   height: 100%;

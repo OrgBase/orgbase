@@ -4,12 +4,22 @@ import wyr from '../../stylesheets/img/wyr.svg'
 import charades from '../../stylesheets/img/charades.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const SelectGameForm = ({ syncGameData, closeModal, changeGame }) => {
+const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
   const [loading, setLoading] = useState(false)
   const handleGameSelection = (gameSlug) => {
     if(changeGame) {
-      syncGameData(gameSlug, Math.random())
-      closeModal()
+      fetchWrapper('/room-participant', 'POST', {
+        room_slug: roomName,
+        reset_scores: true
+      })
+        .then(response => response.json())
+        .then(data => {
+          syncGameData(gameSlug, Math.random(), data)
+          closeModal()
+        })
+        .catch(error => {
+          console.error(error)
+        });
     } else {
       setLoading(true)
       fetchWrapper('/session', 'POST', {

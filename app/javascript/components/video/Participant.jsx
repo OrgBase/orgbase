@@ -2,12 +2,12 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, gameSlug }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [dataTracks, setDataTracks] = useState([]);
   const [roomParticipant, setRoomParticipant] = useState({})
-  const { updateRoomDetails } = useContext(RoomContext);
+  const { roomParticipants, activeParticipant, updateRoomDetails } = useContext(RoomContext);
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -95,10 +95,40 @@ const Participant = ({ participant }) => {
     }
   }, [dataTracks]);
 
+  const getColor = () => {
+    const index = roomParticipants.findIndex(p => p.identity == (participant && participant.identity))
+    return roomParticipants[index].color
+  }
+
+  const isIceBreaker = () => ['wyr', 'ddtq'].indexOf(gameSlug) > -1
+
+  const getScore = () => {
+    const index = roomParticipants.findIndex(p => p.identity == (participant && participant.identity))
+    return roomParticipants[index].score
+  }
+  const getBorder = () => {
+    let style = {}
+    if(!isIceBreaker() && ((participant && participant.identity) == activeParticipant.identity)) {
+      style = {
+        border: `4px solid ${getColor()}`
+      }
+    }
+    return style
+  }
+
+  const renderScore = () => {
+    return !isIceBreaker() && <span className="score" style={{
+      backgroundColor: getColor()
+    }}>{getScore()}</span>
+  }
+
   return (
-    <div className="participant">
-      <span className="name">{roomParticipant.firstName}</span>
-      <video ref={videoRef} autoPlay={true} />
+    <div className="participant" key={+new Date()}>
+      <span className="name" style={{
+        backgroundColor: getColor()
+      }}>{roomParticipant.firstName}</span>
+      {renderScore()}
+      <video ref={videoRef} autoPlay={true} style={getBorder()}/>
       <audio ref={audioRef} autoPlay={true} />
     </div>
   );

@@ -41,28 +41,28 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
     syncGameData(gameSlug, randomFraction, roomParticipants, activeParticipant)
   }, [])
 
-  const syncGameData = (gameSlug=gameSlug, randomFraction=randomFraction,
-                        roomParticipants=roomParticipants, activeParticipant=activeParticipant) => {
+  const syncGameData = (slug=gameSlug, fraction=randomFraction,
+                        participants=roomParticipants, activeP=activeParticipant) => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
-      gameSlug: gameSlug,
-      randomFraction: randomFraction,
-      roomParticipants: roomParticipants,
+      gameSlug: slug,
+      randomFraction: fraction,
+      roomParticipants: participants,
       activeParticipant: activeParticipant
     }));
 
     fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
       {
-        game_slug: gameSlug,
-        random_fraction: randomFraction,
-        employee_id: activeParticipant && activeParticipant.identity
+        game_slug: slug,
+        random_fraction: fraction,
+        employee_id: activeP && activeP.identity
       });
 
     updateRoomDetails({
-      gameSlug: gameSlug,
-      randomFraction: randomFraction,
-      roomParticipants: roomParticipants,
-      activeParticipant: activeParticipant
+      gameSlug: slug,
+      randomFraction: fraction,
+      roomParticipants: participants,
+      activeParticipant: activeP
     });
   }
 
@@ -193,6 +193,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
           changeGame={true}
           syncGameData={syncGameData}
           closeModal={toggleChangeGameModal}
+          roomName={roomName}
         />
       </Modal>
 
