@@ -10,7 +10,6 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const dataTrack = new LocalDataTrack();
-  const urlInputRef = createRef();
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -59,7 +58,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     if(participants.length) {
       return participants.map(participant => (
         <div key={participant.sid} className='column is-half is-relative'>
-          <Participant participant={participant} gameSlug={roomShared.gameSlug}/>
+          <Participant participant={participant} />
         </div>
       ));
     }
@@ -67,7 +66,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
 
   const renderLocalParticipant = () => <div className='column is-half is-relative'>
     {room ? (
-      <Participant key={room.localParticipant.sid} participant={room.localParticipant} gameSlug={roomShared.gameSlug}/>
+      <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
     ) : (
       ''
     )}

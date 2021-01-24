@@ -127,7 +127,7 @@ const Participant = ({ participant }) => {
   }
 
   return (
-    <div className="participant" key={+new Date()}>
+    <div className="participant">
       <span className="name" style={{
         backgroundColor: getColor()
       }}>{roomParticipant.firstName}</span>
