@@ -66,7 +66,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
     });
   }
 
-  const { title, instructions, variants, type } = gameData
+  const { title, instructions, variants, type, winnerSelectionCriteria } = gameData
 
   const handleExit = () => {
     if(room) {
@@ -122,19 +122,30 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
   const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
   const toggleSelectWinnerModal = () => setSelectWinnerModalState(!selectWinnerModalState)
 
-  const renderVariant = () => (
-    variants && variants[Math.floor(variants.length * randomFraction)] &&
-    <>
-      {variants[Math.floor(variants.length * randomFraction)].title &&
+  const renderVariant = () => {
+    const variant = variants && variants[Math.floor(variants.length * randomFraction)]
+    return variant && <>
+      {variant.title &&
       <div className="variant-title px-2 mt-2">
-        {variants[Math.floor(variants.length * randomFraction)].title}
+        {variant.title}
       </div>
       }
       <div className="game-rules px-2 mb-2">
-        {variants[Math.floor(variants.length * randomFraction)].variant}
+        {variant.variant}
+        {variant.hint && <>
+          <br /><br />
+          {variant.hint.toUpperCase()}
+        </>}
       </div>
     </>
-  )
+  }
+  const getName = (name) => {
+    if(name[name.length -1].toUpperCase() == 'S') {
+      return `${name}'`
+    } else {
+      return `${name}'s`
+    }
+  }
 
   return (
     <>
@@ -157,7 +168,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
         {(type == 'ice-breaker' || isActiveParticipant()) ? renderVariant()  :
           <div className="game-rules px-2 mb-2">
-            {`Its ${activeParticipant && activeParticipant.name}'s turn`}
+            {`Its ${getName(activeParticipant && activeParticipant.name)} turn`}
           </div>
         }
       </>}
@@ -203,6 +214,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         modalTitle='Who won this round?'
         className='jally-modal'
       >
+        <p>{winnerSelectionCriteria}</p>
         <ParticipantSelectionList
           cardContents={roomParticipants}
           multiple

@@ -97,14 +97,18 @@ const Participant = ({ participant, gameSlug }) => {
 
   const getColor = () => {
     const index = roomParticipants.findIndex(p => p.identity == (participant && participant.identity))
-    return roomParticipants[index].color
+    if(index > -1) {
+      return roomParticipants[index].color
+    }
   }
 
   const isIceBreaker = () => ['wyr', 'ddtq'].indexOf(gameSlug) > -1
 
   const getScore = () => {
     const index = roomParticipants.findIndex(p => p.identity == (participant && participant.identity))
-    return roomParticipants[index].score
+    if(index > -1) {
+      return roomParticipants[index].score
+    }
   }
   const getBorder = () => {
     let style = {}

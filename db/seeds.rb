@@ -68,8 +68,9 @@ end
 
 charades = Game.create!(slug: 'charades')
 GameConfig.create!(game: charades, name: 'Charades',
-                                 game_type: 'default-game',
-                                 instructions: "Whoever’s turn it is will be given a film, book or tv show title that they need to “act out” without speaking. Everyone else has to try and guess what it is. \n\n The person who guesses correctly first is awarded a point!")
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select the person who guessed correctly first",
+                   instructions: "Whoever’s turn it is will be given a film, book or tv show title that they need to “act out” without speaking. Everyone else has to try and guess what it is. \n\n The person who guesses correctly first is awarded a point!")
 charades_variants = ['Alice in Wonderland',
 'Alien',
 'All About Eve',
@@ -87,6 +88,85 @@ charades_variants.each do |v|
   GameVariant.create!(game: charades,
                       variant: v,
                       title: 'Your word/phrase')
+end
+
+variants = ['blah blah blah', 'jknkdjf dgfdsdmg dskgg kjsdgio', 'dolfdg joid cbfd dfg', 'dfgsd dsfv']
+
+otol = Game.create!(slug: 'otol')
+GameConfig.create!(game: otol, name: 'One truth one lie!',
+                   game_type: 'default-game',
+                   instructions: "Whoever’s turn it is has to tell one truth and one lie about a specific topic, everyone else has to probe their answers and then guess which one is the lie. \n\n Once everyone has guessed, a point is awarded to everyone who got it right!",
+                   winner_selection_criteria: "Select everyone who guessed correctly")
+
+variants.each do |v|
+  GameVariant.create!(game: otol,
+                      variant: v,
+                      title: 'Topic:')
+end
+
+# yna = Game.create!(slug: 'yna')
+# GameConfig.create!(game: yna, name: 'Yes, No, And!',
+#                    game_type: 'default-game',
+#                    instructions: "Chat about the topic shown. If you say ‘yes’, ‘no’ or ‘and’ you lose the round and get a penalty point.\n\nThe person with the fewest penalty points at the end of the game is the winner!")
+
+# variants.each do |v|
+#   GameVariant.create!(game: otol,
+#                       variant: v,
+#                       title: 'Topic:')
+# end
+
+vm = Game.create!(slug: 'vm')
+GameConfig.create!(game: vm, name: 'Vowel Movement',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select the person who guessed correctly first",
+                   instructions: "Whoever’s turn it is will be given a word/phrase that they need to say without their lips touching and without their tongue touching the roof of their mouth. Everyone else has to try and guess the word/phrase. \n\n The person who guesses correctly first is awarded a point!")
+
+variants.each do |v|
+  GameVariant.create!(game: vm,
+                      variant: v,
+                      title: 'Your word/phrase:')
+end
+
+gw = Game.create!(slug: 'gw')
+GameConfig.create!(game: gw, name: 'Guess Who',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select the person who guessed correctly first",
+                   instructions: "Whoever’s turn it is will be given the name of a famous person or fictional character. Everyone else then has to ask them questions to figure out who they are e.g. are you a fictional character? The person who’s go it is can only respond to questions with “yes”, “no” or “pass”. \n\n The person who guesses the character correctly first is awarded a point!")
+
+variants.each do |v|
+  GameVariant.create!(game: gw,
+                      variant: v,
+                      title: 'You are:')
+end
+
+dok = Game.create!(slug: 'dok')
+GameConfig.create!(game: dok, name: 'Drunk or Kid',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select everyone who guessed correctly",
+                   instructions: "Whoever’s turn it is has to tell a story about something they did when they were either drunk or a kid e.g. I once left my grandma a 4 minute long voicemail explaining how much I love her. Everyone else then has to guess whether they were drunk or a kid. \n\n Once everyone has guessed, a point is awarded to everyone who got it right!")
+
+dok_variants = ['Your turn!', 'Your turn!', 'Your turn!']
+dok_variants.each do |v|
+  GameVariant.create!(game: dok,
+                      variant: v,
+                      title: '')
+end
+
+tof = Game.create!(slug: 'tof')
+GameConfig.create!(game: tof, name: 'True or False',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select everyone who answered correctly",
+                   instructions: "Whoever’s turn it is will be given a statement and told whether this statement is true or false. They must then read the statement out loud, and everyone else has to say whether they think it is true or false. When everyone has responded the actual answer can be revealed. \n\n Each person who gets it right is awarded a point!")
+
+tof_variants = [
+    {fact: 'blah blah', hint: 'FALSE'},
+    {fact: 'jajj anaka dflkjl', hint: 'true'}
+]
+tof_variants.each do |v|
+  GameVariant.create!(game: tof,
+                      variant: v[:fact],
+                      hint: v[:hint],
+                      title: '')
 end
 
 CompanyParticipant.create!(user: midhun,

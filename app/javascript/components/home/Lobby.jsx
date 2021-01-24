@@ -129,7 +129,7 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
       <Modal
         modalState={startModalState}
         closeModal={toggleStartModal}
-        modalTitle='Select the next activity'
+        modalTitle='Select the first activity'
         className='jally-modal'
       >
         <SelectGameForm
