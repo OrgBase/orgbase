@@ -48,7 +48,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
       gameSlug: slug,
       randomFraction: fraction,
       roomParticipants: participants,
-      activeParticipant: activeParticipant
+      activeParticipant: activeP
     }));
 
     fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
@@ -140,7 +140,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
     </>
   }
   const getName = (name) => {
-    if(name[name.length -1].toUpperCase() == 'S') {
+    if(name && name[name.length -1].toUpperCase() == 'S') {
       return `${name}'`
     } else {
       return `${name}'s`

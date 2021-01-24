@@ -2,12 +2,12 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const Participant = ({ participant, gameSlug }) => {
+const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [dataTracks, setDataTracks] = useState([]);
   const [roomParticipant, setRoomParticipant] = useState({})
-  const { roomParticipants, activeParticipant, updateRoomDetails } = useContext(RoomContext);
+  const { gameSlug, roomParticipants, activeParticipant, updateRoomDetails } = useContext(RoomContext);
 
   const videoRef = useRef();
   const audioRef = useRef();
