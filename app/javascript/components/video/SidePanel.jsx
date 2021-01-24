@@ -134,7 +134,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         {variant.variant}
         {variant.hint && <>
           <br /><br />
-          {variant.hint.toUpperCase()}
+          {variant.hint}
         </>}
       </div>
     </>
