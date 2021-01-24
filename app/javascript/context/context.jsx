@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
 export const RoomContext = createContext({
-  panelType: '',
-  panelId: -1,
-  randomFraction: 0.0
+  gameSlug: 'ddtq',
+  randomFraction: 0.0,
+  activeParticipant: {},
+  roomParticipants: []
 });

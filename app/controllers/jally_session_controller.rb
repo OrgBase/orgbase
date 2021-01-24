@@ -7,7 +7,17 @@ class JallySessionController < ApplicationController
   def join_session
     @user = current_user
     params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
-                  :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds)
+                  :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds,
+                  :starting_game_slug)
+        .with_defaults(party: false,
+                       recurring: false,
+                       session_duration_seconds: 3600,
+                       switch_after_seconds: nil,
+                       frequency_length: nil,
+                       frequency_unit: nil,
+                       name: nil,
+                       invitees: [],
+                       starting_game_slug: 'ddtq')
 
     @session_slug = params[:identifier]
     if @session_slug.blank?
@@ -19,7 +29,8 @@ class JallySessionController < ApplicationController
       @session = JallySessionService.create_session(
           company: @company,
           created_by: @user,
-          name: params[:name] || nil
+          name: params[:name] || nil,
+          starting_game_slug: params[:starting_game_slug]
       )
 
       JallySessionService.configure_session(
@@ -37,9 +48,9 @@ class JallySessionController < ApplicationController
         JallySessionService.create_account_and_send_invite(invitee, @company, @user)
       end
       if params[:scheduled_at].present?
-        return render json: {scheduled: true}
+        return render json: {session_id: @session.id, scheduled: true}
       else
-        return render json: {session_slug: @session.slug}
+        return render json: {session_id: @session.id, session_slug: @session.slug}
       end
     else
       @session = JallySession.find_by(slug: @session_slug)

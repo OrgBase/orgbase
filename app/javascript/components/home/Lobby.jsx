@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 import Modal from "../common/modal";
-import CreateJallyForm from "./CreateJallyForm";
+// import CreateJallyForm from "./CreateJallyForm";
+import SelectGameForm from "../common/SelectGameForm";
 
 const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }) => {
   const [startModalState, setStartModalState] = useState(false)
@@ -86,17 +87,17 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
                 </div>
               </div>
             </div>
-            <div className='column is-narrow'>
-              <div
-                className="jally-card schedule-card"
-                onClick={toggleScheduleModal}
-              >
-                <div className="card-content">
-                  <div className='jally-card-header mb-2'>SCHEDULE</div>
-                  <div className='jally-card-text'>a Jally for later</div>
-                </div>
-              </div>
-            </div>
+            {/*<div className='column is-narrow'>*/}
+            {/*  <div*/}
+            {/*    className="jally-card schedule-card"*/}
+            {/*    onClick={toggleScheduleModal}*/}
+            {/*  >*/}
+            {/*    <div className="card-content">*/}
+            {/*      <div className='jally-card-header mb-2'>SCHEDULE</div>*/}
+            {/*      <div className='jally-card-text'>a Jally for later</div>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
           <div className='sessions-list mt-6 mb-4'>
             <h2>Upcoming Jallys</h2>
@@ -104,25 +105,36 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
           </div>
         </div>
       </div>
-      <Modal
-        modalState={scheduleModalState}
-        modalTitle='Schedule a Jally'
-        closeModal={toggleScheduleModal}
-      >
-        <CreateJallyForm
-          isImpromptu={false}
-          users={users}
-        />
-      </Modal>
+      {/*<Modal*/}
+      {/*  modalState={scheduleModalState}*/}
+      {/*  modalTitle='Schedule a Jally'*/}
+      {/*  closeModal={toggleScheduleModal}*/}
+      {/*>*/}
+      {/*  <CreateJallyForm*/}
+      {/*    isImpromptu={false}*/}
+      {/*    users={users}*/}
+      {/*  />*/}
+      {/*</Modal>*/}
+      {/*<Modal*/}
+      {/*  modalState={startModalState}*/}
+      {/*  closeModal={toggleStartModal}*/}
+      {/*  modalTitle='Start a Jally'*/}
+      {/*  className='jally-modal'*/}
+      {/*>*/}
+      {/*  <CreateJallyForm*/}
+      {/*    isImpromptu={true}*/}
+      {/*    users={users}*/}
+      {/*  />*/}
+      {/*</Modal>*/}
       <Modal
         modalState={startModalState}
         closeModal={toggleStartModal}
-        modalTitle='Start a Jally'
+        modalTitle='Select the first activity'
         className='jally-modal'
       >
-        <CreateJallyForm
-          isImpromptu={true}
-          users={users}
+        <SelectGameForm
+          changeGame={false}
+          closeModal={toggleStartModal}
         />
       </Modal>
     </>

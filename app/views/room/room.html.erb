@@ -3,8 +3,9 @@
     token: @token,
     roomSid: @twilio_room.sid,
     roomShared: {
-        panelType: @room.panel_type,
-        panelId: @room.panel_id,
-        randomFraction: @room.random_fraction,
+        gameSlug: @room.room_config&.game_slug || @starting_game.slug,
+        randomFraction: @room.room_config&.random_fraction || rand(),
+        activeParticipant: @active_participant_data,
+        roomParticipants: @room.room_participants_data
     }
 }) %>

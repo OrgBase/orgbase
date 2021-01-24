@@ -2,14 +2,15 @@
 #
 # Table name: jally_sessions
 #
-#  id            :bigint           not null, primary key
-#  name          :string
-#  slug          :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  company_id    :bigint           not null
-#  created_by_id :bigint
-#  team_id       :bigint
+#  id                 :bigint           not null, primary key
+#  name               :string
+#  slug               :text
+#  starting_game_slug :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  company_id         :bigint           not null
+#  created_by_id      :bigint
+#  team_id            :bigint
 #
 # Indexes
 #

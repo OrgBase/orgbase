@@ -1,0 +1,154 @@
+@import "bulma-defaults";
+@import "~bulma";
+@import "selectable-card";
+
+.room-container {
+  min-width: 720px;
+}
+
+.local-participant {
+  max-width: 225px;
+  position: absolute;
+  bottom: 50px;
+  left: 5px;
+}
+
+.participant {
+  display: inline;
+  padding-bottom: 2px;
+  video {
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.room {
+  padding: 1em;
+}
+
+.room-url {
+  width: 300px;
+}
+
+.name {
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  margin: 0;
+  padding: 0.2em 0.5em;
+  background: $jally-pink;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 10px;
+}
+
+.local-participant .name {
+  font-size: 10px;
+}
+
+.score {
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  margin: 0;
+  padding: 0.2em 0.5em;
+  background: $jally-pink;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 10px;
+}
+
+.shared-panel {
+  position: relative;
+  height: 100%;
+  border-radius: 6px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $jally-violet;
+  color: white;
+  overflow: auto;
+}
+.full-room-height {
+  height: 96.5vh;
+}
+.is-half-height {
+  height: 49%;
+}
+
+.game-rules {
+  white-space: pre-wrap;
+  font-size: 25px;
+}
+
+.variant-title {
+  font-size: 18px;
+}
+
+.exit-button {
+  background-color: $primary;
+  border-color: $primary;
+  border-radius: 10px !important;
+  height: 30px !important;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.game-type-logo {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+}
+
+.jally-button-small {
+  height: 33px;
+  background-color: $primary;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 14px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  &:disabled {
+    background-color: #F12587;
+    opacity: 0.5;
+    color: white;
+  }
+}
+
+.jally-button-small:hover {
+  opacity: 0.9;
+  color: white;
+  cursor: pointer;
+}
+
+.transparent-button {
+  background: transparent !important;
+  border: 1px solid white !important;
+}
+
+.game-title {
+  font-weight: 700;
+  font-size: 50px;
+}
+
+.panel-bottom-container {
+  position: absolute;
+  bottom: 1em;
+}
+
+.panel-bottom-logo {
+  max-height: 75px;
+  cursor: pointer;
+}

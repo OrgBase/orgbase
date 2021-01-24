@@ -7,9 +7,7 @@
 
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import "room";
 @import "radio-cards";
-@import "shared";
 
 html, body {
   height: 100%;
@@ -220,5 +218,9 @@ p {
 }
 
 .height-40 {
-  height: 40px;
+  height: 40px !important;
+}
+
+.copy-url {
+  width: 310px;
 }

@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   get '/room/new' => "room#join_room", :as => :new_room
   get '/room/:identifier' => "room#join_room", :as => :room
 
+  get '/room_participant/:employee_id' => "room#participant_data"
+  post '/room-participant' => "room#update_participant"
+
   get '/session/:identifier' => "jally_session#join_session", :as => :jally_session
   post '/session' => "jally_session#join_session", :as => :create_jally_session
   post '/session-room' => "jally_session#get_room", :as => :get_session_room
@@ -41,4 +44,6 @@ Rails.application.routes.draw do
   post '/profile' => "profile#update_profile", :as => :update_profile
   post '/company' => "company#join_company", :as => :join_company
   post '/invite' => "profile#invite_users", :as => :invite_users
+
+  get '/game/:game_slug' => "game#game_data", :as => :fetch_game_data
 end
