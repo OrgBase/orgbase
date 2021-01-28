@@ -1,4 +1,5 @@
 import React, {useCallback, useContext, useState, useEffect} from 'react';
+import CanvasDraw from "react-canvas-draw";
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import iceBreakerLogo from "../../stylesheets/img/ice-breaker.svg"
@@ -130,7 +131,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         {variant.title}
       </div>
       }
-      <div className="game-rules px-2 mb-2">
+      <div className="game-variant px-2 mb-2">
         {variant.variant}
         {variant.hint && <>
           <br /><br />
@@ -152,8 +153,11 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
       return (
         <>
           <p>Its {getName(activeParticipant && activeParticipant.name)} turn</p>
-
-          Drawing board here
+          <CanvasDraw
+            canvasHeight={300}
+            lazyRadius={5}
+            brushRadius={2}
+          />
         </>
       )
     } else {
@@ -181,7 +185,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
       </> : <>
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Show Instructions</button>
         {(type == 'ice-breaker' || isActiveParticipant()) ? renderVariant()  :
-          <div className="game-rules px-2 mb-2">
+          <div className="game-variant px-2 mb-2">
             {renderPassiveParticipantArea()}
           </div>
         }

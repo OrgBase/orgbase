@@ -40,7 +40,7 @@ class SelectableTitleCard extends React.Component {
       <SelectableCard onClick={this.props.onClick}
                                 selected={selected} color={color}>
         <div className="content">
-          <p className="game-rules">{title}</p>
+          <p className="game-variant">{title}</p>
         </div>
       </SelectableCard>
     );
