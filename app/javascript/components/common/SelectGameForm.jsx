@@ -8,6 +8,7 @@ import vm from '../../stylesheets/img/vm.svg'
 import gw from '../../stylesheets/img/gw.svg'
 import tof from '../../stylesheets/img/tof.svg'
 import dok from '../../stylesheets/img/dok.svg'
+import drawkward from '../../stylesheets/img/drawkward.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
 
 const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
@@ -49,6 +50,12 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
           <img src={ddtq}
                className='max-width-125 is-clickable'
                onClick={handleGameSelection.bind(null, 'ddtq')}
+          />
+        </div>
+        <div className='column is-narrow'>
+          <img src={drawkward}
+               className='max-width-125 is-clickable'
+               onClick={handleGameSelection.bind(null, 'drawkward')}
           />
         </div>
         <div className='column is-narrow'>

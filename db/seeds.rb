@@ -139,6 +139,19 @@ variants.each do |v|
                       title: 'You are:')
 end
 
+drawkward = Game.create!(slug: 'drawkward')
+GameConfig.create!(game: drawkward, name: 'Drawkward',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select the person who guessed correctly first. The person who’s turn it is will also get a point.. unless nobody guessed correctly",
+                   instructions: "Whoever’s turn it is will be given an object. They then need to describe how to draw this using only geometric terms e.g. draw a triangle, then draw multiple rows of small rectangles inside it. \n\n Everybody else attempts to draw what’s being described and shouts out when they think they know what the object is. \n\n Both the person who guesses correctly first and the describer are awarded a point!")
+
+drawkward_variants = %w[Wallet Bird Buttefly Lantern Bed]
+drawkward_variants.each do |v|
+  GameVariant.create!(game: drawkward,
+                      variant: v,
+                      title: 'Object to describe geometrically:')
+end
+
 dok = Game.create!(slug: 'dok')
 GameConfig.create!(game: dok, name: 'Drunk or Kid',
                    game_type: 'default-game',
