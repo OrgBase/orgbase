@@ -152,6 +152,19 @@ drawkward_variants.each do |v|
                       title: 'Object to describe geometrically:')
 end
 
+pictionary = Game.create!(slug: 'pictionary')
+GameConfig.create!(game: pictionary, name: 'pictionary',
+                   game_type: 'default-game',
+                   winner_selection_criteria: "Select the person who guessed correctly first. The person who’s turn it is will also get a point.. unless nobody guessed correctly",
+                   instructions: "Whoever’s turn it is will be given a word/phrase that they need to draw (drawing letters or numbers is not allowed). Everybody else has to guess what the word/phase is. \n\n Both the person who guesses correctly first and the drawer are awarded a point!")
+
+pictionary_variants = %w[Popcorn Vampire Harry\ Potter Duck]
+pictionary_variants.each do |v|
+  GameVariant.create!(game: pictionary,
+                      variant: v,
+                      title: 'Your word/phrase:')
+end
+
 dok = Game.create!(slug: 'dok')
 GameConfig.create!(game: dok, name: 'Drunk or Kid',
                    game_type: 'default-game',

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import CanvasDraw from "react-canvas-draw";
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
@@ -10,11 +10,12 @@ import SelectGameForm from "../common/SelectGameForm";
 import ParticipantSelectionList from "../common/ParticipantSelectionList";
 
 const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers }) => {
-  const {gameSlug, randomFraction, activeParticipant, roomParticipants, updateRoomDetails} = useContext(RoomContext);
+  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [selectWinnerModalState, setSelectWinnerModalState] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [gameData, setGameData] = useState({})
+  const [loadableCanvas, setLoadableCanvas] = useState({})
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -43,27 +44,30 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
   }, [])
 
   const syncGameData = (slug=gameSlug, fraction=randomFraction,
-                        participants=roomParticipants, activeP=activeParticipant) => {
+                        participants=roomParticipants, activeP=activeParticipant, pictinaryD= pictionaryData) => {
     const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
       gameSlug: slug,
       randomFraction: fraction,
       roomParticipants: participants,
-      activeParticipant: activeP
+      activeParticipant: activeP,
+      pictionaryData: pictinaryD
     }));
 
-    fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
-      {
-        game_slug: slug,
-        random_fraction: fraction,
-        employee_id: activeP && activeP.identity
-      });
-
+    if (!(slug === gameSlug && fraction === randomFraction && (activeP.identity === activeParticipant.identity))) {
+      fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
+        {
+          game_slug: slug,
+          random_fraction: fraction,
+          employee_id: activeP && activeP.identity
+        });
+    }
     updateRoomDetails({
       gameSlug: slug,
       randomFraction: fraction,
       roomParticipants: participants,
-      activeParticipant: activeP
+      activeParticipant: activeP,
+      pictionaryData: pictinaryD
     });
   }
 
@@ -113,7 +117,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
     })
       .then(response => response.json())
       .then(data => {
-        syncGameData(gameSlug, fraction, data, nextParticipant)
+        syncGameData(gameSlug, fraction, data, nextParticipant, "")
       })
       .catch(error => {
         console.error(error)
@@ -125,7 +129,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
 
   const renderVariant = () => {
     const variant = variants && variants[Math.floor(variants.length * randomFraction)]
-    return variant && <>
+     let variantArea = variant && <>
       {variant.title &&
       <div className="variant-title px-2 mt-2">
         {variant.title}
@@ -139,6 +143,22 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         </>}
       </div>
     </>
+
+    if (gameSlug === 'pictionary') {
+      return <>
+        {variantArea}
+        <CanvasDraw
+          ref={canvasDraw => setLoadableCanvas(canvasDraw)}
+          hideGrid
+          canvasHeight={300}
+          lazyRadius={0}
+          brushRadius={1}
+          onChange={() => syncGameData(gameSlug, randomFraction, roomParticipants, activeParticipant, loadableCanvas.getSaveData())}
+        />
+      </>
+    } else {
+      return variantArea
+    }
   }
   const getName = (name) => {
     if(name && name[name.length -1].toUpperCase() == 'S') {
@@ -154,9 +174,25 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
         <>
           <p>Its {getName(activeParticipant && activeParticipant.name)} turn</p>
           <CanvasDraw
+            hideGrid
             canvasHeight={300}
-            lazyRadius={5}
-            brushRadius={2}
+            lazyRadius={0}
+            brushRadius={1}
+          />
+        </>
+      )
+    } else if (gameSlug === 'pictionary') {
+      return (
+        <>
+          <p>Its {getName(activeParticipant && activeParticipant.name)} turn</p>
+          <CanvasDraw
+            disabled
+            hideGrid
+            loadTimeOffset={0}
+            saveData={pictionaryData}
+            canvasHeight={300}
+            lazyRadius={0}
+            brushRadius={1}
           />
         </>
       )
