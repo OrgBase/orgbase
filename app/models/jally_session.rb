@@ -37,4 +37,12 @@ class JallySession < ApplicationRecord
   def config
     jally_session_setting
   end
+
+  def eligible_members_count
+    if team.present?
+      team.team_members&.length
+    else
+      company.employees&.length
+    end
+  end
 end

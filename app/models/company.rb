@@ -14,6 +14,7 @@
 class Company < ApplicationRecord
   before_create :generate_slug
   has_many :jally_sessions
+  has_many :employees
 
   private
   def generate_slug
