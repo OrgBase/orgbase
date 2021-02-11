@@ -8,10 +8,11 @@ class JallySessionController < ApplicationController
     @user = current_user
     params.permit(:identifier, :invitees, :name, :scheduled_at, :session_duration_seconds,
                   :recurring, :frequency_length, :frequency_unit, :party, :switch_after_seconds,
-                  :starting_game_slug)
+                  :starting_game_slug, :cut_off_seconds)
         .with_defaults(party: false,
                        recurring: false,
                        session_duration_seconds: 3600,
+                       cut_off_seconds: 1800,
                        switch_after_seconds: nil,
                        frequency_length: nil,
                        frequency_unit: nil,
@@ -36,12 +37,18 @@ class JallySessionController < ApplicationController
       JallySessionService.configure_session(
           session_id: @session.id,
           session_duration_seconds: params[:session_duration_seconds],
+          cut_off_seconds: 1800,
           party: params[:party],
           switch_after_seconds: params[:switch_after_seconds],
           recurring: params[:recurring],
           scheduled_at: scheduled_at,
           frequency_length: params[:frequency_length],
           frequency_unit: params[:frequency_unit])
+
+      @room = RoomService.create_room(
+          company: @company,
+          capacity: 10,
+          jally_session: @session)
 
       invitees = params[:invitees]
       invitees&.each do |invitee|
@@ -50,7 +57,7 @@ class JallySessionController < ApplicationController
       if params[:scheduled_at].present?
         return render json: {session_id: @session.id, scheduled: true}
       else
-        return render json: {session_id: @session.id, session_slug: @session.slug}
+        return render json: {session_id: @session.id, session_slug: @session.slug, room_slug: @room.slug}
       end
     else
       @session = JallySession.find_by(slug: @session_slug)

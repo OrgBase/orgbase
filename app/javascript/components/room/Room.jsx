@@ -57,14 +57,14 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
   const remoteParticipants = () => {
     if(participants.length) {
       return participants.map(participant => (
-        <div key={participant.sid} className='column is-half is-relative'>
+        <div key={participant.sid} className='column is-relative is-narrow'>
           <Participant participant={participant} />
         </div>
       ));
     }
   }
 
-  const renderLocalParticipant = () => <div className='column is-half is-relative'>
+  const renderLocalParticipant = () => <div className='column is-relative is-narrow'>
     {room ? (
       <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
     ) : (
@@ -76,7 +76,7 @@ const Room = ({ roomName, token, roomSid, roomShared }) => {
     <RoomContextProvider roomShared={roomShared}>
       <div className="columns room is-mobile room-container is-gapless is-desktop is-vcentered">
         <div className="column is-half remote-participants has-text-centered">
-          <div className='columns is-multiline'>
+          <div className='columns is-multiline is-centered'>
             {remoteParticipants()}
             {renderLocalParticipant()}
           </div>

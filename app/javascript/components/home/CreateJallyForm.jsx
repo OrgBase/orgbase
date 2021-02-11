@@ -16,7 +16,7 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
   }
   const [name, setName] = useState('');
   const [invitees, setInvitees] = useState([]);
-  const [sessionDuration, setSessionDuration] = useState(30);
+  const [sessionDuration, setSessionDuration] = useState(60);
   const prevSessionDuration = usePrevious(sessionDuration);
   const [switchDuration, setSwitchDuration] = useState(15);
   const prevSwitchDuration = usePrevious(switchDuration);
@@ -86,7 +86,7 @@ const CreateJallyForm = ({ isImpromptu, users }) => {
         if(data.scheduled) {
           setSessionScheduled(true)
         } else {
-          window.location.href = `/session/${data.session_slug}`
+          window.location.href = `/room/${data.room_slug}`
         }
       })
       .catch(error => {

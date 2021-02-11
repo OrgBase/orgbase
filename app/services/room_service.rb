@@ -1,6 +1,6 @@
 class RoomService
   class << self
-    def create_room(company:, capacity:)
+    def create_room(company:, capacity:, jally_session:)
       slug = SecureRandom.urlsafe_base64(8)
       while (Room.find_by(slug: slug).present?)
         slug = SecureRandom.urlsafe_base64(8)
@@ -9,7 +9,8 @@ class RoomService
       room = Room.create!(
           company: company,
           slug: slug,
-          capacity: capacity
+          capacity: capacity,
+          jally_session: jally_session
       )
 
       room

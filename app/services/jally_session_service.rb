@@ -23,7 +23,7 @@ class JallySessionService
         session_id:,
         session_duration_seconds: 3600,
         cut_off_seconds: 900,
-        room_capacity: 3,
+        room_capacity: 10,
         party: false,
         switch_after_seconds: nil,
         recurring: false,
@@ -50,7 +50,7 @@ class JallySessionService
       if participant.present?
         if participant.room.present?
           if participant.room.created_at > jally_session.config.scheduled_at &&
-              participant.room.created_at < jally_session.config.scheduled_at + (jally_session.config.session_duration_seconds).seconds
+              participant.room.created_at < jally_session.config.scheduled_at + (jally_session.config.session_duration_seconds || 3600).seconds
             return participant
           end
           participant.room = nil
@@ -61,6 +61,11 @@ class JallySessionService
             employee: employee,
             jally_session: jally_session
         )
+
+        if jally_session.eligible_members_count <= 10
+          participant.room = jally_session&.rooms&.first
+          participant.save!
+        end
       end
 
       participant
@@ -110,7 +115,11 @@ class JallySessionService
 
       sessions.select do |session|
         config = session.config
-        config.scheduled_at > DateTime.now
+        if config.present?
+          config.scheduled_at > DateTime.now
+        else
+          false
+        end
       end
     end
 

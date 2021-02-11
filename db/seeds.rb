@@ -32,6 +32,44 @@ Employee.create!(user: test_user,
                  slug: 'test',
                  title: 'Test User')
 
+test1 = User.create!(name: 'Test1', email: 'midhun+1@jally.co', password: 'hodor007', admin: true)
+test2 = User.create!(name: 'Test2', email: 'midhun+2@jally.co', password: 'hodor007', admin: true)
+test3 = User.create!(name: 'Test3', email: 'midhun+3@jally.co', password: 'hodor007', admin: true)
+test4 = User.create!(name: 'Test4', email: 'midhun+4@jally.co', password: 'hodor007', admin: true)
+test5 = User.create!(name: 'Test5', email: 'midhun+5@jally.co', password: 'hodor007', admin: true)
+test6 = User.create!(name: 'Test6', email: 'midhun+6@jally.co', password: 'hodor007', admin: true)
+test7 = User.create!(name: 'Test7', email: 'midhun+7@jally.co', password: 'hodor007', admin: true)
+
+Employee.create!(user: test1,
+                 company: company,
+                 slug: 'test1',
+                 title: 'Test User')
+Employee.create!(user: test2,
+                 company: company,
+                 slug: 'test2',
+                 title: 'Test User')
+Employee.create!(user: test3,
+                 company: company,
+                 slug: 'test3',
+                 title: 'Test User')
+Employee.create!(user: test4,
+                 company: company,
+                 slug: 'test4',
+                 title: 'Test User')
+Employee.create!(user: test5,
+                 company: company,
+                 slug: 'test5',
+                 title: 'Test User')
+Employee.create!(user: test6,
+                 company: company,
+                 slug: 'test6',
+                 title: 'Test User')
+Employee.create!(user: test7,
+                 company: company,
+                 slug: 'test7',
+                 title: 'Test User')
+
+
 wyr = Game.create!(slug: 'wyr')
 GameConfig.create!(game: wyr, name: 'Would you rather...',
                                 game_type: 'ice-breaker',

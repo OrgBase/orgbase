@@ -2,6 +2,7 @@
     roomName: @room.slug,
     token: @token,
     roomSid: @twilio_room.sid,
+    session_slug: @room&.jally_session&.slug,
     roomShared: {
         gameSlug: @room.room_config&.game_slug || @starting_game.slug,
         randomFraction: @room.room_config&.random_fraction || rand(),
