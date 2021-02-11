@@ -124,7 +124,7 @@ const Participant = ({ participant }) => {
   const renderScore = () => {
     return !isIceBreaker() && <span className="score" style={{
       backgroundColor: getColor()
-    }}>{getScore()}</span>
+    }}>{getScore() || 0}</span>
   }
 
   return (
