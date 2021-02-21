@@ -50,6 +50,11 @@
 
   .side-panel {
     align-self: flex-start;
+
+    .panel-header {
+      position: absolute;
+      top: 1em;
+    }
   }
 }
 
