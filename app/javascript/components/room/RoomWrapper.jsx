@@ -3,6 +3,10 @@ import { connect, LocalDataTrack, createLocalTracks} from 'twilio-video';
 import Participant from "../video/Participant";
 import SidePanel from "../video/SidePanel";
 import jallyLogo from '../../stylesheets/img/jally-logo-main.svg';
+import muteLogo from '../../stylesheets/img/mute.svg';
+import stopVideoLogo from '../../stylesheets/img/stop-video.svg';
+import unmuteLogo from '../../stylesheets/img/unmute.svg';
+import startVideoLogo from '../../stylesheets/img/start-video.svg';
 import gameChangeLogo from "../../stylesheets/img/activities.svg";
 import SelectGameForm from "../common/SelectGameForm";
 import Modal from "../common/modal";
@@ -15,6 +19,8 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
+  const [mute, setMute] = useState(false)
+  const [stopVideo, setStopVideo] = useState(false)
   const dataTrack = new LocalDataTrack();
   const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
 
@@ -126,6 +132,34 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
     });
   }
 
+  const toggleAudio = () => {
+    if(mute) {
+      room.localParticipant.audioTracks.forEach(track => {
+        track.track.enable();
+      });
+    } else {
+      room.localParticipant.audioTracks.forEach(track => {
+        track.track.disable();
+      });
+    }
+
+    setMute(!mute)
+  }
+
+  const toggleVideo = () => {
+    if(stopVideo) {
+      room.localParticipant.videoTracks.forEach(track => {
+        track.track.enable();
+      });
+    } else {
+      room.localParticipant.videoTracks.forEach(track => {
+        track.track.disable();
+      });
+    }
+
+    setStopVideo(!stopVideo)
+  }
+
 
   return (
     <>
@@ -164,6 +198,16 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
           </div>
 
           <div className='footer-actions-container'>
+            <img
+              src={mute ? unmuteLogo : muteLogo}
+              className="pr-2"
+              onClick={toggleAudio}
+            />
+            <img
+              src={stopVideo ? startVideoLogo : stopVideoLogo}
+              className="pr-2"
+              onClick={toggleVideo}
+            />
             <img
               src={gameChangeLogo}
               onClick={toggleChangeGameModal}

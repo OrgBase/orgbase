@@ -25,7 +25,7 @@
     "react-select": "^3.1.1",
     "react_ujs": "^2.6.1",
     "scrollreveal": "^4.0.0",
-    "twilio-video": "^2.7.2"
+    "twilio-video": "^2.8.0"
   },
   "version": "0.1.0",
   "devDependencies": {
