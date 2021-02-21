@@ -4,22 +4,15 @@ import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import iceBreakerLogo from "../../stylesheets/img/ice-breaker.svg"
 import gameLogo from "../../stylesheets/img/game-icon.svg"
-import gameChangeLogo from "../../stylesheets/img/dice.svg"
 import Modal from "../common/modal";
-import SelectGameForm from "../common/SelectGameForm";
 import ParticipantSelectionList from "../common/ParticipantSelectionList";
 
-const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers }) => {
-  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
-  const [changeGameModalState, setChangeGameModalState] = useState(false)
+const SidePanel = ({ localParticipant, roomName, syncGameData, participantIdentifiers }) => {
+  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData} = useContext(RoomContext);
   const [selectWinnerModalState, setSelectWinnerModalState] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [gameData, setGameData] = useState({})
   const [loadableCanvas, setLoadableCanvas] = useState({})
-
-  const trackpubsToTracks = trackMap => Array.from(trackMap.values())
-    .map(publication => publication.track)
-    .filter(track => track !== null);
 
   const isActiveParticipant = () => (activeParticipant && activeParticipant.identity) == localParticipant.identity
 
@@ -43,47 +36,7 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
     syncGameData(gameSlug, randomFraction, roomParticipants, activeParticipant)
   }, [])
 
-  const syncGameData = (slug=gameSlug, fraction=randomFraction,
-                        participants=roomParticipants, activeP=activeParticipant, pictinaryD= pictionaryData) => {
-    const dataTrack = trackpubsToTracks(localParticipant.dataTracks)[0];
-    dataTrack.send(JSON.stringify({
-      gameSlug: slug,
-      randomFraction: fraction,
-      roomParticipants: participants,
-      activeParticipant: activeP,
-      pictionaryData: pictinaryD
-    }));
-
-    if (!(slug === gameSlug && fraction === randomFraction && (activeP.identity === activeParticipant.identity))) {
-      fetchWrapper(`/room/${roomName}/panel-update`, 'POST',
-        {
-          game_slug: slug,
-          random_fraction: fraction,
-          employee_id: activeP && activeP.identity
-        });
-    }
-    updateRoomDetails({
-      gameSlug: slug,
-      randomFraction: fraction,
-      roomParticipants: participants,
-      activeParticipant: activeP,
-      pictionaryData: pictinaryD
-    });
-  }
-
   const { title, instructions, variants, type, winnerSelectionCriteria } = gameData
-
-  const handleExit = () => {
-    if(room) {
-      room.localParticipant.tracks.forEach(function(trackPublication) {
-        if (trackPublication.track.kind !== 'data') {
-          trackPublication.track.stop();
-        }
-      });
-      room.disconnect();
-    }
-    window.open('/lobby', '_self');
-  }
 
   const toggleInstructions = () => setShowInstructions(!showInstructions)
 
@@ -124,7 +77,6 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
       });
   }
 
-  const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
   const toggleSelectWinnerModal = () => setSelectWinnerModalState(!selectWinnerModalState)
 
   const renderVariant = () => {
@@ -206,12 +158,6 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
       {type == 'ice-breaker' && <img className='game-type-logo' src={iceBreakerLogo}/>}
       {type != 'ice-breaker' && <img className='game-type-logo' src={gameLogo}/>}
 
-      <button
-        className='jally-button-small exit-button'
-        onClick={handleExit}
-      >
-        Exit
-      </button>
       <h3 className="game-title has-text-white"> { title } </h3>
       {showInstructions ? <>
         <button className='jally-button-small transparent-button my-3' onClick={toggleInstructions}>Back</button>
@@ -226,41 +172,21 @@ const SidePanel = ({ localParticipant, roomName, room, participantIdentifiers })
           </div>
         }
       </>}
-        {}
-
-      {type == 'ice-breaker' ? <button
-        className="button jally-button my-3"
-        onClick={changeVariant}
-      >
-        Next Question
-      </button> : <button
-        className="button jally-button my-3"
-        onClick={toggleSelectWinnerModal}
-      >
-        Next Turn
-      </button>
-      }
 
       <div className='panel-bottom-container'>
-        <img
-          className='panel-bottom-logo' src={gameChangeLogo}
-          onClick={toggleChangeGameModal}
-        />
+        {type == 'ice-breaker' ? <button
+          className="button jally-button my-3"
+          onClick={changeVariant}
+        >
+          Next Question
+        </button> : <button
+          className="button jally-button my-3"
+          onClick={toggleSelectWinnerModal}
+        >
+          Next Turn
+        </button>
+        }
       </div>
-
-      <Modal
-        modalState={changeGameModalState}
-        closeModal={toggleChangeGameModal}
-        modalTitle='Select the next activity'
-        className='jally-modal'
-      >
-        <SelectGameForm
-          changeGame={true}
-          syncGameData={syncGameData}
-          closeModal={toggleChangeGameModal}
-          roomName={roomName}
-        />
-      </Modal>
 
       <Modal
         modalState={selectWinnerModalState}

@@ -173,3 +173,10 @@
     opacity: 0;
   }
 }
+
+.is-clickable {
+  cursor: pointer !important
+}
+.is-clickable:hover {
+  opacity: 0.8;
+}

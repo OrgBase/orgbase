@@ -26,7 +26,40 @@
 }
 
 .room {
-  padding: 1em;
+  position: relative;
+  height: 100vh;
+
+  .room-footer {
+    background-color: #F6F6F6;
+    position: absolute;
+    bottom: 0;
+    height: 85px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .footer-actions-container {
+      height: 60px;
+      img {
+        max-height: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .side-panel {
+    align-self: flex-start;
+  }
+}
+
+.jally-logo-md {
+  position: absolute;
+  left: 1em;
+  height: 34px;
+  img {
+    max-height: 100%;
+  }
 }
 
 .room-url {
@@ -68,7 +101,6 @@
 .shared-panel {
   position: relative;
   height: 100%;
-  border-radius: 6px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -77,7 +109,7 @@
   overflow: auto;
 }
 .full-room-height {
-  height: 96.5vh;
+  height: calc(100vh - 85px);
 }
 .is-half-height {
   height: 49%;
@@ -98,21 +130,20 @@
 }
 
 .exit-button {
-  background-color: $primary;
-  border-color: $primary;
+  background-color: #FF6584 !important;
+  border-color: #FF6584 !important;
   border-radius: 10px !important;
-  height: 30px !important;
+  height: 35px !important;
   font-weight: bold;
   color: white;
   position: absolute;
-  top: 1em;
   right: 1em;
 }
 
 .game-type-logo {
   position: absolute;
-  top: 1em;
-  left: 1em;
+  bottom: 1em;
+  right: 1em;
 }
 
 .jally-button-small {
