@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import {RoomContext} from "../../context/context";
 import fetchWrapper from "../../helpers/fetchWrapper";
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, numRemoteParticipants }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [dataTracks, setDataTracks] = useState([]);
@@ -128,7 +128,7 @@ const Participant = ({ participant }) => {
   }
 
   return (
-    <div className="participant">
+    <div className={`participant ${numRemoteParticipants > 1 ? 'participant-3' : ''}`}>
       <span className="name" style={{
         backgroundColor: getColor()
       }}>{roomParticipant.firstName}</span>

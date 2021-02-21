@@ -71,7 +71,7 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
     if(participants.length) {
       return participants.map(participant => (
         <div key={participant.sid} className='column is-relative is-narrow'>
-          <Participant participant={participant} />
+          <Participant participant={participant} numRemoteParticipants={participants.length}/>
         </div>
       ));
     }
@@ -79,7 +79,7 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
 
   const renderLocalParticipant = () => <div className='column is-relative is-narrow'>
     {room ? (
-      <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
+      <Participant key={room.localParticipant.sid} participant={room.localParticipant} numRemoteParticipants={participants.length}/>
     ) : (
       ''
     )}
