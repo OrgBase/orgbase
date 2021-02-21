@@ -18,10 +18,15 @@
   padding-bottom: 2px;
   video {
     border-radius: 6px;
-    max-height: 160px;
-    width: 100%;
-    max-width: 211px;
+    max-height: 280px;
     object-fit: cover;
+  }
+}
+
+.participant-3 {
+  video {
+    max-height: 160px;
+    max-width: 211px;
   }
 }
 
