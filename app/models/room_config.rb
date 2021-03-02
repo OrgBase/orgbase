@@ -4,7 +4,7 @@
 #
 #  id                    :bigint           not null, primary key
 #  game_slug             :string
-#  random_fraction       :decimal(, )      default(0.245118596034709)
+#  random_fraction       :decimal(, )      default(0.843392236269892)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  active_participant_id :bigint

@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2021_01_21_143148) do
   create_table "room_configs", force: :cascade do |t|
     t.bigint "room_id", null: false
     t.string "game_slug"
-    t.decimal "random_fraction", default: "0.245118596034709"
+    t.decimal "random_fraction", default: "0.843392236269892"
     t.bigint "active_participant_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
