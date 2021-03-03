@@ -3,10 +3,11 @@ import ddtq from '../../stylesheets/img/ddtq.svg'
 import wyr from '../../stylesheets/img/wyr.svg'
 import charades from '../../stylesheets/img/charades.svg'
 import otol from '../../stylesheets/img/otol.svg'
-import yna from '../../stylesheets/img/yna.svg'
+// import yna from '../../stylesheets/img/yna.svg'
 import vm from '../../stylesheets/img/vm.svg'
 import gw from '../../stylesheets/img/gw.svg'
 import tof from '../../stylesheets/img/tof.svg'
+import di from '../../stylesheets/img/di.svg'
 import dok from '../../stylesheets/img/dok.svg'
 import drawkward from '../../stylesheets/img/drawkward.svg'
 import pictionary from '../../stylesheets/img/pictionary.svg'
@@ -111,6 +112,12 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
           <img src={dok}
                className='max-width-125 is-clickable'
                onClick={handleGameSelection.bind(null, 'dok')}
+          />
+        </div>
+        <div className='column is-narrow'>
+          <img src={di}
+               className='max-width-125 is-clickable'
+               onClick={handleGameSelection.bind(null, 'di')}
           />
         </div>
       </div>

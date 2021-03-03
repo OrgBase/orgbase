@@ -87,6 +87,19 @@ wyr_variants.each do |v|
                       variant: v)
 end
 
+di = Game.create!(slug: 'di')
+GameConfig.create!(game: di, name: 'Desert Island',
+                   game_type: 'ice-breaker',
+                   instructions: "You’re stranded on an inescapable desert island for the rest of your life... but luckily you’ve got running water, shelter and enough forageable food to keep you alive & healthy. Take it in turns to reveal which 3 things you’d want with you on the island from the category shown and then explain your reasoning.")
+
+di_variants = ["Books", "DVDs", "Music CDs", "Electronics"]
+
+di_variants.each do |v|
+  GameVariant.create!(game: di,
+                      variant: v,
+                      title: 'Your 3 chosen:')
+end
+
 ddtq = Game.create!(slug: 'ddtq')
 GameConfig.create!(game: ddtq, name: 'Don’t dodge the question!',
                                  game_type: 'ice-breaker',
