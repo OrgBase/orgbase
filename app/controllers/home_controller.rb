@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
-  layout 'home'
+  layout 'lobby'
 
   def index
     @user = current_user
@@ -17,8 +17,8 @@ class HomeController < ApplicationController
 
     if @employee.present?
       @company = @employee.company
-      @selectable_users = Employee.where(company: @company).map {|e| {value: e.user.id, label: e.user.name}}
-      @selectable_users -= [@user]
+      other_employees = Employee.where(company: @company) - [@employee]
+      @selectable_users = other_employees.map {|e| {value: e.user.id, label: e.user.name}}
       @upcoming_sessions = JallySessionService.upcoming_jally_sessions(@employee).map { |s| get_session_hash(s) }
       @active_sessions = JallySessionService.active_jally_sessions(@employee).map { |s| get_session_hash(s) }
       return render template: 'home/lobby'

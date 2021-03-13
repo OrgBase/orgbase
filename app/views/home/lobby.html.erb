@@ -1,7 +1,49 @@
-<%= react_component('Lobby', {
-    errorMessage: @error_message,
-    notice: @notice,
-    users: @selectable_users,
-    activeSessions: @active_sessions,
-    upcomingSessions: @upcoming_sessions
-}) %>
+<div class="columns is-gapless">
+  <div class="column is-narrow is-full-height jally-left-nav">
+    <a class="navbar-item mx-5" href="/">
+      <img src="<%= asset_pack_path('media/stylesheets/img/jally-logo-beta.svg') %>" class="jally-logo-img">
+    </a>
+    <hr />
+    <div class="playspace-title mb-3">
+      <%= @company.name %>'s Playspace
+    </div>
+
+    <div class="text-align-left ml-2">
+<!--      <div class="title-16">Members</div>-->
+      <%= react_component('MemberList', {
+          members: @selectable_users
+      }) %>
+    </div>
+
+  </div>
+  <div class="column is-full-height flex-column has-text-centered">
+    <div class="jally-navbar">
+
+      <div class="greeting-text mt-3">
+        <span style="color:#00D5E0">Howdy</span> <%= @user.first_name %> 👋
+      </div>
+      <div>
+        <div class="jally-avatar">
+          <%= render partial: 'home/jally_avatar' %>
+        </div>
+      </div>
+    </div>
+
+    <!-- ******  Content ********** -->
+    <div class="boxed-container jally-content is-flex center-items">
+      <%= react_component('Lobby', {
+          errorMessage: @error_message,
+          notice: @notice,
+          users: @selectable_users,
+          activeSessions: @active_sessions,
+          upcomingSessions: @upcoming_sessions
+      }) %>
+    </div>
+
+    <!-- ******  Footer ********** -->
+    <div class="has-text-centered jally-footer is-flex center-items">
+      Made with ❤️ by team Jally
+    </div>
+  </div>
+</div>
+
