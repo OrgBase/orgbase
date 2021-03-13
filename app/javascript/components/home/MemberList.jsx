@@ -22,17 +22,16 @@ const MemberList = ({ members }) => {
           size={35}
           className="mr-2"
         />
-        <strong>{ member.label }</strong>
-
+        { member.label }
       </div>
     ))}
 
-    <div
-      className="button jally-button"
-      onClick={toggleAddTeammatesModal}
-    > + Invite</div>
-
-
+    <div className="full-width has-text-centered">
+      <div
+        className="button jally-button"
+        onClick={toggleAddTeammatesModal}
+      > + Invite</div>
+    </div>
     <Modal
       modalState={addTeammatesModalState}
       modalTitle='Invite people to join this playspace'
