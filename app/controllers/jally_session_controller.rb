@@ -64,7 +64,6 @@ class JallySessionController < ApplicationController
       @company = @session&.company
       team = @session&.team
 
-
       if @company
         @employee = @user.employee
         # If we hit this, it means the user was invited with the session link

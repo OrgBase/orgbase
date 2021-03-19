@@ -47,6 +47,7 @@ class JallySessionService
 
     def create_or_clear_participant(employee:, jally_session:)
       participant = SessionParticipant.find_by(employee: employee, jally_session: jally_session)
+      #could be a recurring session, clear the old room
       if participant.present?
         if participant.room.present?
           if participant.room.created_at > jally_session.config.scheduled_at &&
@@ -56,32 +57,32 @@ class JallySessionService
           participant.room = nil
           participant.save!
         end
+      end
+
+      participant ||= SessionParticipant.create!(
+          employee: employee,
+          jally_session: jally_session
+      )
+
+      if jally_session.eligible_members_count <= 10
+        room = jally_session&.rooms&.first
       else
-        participant = SessionParticipant.create!(
-            employee: employee,
-            jally_session: jally_session
-        )
-
-        if jally_session.eligible_members_count <= 10
-          room = jally_session&.rooms&.first
-        else
-          available_rooms = Room.where(jally_session: jally_session).select do |r|
-            r.room_participants.length < 10
-          end
-
-          if available_rooms.blank?
-            room = RoomService.create_room(
-              company: @company,
-              capacity: 10,
-              jally_session: @session)
-          else
-            room = available_rooms.last
-          end
+        available_rooms = Room.where(jally_session: jally_session).select do |r|
+          r.room_participants.length < 10
         end
 
-        participant.room = room
-        participant.save!
+        if available_rooms.blank?
+          room = RoomService.create_room(
+            company: @company,
+            capacity: 10,
+            jally_session: @session)
+        else
+          room = available_rooms.last
+        end
       end
+
+      participant.room = room
+      participant.save!
 
       participant
     end
