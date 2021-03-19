@@ -63,9 +63,24 @@ class JallySessionService
         )
 
         if jally_session.eligible_members_count <= 10
-          participant.room = jally_session&.rooms&.first
-          participant.save!
+          room = jally_session&.rooms&.first
+        else
+          available_rooms = Room.where(jally_session: jally_session).select do |r|
+            r.room_participants.length < 10
+          end
+
+          if available_rooms.blank?
+            room = RoomService.create_room(
+              company: @company,
+              capacity: 10,
+              jally_session: @session)
+          else
+            room = available_rooms.last
+          end
         end
+
+        participant.room = room
+        participant.save!
       end
 
       participant

@@ -94,9 +94,8 @@ class JallySessionController < ApplicationController
         jally_session: @session
     )
 
-    return redirect_to room_path(identifier: @participant.room.slug) if @participant.room.present?
-
-    render template: 'session/session'
+    redirect_to room_path(identifier: @participant.room.slug) if @participant.room.present?
+    # render template: 'session/session'
   end
 
   def get_room
