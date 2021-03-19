@@ -191,9 +191,15 @@ const SidePanel = ({ localParticipant, roomName, syncGameData, participantIdenti
           onClick={changeVariant}
         >
           Next Question
-        </button> : <button
+        </button> :  isActiveParticipant() ? <button
           className="button jally-button my-3"
           onClick={toggleSelectWinnerModal}
+          >
+          Next Turn
+          </button> : <button
+          className="button jally-button my-3 has-tooltip-multiline"
+          data-tooltip="Only the active participant can change the turn after they're done"
+          disabled
         >
           Next Turn
         </button>
