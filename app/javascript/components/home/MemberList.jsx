@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 import Avatar from "react-avatar";
-import SetupProfileForm from "./SetupProfileForm";
 import Modal from "../common/modal";
-import JallyVerticalLogo from '../../stylesheets/img/jally-vertical-logo.svg'
 import InviteTeammatesForm from "./InviteTeammatesForm";
 
 const MemberList = ({ members }) => {
