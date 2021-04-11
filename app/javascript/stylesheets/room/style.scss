@@ -200,3 +200,41 @@
   max-height: 75px;
   cursor: pointer;
 }
+
+.game-card-container {
+  width: 210px;
+  .start-button {
+    position: absolute;
+    bottom: 25px;
+    left: 65px;
+    background-color: #01BDD7;
+    border: none;
+    color: white;
+    font-weight: bold;
+  }
+  .info-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+    color: white;
+  }
+  .close-icon {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    color: white;
+  }
+}
+
+.full-width-modal {
+  .modal-card {
+    width: 100% !important;
+    .modal-card-body {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .modal-card-body::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

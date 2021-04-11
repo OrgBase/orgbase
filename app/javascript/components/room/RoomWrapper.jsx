@@ -227,7 +227,8 @@ const RoomWrapper = ({ roomName, token, roomSid, roomShared }) => {
         modalState={changeGameModalState}
         closeModal={toggleChangeGameModal}
         modalTitle='Select the next activity'
-        className='jally-modal'
+        className="jally-modal full-width-modal xyz"
+        modalClass="full-width-modal"
       >
         <SelectGameForm
           changeGame={true}

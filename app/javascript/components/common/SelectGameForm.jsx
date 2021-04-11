@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
-import ddtq from '../../stylesheets/img/ddtq.svg'
+import qq from '../../stylesheets/img/qq.svg'
 import wyr from '../../stylesheets/img/wyr.svg'
 import charades from '../../stylesheets/img/charades.svg'
-import otol from '../../stylesheets/img/otol.svg'
-// import yna from '../../stylesheets/img/yna.svg'
+import tal from '../../stylesheets/img/tal.svg'
 import vm from '../../stylesheets/img/vm.svg'
 import gw from '../../stylesheets/img/gw.svg'
 import tof from '../../stylesheets/img/tof.svg'
 import di from '../../stylesheets/img/di.svg'
-import dok from '../../stylesheets/img/dok.svg'
 import drawkward from '../../stylesheets/img/drawkward.svg'
 import pictionary from '../../stylesheets/img/pictionary.svg'
+import qqBack from '../../stylesheets/img/qq-back.svg'
+import wyrBack from '../../stylesheets/img/wyr-back.svg'
+import charadesBack from '../../stylesheets/img/charades-back.svg'
+import talBack from '../../stylesheets/img/tal-back.svg'
+import vmBack from '../../stylesheets/img/vm-back.svg'
+import gwBack from '../../stylesheets/img/gw-back.svg'
+import tofBack from '../../stylesheets/img/tof-back.svg'
+import diBack from '../../stylesheets/img/di-back.svg'
+import drawkwardBack from '../../stylesheets/img/drawkward-back.svg'
+import pictionaryBack from '../../stylesheets/img/pictionary-back.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
+import GameCard from "./GameCard";
 
 const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
   const [loading, setLoading] = useState(false)
@@ -48,76 +57,75 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
   return <>
     <div className="actions has-text-centered">
       <div className={`columns is is-multiline is-centered my-6 ${loading ? 'pending' : ''}`}>
-        <div className='column is-narrow'>
-          <img src={ddtq}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'ddtq')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={qq}
+            onGameSelect={handleGameSelection.bind(null, 'qq')}
+            backImg={qqBack}
+          />
+
+        </div>
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={drawkward}
+            onGameSelect={handleGameSelection.bind(null, 'drawkward')}
+            backImg={drawkwardBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={drawkward}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'drawkward')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={charades}
+            onGameSelect={handleGameSelection.bind(null, 'charades')}
+            backImg={charadesBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={charades}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'charades')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={wyr}
+            onGameSelect={handleGameSelection.bind(null, 'wyr')}
+            backImg={wyrBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={wyr}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'wyr')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={tal}
+            onGameSelect={handleGameSelection.bind(null, 'tal')}
+            backImg={talBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={otol}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'otol')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={pictionary}
+            onGameSelect={handleGameSelection.bind(null, 'pictionary')}
+            backImg={pictionaryBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={pictionary}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'pictionary')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={vm}
+            onGameSelect={handleGameSelection.bind(null, 'vm')}
+            backImg={vmBack}
           />
         </div>
-        {/*<div className='column is-narrow'>*/}
-        {/*  <img src={yna}*/}
-        {/*       className='max-width-125 is-clickable'*/}
-        {/*       onClick={handleGameSelection.bind(null, 'yna')}*/}
-        {/*  />*/}
-        {/*</div>*/}
-        <div className='column is-narrow'>
-          <img src={vm}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'vm')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={gw}
+            onGameSelect={handleGameSelection.bind(null, 'gw')}
+            backImg={gwBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={gw}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'gw')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={di}
+            onGameSelect={handleGameSelection.bind(null, 'di')}
+            backImg={diBack}
           />
         </div>
-        <div className='column is-narrow'>
-          <img src={tof}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'tof')}
-          />
-        </div>
-        <div className='column is-narrow'>
-          <img src={dok}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'dok')}
-          />
-        </div>
-        <div className='column is-narrow'>
-          <img src={di}
-               className='max-width-125 is-clickable'
-               onClick={handleGameSelection.bind(null, 'di')}
+        <div className='column is-one-quarter is-narrow-mobile'>
+          <GameCard
+            frontImg={tof}
+            onGameSelect={handleGameSelection.bind(null, 'tof')}
+            backImg={tofBack}
           />
         </div>
       </div>

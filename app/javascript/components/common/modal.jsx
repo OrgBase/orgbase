@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Modal = ({ children, closeModal, modalState, modalTitle }) => {
+const Modal = ({ children, closeModal, modalState, modalTitle, modalClass }) => {
   if(!modalState) {
     return null;
   }
 
   return(
-    <div className="modal is-active jally-modal">
+    <div className={`modal is-active jally-modal ${modalClass || ''}`}>
       <div className="modal-background" onClick={closeModal} />
       <div className="modal-card">
         <header className="modal-card-head">
