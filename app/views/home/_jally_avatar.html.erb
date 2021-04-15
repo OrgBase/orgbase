@@ -6,7 +6,8 @@
         size: 40,
         round: '0.625rem',
         playspaceName: current_user.company&.name,
-        memberCount: current_user.company&.employees&.count
+        memberCount: current_user.company&.employees&.count,
+        inviteCode: current_user.company&.invite_code
     })
   %>
 <% end %>

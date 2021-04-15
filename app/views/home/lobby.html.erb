@@ -13,7 +13,8 @@
           <%= react_component('InviteTeammatesButton', {
               buttonText: "+ Add Teammates",
               playspaceName: @company.name,
-              memberCount: @company.employees.count
+              memberCount: @company.employees.count,
+              inviteCode: @invite_code
           }) %>
         </div>
       </div>

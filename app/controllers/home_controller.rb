@@ -17,6 +17,7 @@ class HomeController < ApplicationController
 
     if @employee.present?
       @company = @employee.company
+      @invite_code = CompanyService.find_or_create_invite_code(@company.id)
       other_employees = Employee.where(company: @company) - [@employee]
       @selectable_users = other_employees.map {|e| {value: e.user.id, label: e.user.name || e.user.email}}
       @upcoming_sessions = JallySessionService.upcoming_jally_sessions(@employee).map { |s| get_session_hash(s) }

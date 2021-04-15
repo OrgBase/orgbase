@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Modal from "../common/modal";
 import InviteTeammatesForm from "./InviteTeammatesForm";
 
-const InviteTeammatesButton = ({ buttonText, playspaceName, memberCount }) => {
+const InviteTeammatesButton = ({ buttonText, playspaceName, memberCount, inviteCode }) => {
   const [addTeammatesModalState, setAddTeammatesModalState] = useState(false)
 
   const toggleAddTeammatesModal = () => setAddTeammatesModalState(!addTeammatesModalState)
@@ -20,6 +20,7 @@ const InviteTeammatesButton = ({ buttonText, playspaceName, memberCount }) => {
       <InviteTeammatesForm
         playspaceName={playspaceName}
         memberCount={memberCount}
+        inviteCode={inviteCode}
       />
     </Modal>
   </>

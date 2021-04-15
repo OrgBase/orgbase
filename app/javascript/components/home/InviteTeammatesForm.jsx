@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import fetchWrapper from "../../helpers/fetchWrapper";
 import AutoCompleteSelect from "../common/AutoCompleteSelect";
 
-const InviteTeammatesForm = ({playspaceName, memberCount}) => {
+const InviteTeammatesForm = ({playspaceName, memberCount, inviteCode}) => {
   const [formError, setFormError] = useState('')
   const [invitees, setInvitees] = useState([])
   const [loading, setLoading] = useState(false)
+  const [inviteText, setInviteText] = useState('Copy invite link to share')
 
   const inviteTeammates = (event) => {
     event.preventDefault();
@@ -26,6 +27,22 @@ const InviteTeammatesForm = ({playspaceName, memberCount}) => {
         setFormError(error.toString())
       })
   }
+
+  const copyInviteLink = (e) => {
+    let tempInput = document.createElement("input")
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px"
+    tempInput.value = `jally.co/join_playspace/${inviteCode}`
+    document.body.appendChild(tempInput)
+    tempInput.select()
+    document.execCommand("copy")
+    document.body.removeChild(tempInput)
+
+    setInviteText('Invite link copied')
+    setTimeout(() => {
+      setInviteText('Copy invite link to share')
+    }, 5000)
+  }
+
   return <>
     {formError && <div className="notification is-warning mt-5">
       {formError}
@@ -35,6 +52,13 @@ const InviteTeammatesForm = ({playspaceName, memberCount}) => {
         {playspaceName && memberCount && <label className="label jally-label dark-grey-text">
           {`${playspaceName}'s Playspace · ${memberCount} Members`}
         </label>}
+        {inviteCode && <div
+          className="mt-1 mb-4 is-text-primary is-clickable"
+          onClick={copyInviteLink}
+        >
+          <span className='mx-1'><i className="fas fa-link" aria-hidden="true"></i></span>
+          <b>{inviteText}</b>
+        </div>}
         <AutoCompleteSelect
           users={[]}
           updateSelection={setInvitees}
