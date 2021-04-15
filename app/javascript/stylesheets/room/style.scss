@@ -233,9 +233,15 @@
 }
 
 .full-width-modal {
+  .modal-background, .modal-card-head {
+    background-color: transparent !important;
+  }
   .modal-card {
     width: 100% !important;
+    max-height: 100vh !important;
+    background-color:rgba(256, 256, 256, 0.95);
     .modal-card-body {
+      background-color: transparent;
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
     }

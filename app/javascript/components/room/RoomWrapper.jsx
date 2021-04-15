@@ -251,7 +251,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
       <Modal
         modalState={changeGameModalState}
         closeModal={toggleChangeGameModal}
-        modalTitle='Select the next activity'
+        modalTitle='Pick an activity'
         className="jally-modal full-width-modal xyz"
         modalClass="full-width-modal"
       >
