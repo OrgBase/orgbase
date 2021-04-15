@@ -1,6 +1,7 @@
 class CompanyController < ApplicationController
   before_action :authenticate_user!
   layout 'home'
+
   def join_company
     @user = current_user
     playspace_name = params[:playspace_name]
@@ -9,7 +10,11 @@ class CompanyController < ApplicationController
     ActiveRecord::Base.transaction do
       @company = Company.find(company_id) if company_id.present?
       if playspace_name.present?
-        @company ||= Company.create!(name: playspace_name, website: params[:website])
+        invite_code = SecureRandom.urlsafe_base64(8)
+        while Company.find_by(invite_code: invite_code).present?
+          invite_code = SecureRandom.urlsafe_base64(8)
+        end
+        @company ||= Company.create!(name: playspace_name, website: params[:website], invite_code: invite_code)
 
         email_domain = @user.email.split('@').last
 
@@ -39,5 +44,23 @@ class CompanyController < ApplicationController
     render json: {
         success: true
     }
+  end
+
+  def accept_invitation
+    @user = current_user
+    return redirect_to home_path(error_message: "Uh oh! You can only join one Playspace with your Jally account") if @user.company.present?
+
+    invite_code = params[:invite_code]
+    company = Company.find_by(invite_code: invite_code) if invite_code.present?
+
+    return redirect_to home_path(error_message: "Uh oh! That's an invalid invite code") if company.nil?
+
+    @employee = Employee.create(
+        user: @user,
+        company: company,
+        title: 'Team Member'
+    )
+
+    redirect_to home_path
   end
 end
