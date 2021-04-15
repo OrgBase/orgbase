@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import fetchWrapper from "../../helpers/fetchWrapper";
 import AutoCompleteSelect from "../common/AutoCompleteSelect";
 
-const InviteTeammatesForm = () => {
+const InviteTeammatesForm = ({playspaceName, memberCount}) => {
   const [formError, setFormError] = useState('')
   const [invitees, setInvitees] = useState([])
   const [loading, setLoading] = useState(false)
@@ -31,14 +31,14 @@ const InviteTeammatesForm = () => {
       {formError}
     </div>}
     <form className={`px-6 ${loading ? 'pending' : ''}`} onSubmit={(e) => inviteTeammates(e)}>
-      <div className="field my-6">
-        <label className="label jally-label dark-grey-text">
-          Which teammates do you want to try out Jally with?
-        </label>
+      <div className="field mb-4">
+        {playspaceName && memberCount && <label className="label jally-label dark-grey-text">
+          {`${playspaceName}'s Playspace · ${memberCount} Members`}
+        </label>}
         <AutoCompleteSelect
           users={[]}
           updateSelection={setInvitees}
-          placeholder='enter email and press tab or return key'
+          placeholder='enter work email and press tab or return key'
         />
       </div>
       <div className="actions has-text-centered">

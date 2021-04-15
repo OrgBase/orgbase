@@ -193,21 +193,24 @@ textarea.textarea:not([rows]) {
   flex-flow: column;
 }
 
-.jally-left-nav {
+.jally-lobby-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #F8F8F8;
-  text-align: center;
+  min-height: 60px;
+  .navbar-logo {
+    position: absolute;
+    left: 0.5em;
+    top: 1em;
+    img {
+      height: 32px;
+    }
+  }
   .playspace-title {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 24px;
     max-width: 250px;
-  }
-
-  hr {
-    background-color: #696d91;
-    border: none;
-    display: block;
-    height: 1px;
-    margin: 0.5rem 5px;
   }
 }
 

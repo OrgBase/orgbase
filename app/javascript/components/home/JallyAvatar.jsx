@@ -5,7 +5,7 @@ import Modal from "../common/modal";
 import JallyVerticalLogo from '../../stylesheets/img/jally-vertical-logo.svg'
 import InviteTeammatesForm from "./InviteTeammatesForm";
 
-const JallyAvatar = ({ name, size, round, playspaceName }) => {
+const JallyAvatar = ({ name, size, round, playspaceName, memberCount }) => {
   const [editProfileModalState, setEditProfileModalState] = useState(!name && !!playspaceName)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [addTeammatesModalState, setAddTeammatesModalState] = useState(false)
@@ -70,7 +70,10 @@ const JallyAvatar = ({ name, size, round, playspaceName }) => {
       modalTitle='Invite people to join this playspace'
       closeModal={toggleAddTeammatesModal}
     >
-      <InviteTeammatesForm />
+      <InviteTeammatesForm
+        playspaceName={playspaceName}
+        memberCount={memberCount}
+      />
     </Modal>
   </>
 }
