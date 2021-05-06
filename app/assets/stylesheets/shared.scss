@@ -160,12 +160,25 @@
   }
 }
 
+.jally-button-small.transparent {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+}
+
 .jally-button-small:hover {
   opacity: 0.9;
   color: white;
   cursor: pointer;
 }
 
+.jally-button-small.transparent:hover {
+  color: black;
+}
+
+.width-275 {
+  width: 275px !important;
+}
 .slider-field {
   position: relative;
 }
@@ -194,4 +207,44 @@
 }
 .is-clickable:hover {
   opacity: 0.8;
+}
+
+.pending {
+  position: relative;
+  opacity: 0.7;
+}
+
+.pending::before {
+  background: white;
+  border-radius: 0.25rem;
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+.pending::after {
+  animation: loading 1s infinite ease-out;
+  background: radial-gradient(rgba(29, 224, 227, 0), rgba(29, 224, 227, 0.75));
+  border-radius: 50%;
+  content: '';
+  height: 8rem;
+  width: 8rem;
+  position: absolute;
+  left: calc(50% - 3rem);
+  top: calc(50% - 3rem);
+}
+
+@keyframes loading {
+  from {
+    opacity: 1;
+    transform: scale(0.001);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
 }

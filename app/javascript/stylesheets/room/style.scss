@@ -124,9 +124,13 @@
   background-color: $jally-violet;
   color: white;
   overflow: auto;
+  border-radius: 30px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 .full-room-height {
-  height: calc(100vh - 85px);
+  height: calc(100vh - 105px);
 }
 .is-half-height {
   height: 49%;
@@ -238,6 +242,7 @@
   }
   .modal-card {
     width: 100% !important;
+    height: 100vh !important;
     max-height: 100vh !important;
     background-color:rgba(256, 256, 256, 0.95);
     .modal-card-body {

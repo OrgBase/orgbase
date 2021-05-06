@@ -24,28 +24,38 @@ import GameCard from "./GameCard";
 
 const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
   const [loading, setLoading] = useState(false)
-  const handleGameSelection = (gameSlug) => {
-    if(changeGame) {
-      fetchWrapper('/room-participant', 'POST', {
-        room_slug: roomName,
-        reset_scores: true
+  const [confirmation, setConfirmation] = useState(false)
+  const [gameSlug, setGameSlug] = useState("")
+
+  const loadNewGame = () => {
+    setLoading(true)
+    fetchWrapper('/room-participant', 'POST', {
+      room_slug: roomName,
+      reset_scores: true
+    })
+      .then(response => response.json())
+      .then(data => {
+        setLoading(false)
+        syncGameData(gameSlug, Math.random(), data)
+        closeModal()
       })
-        .then(response => response.json())
-        .then(data => {
-          syncGameData(gameSlug, Math.random(), data)
-          closeModal()
-        })
-        .catch(error => {
-          console.error(error)
-        });
+      .catch(error => {
+        setLoading(false)
+        console.error(error)
+      });
+  }
+
+  const handleGameSelection = (gSlug) => {
+    if(changeGame) {
+      setGameSlug(gSlug)
+      setConfirmation(true)
     } else {
       setLoading(true)
       fetchWrapper('/session', 'POST', {
-        starting_game_slug: gameSlug
+        starting_game_slug: gSlug
       })
         .then(response => response.json())
         .then(data => {
-          setLoading(false)
           window.location.href = `/session/${data.session_slug}`
         })
         .catch(error => {
@@ -54,7 +64,8 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
         });
     }
   }
-  return <>
+
+  const renderGames = () => (<>
     <div className="actions has-text-centered">
       <div className={`columns is is-multiline is-centered my-6 ${loading ? 'pending' : ''}`}>
         <div className='column is-one-quarter is-narrow-mobile'>
@@ -130,6 +141,26 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
         </div>
       </div>
     </div>
+  </>)
+
+  return <>
+    {confirmation ? <div className="has-text-centered">
+      <h3 className="title mt-6 mb-3">Are you sure?</h3>
+      <p className="subtitle mt-3 mb-3">Starting a new activity will end the current one</p>
+      <div
+        className="button jally-button-small mb-2 width-275"
+        onClick={loadNewGame}
+      >
+        Yes, change activity for everyone
+      </div>
+      <br/>
+      <div
+        className="button jally-button-small transparent width-275"
+        onClick={closeModal}
+      >
+        No, keep the current activity
+      </div>
+    </div> : renderGames()}
   </>
 }
 

@@ -187,7 +187,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
           </div>
         </div>
         <div className="column is-half side-panel">
-          <div className="columns is-gapless is-multiline full-room-height">
+          <div className="columns is-gapless is-multiline full-room-height is-mobile">
             <div className='column position-relative'>
               <div className={`shared-panel has-text-centered is-flex`}>
                 {room ? (
