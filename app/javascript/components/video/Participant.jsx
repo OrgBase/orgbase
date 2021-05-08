@@ -63,7 +63,8 @@ const Participant = ({ participant, numRemoteParticipants }) => {
   useEffect(() => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
-      videoTrack.attach(videoRef.current);
+      const v = videoTrack.attach(videoRef.current);
+      v.style.transform = 'scale(-1, 1)';
       return () => {
         videoTrack.detach();
       };
@@ -124,14 +125,16 @@ const Participant = ({ participant, numRemoteParticipants }) => {
 
   const renderScore = () => {
     return !isIceBreaker() && <span className="score" style={{
-      backgroundColor: getColor()
+      backgroundColor: getColor(),
+      zIndex: '999'
     }}>{getScore() || 0}</span>
   }
 
   return (
     <div className={`participant ${numRemoteParticipants > 1 ? 'participant-3' : ''}`}>
       <span className="name" style={{
-        backgroundColor: getColor()
+        backgroundColor: getColor(),
+        zIndex: '999'
       }}>{roomParticipant.firstName}</span>
       {renderScore()}
       <video ref={videoRef} autoPlay={true} style={getBorder()}/>
