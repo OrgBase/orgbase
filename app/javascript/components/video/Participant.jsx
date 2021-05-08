@@ -84,13 +84,14 @@ const Participant = ({ participant, numRemoteParticipants }) => {
     const dataTrack = dataTracks[0];
     if (dataTrack) {
       dataTrack.on('message', (data) =>{
-        const { gameSlug, randomFraction, roomParticipants, activeParticipant, pictionaryData } = JSON.parse(data);
+        const { gameSlug, randomFraction, roomParticipants, activeParticipant, pictionaryData, scoreBoard } = JSON.parse(data);
         updateRoomDetails({
           gameSlug,
           randomFraction,
           roomParticipants,
           activeParticipant,
-          pictionaryData
+          pictionaryData,
+          scoreBoard
         })
       });
     }

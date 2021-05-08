@@ -5,5 +5,6 @@ export const RoomContext = createContext({
   randomFraction: 0.0,
   activeParticipant: {},
   roomParticipants: [],
-  pictionaryData: ""
+  pictionaryData: "",
+  scoreBoard: {}
 });

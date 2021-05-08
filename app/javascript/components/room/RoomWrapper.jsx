@@ -18,15 +18,15 @@ import GameScoreBoard from "../common/GameScoreBoard";
 
 const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
   const [room, setRoom] = useState(null);
+  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails, scoreBoard} = useContext(RoomContext);
   const [participants, setParticipants] = useState([]);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
   const [scoresModalState, setScoresModalState] = useState(false)
   const [mute, setMute] = useState(false)
   const [stopVideo, setStopVideo] = useState(false)
   const dataTrack = new LocalDataTrack();
-  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
   const [inviteText, setInviteText] = useState('Copy invite link')
-  const [loading, setLoading] = useState(false)
+  const [gameLoading, setGameLoading] = useState(false)
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -71,6 +71,9 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
     };
   }, [roomName, token]);
 
+  useEffect(() => {
+    setScoresModalState(!!(scoreBoard && scoreBoard.show))
+  }, [scoreBoard])
   const remoteParticipants = () => {
     if(participants.length) {
       return participants.map(participant => (
@@ -109,14 +112,16 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
     .filter(track => track !== null);
 
   const syncGameData = (slug=gameSlug, fraction=randomFraction,
-                        participants=roomParticipants, activeP=activeParticipant, pictinaryD= pictionaryData) => {
+                        participants=roomParticipants, activeP=activeParticipant,
+                        pictinaryD= pictionaryData, scoreBoard={}) => {
     const dataTrack = trackpubsToTracks(room.localParticipant.dataTracks)[0];
     dataTrack.send(JSON.stringify({
       gameSlug: slug,
       randomFraction: fraction,
       roomParticipants: participants,
       activeParticipant: activeP,
-      pictionaryData: pictinaryD
+      pictionaryData: pictinaryD,
+      scoreBoard: scoreBoard
     }));
 
     if (!(slug === gameSlug && fraction === randomFraction && (activeP.identity === activeParticipant.identity))) {
@@ -183,7 +188,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
 
   return (
     <>
-      <div className='columns room is-mobile room-container is-gapless is-desktop is-vcentered'>
+      <div className={`columns room is-mobile room-container is-gapless is-desktop is-vcentered ${gameLoading ? 'pending' : ''}`}>
         <div className="column is-half remote-participants has-text-centered">
           <div className='columns is-multiline is-centered'>
             {remoteParticipants()}
@@ -265,18 +270,21 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
           closeModal={toggleChangeGameModal}
           roomName={roomName}
           toggleScoresModal={toggleScoresModal}
+          localParticipantIdentity={room && room.localParticipant.identity}
+          setGameLoading={setGameLoading}
         />
       </Modal>
 
       <Modal
         modalState={scoresModalState}
         closeModal={toggleScoresModal}
-        modalTitle="Here are the scores!"
+        modalTitle='Scoreboard'
         className="jally-modal"
         hideCloseOption={true}
       >
         <GameScoreBoard
           closeModal={toggleScoresModal}
+          changedBy={scoreBoard && scoreBoard.changedBy}
         />
       </Modal>
     </>

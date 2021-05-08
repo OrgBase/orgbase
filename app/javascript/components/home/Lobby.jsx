@@ -1,21 +1,9 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import moment from 'moment';
-import Modal from "../common/modal";
-// import CreateJallyForm from "./CreateJallyForm";
 import SelectGameForm from "../common/SelectGameForm";
 
-const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }) => {
-  const [startModalState, setStartModalState] = useState(false)
-  const [scheduleModalState, setScheduleModalState] = useState(false)
-
-  const toggleStartModal = () => setStartModalState(!startModalState)
-  const toggleScheduleModal = () => setScheduleModalState(!scheduleModalState)
-
-  const formatTime = (timestamp) => (
-    moment.unix(timestamp).format("ddd, Do MMM [at] h:mm a")
-  )
+const Lobby = ({ errorMessage, notice }) => {
 
   return (
     <>
@@ -29,22 +17,10 @@ const Lobby = ({ errorMessage, notice, users, upcomingSessions, activeSessions }
         <div>
           <SelectGameForm
             changeGame={false}
-            closeModal={toggleStartModal}
+            closeModal={()=> {}}
           />
         </div>
       </div>
-
-      <Modal
-        modalState={startModalState}
-        closeModal={toggleStartModal}
-        modalTitle='Select the first activity'
-        className='jally-modal'
-      >
-        <SelectGameForm
-          changeGame={false}
-          closeModal={toggleStartModal}
-        />
-      </Modal>
     </>
   );
 };

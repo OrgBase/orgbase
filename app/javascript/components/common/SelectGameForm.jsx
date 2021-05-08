@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import qq from '../../stylesheets/img/qq.svg'
 import wyr from '../../stylesheets/img/wyr.svg'
 import charades from '../../stylesheets/img/charades.svg'
@@ -21,15 +21,17 @@ import drawkwardBack from '../../stylesheets/img/drawkward-back.svg'
 import pictionaryBack from '../../stylesheets/img/pictionary-back.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
 import GameCard from "./GameCard";
+import {RoomContext} from "../../context/context";
 
-const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggleScoresModal }) => {
+const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggleScoresModal, localParticipantIdentity, setGameLoading }) => {
   const [loading, setLoading] = useState(false)
   const [confirmation, setConfirmation] = useState(false)
-  const [gameSlug, setGameSlug] = useState("")
+  const [nextGameSlug, setNextGameSlug] = useState("")
+  const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData} = useContext(RoomContext);
 
   const handleGameSelection = (gSlug) => {
     if(changeGame) {
-      setGameSlug(gSlug)
+      setNextGameSlug(gSlug)
       setConfirmation(true)
     } else {
       setLoading(true)
@@ -47,16 +49,24 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggle
     }
   }
 
+  const getChangedByName = () => {
+    const localP = roomParticipants.find((p) => p.identity == localParticipantIdentity)
+    return localP.name
+  }
+
   const loadNextGame = () => {
+    setGameLoading(true)
     fetchWrapper('/room-participant', 'POST', {
       room_slug: roomName,
       reset_scores: true
     })
       .then(response => response.json())
       .then(data => {
-        syncGameData(gameSlug, Math.random(), data)
+        setGameLoading(false)
+        syncGameData(nextGameSlug, Math.random(), data, activeParticipant, pictionaryData, {})
       })
       .catch(error => {
+        setGameLoading(false)
         console.error(error)
       });
   }
@@ -146,7 +156,9 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggle
         className="button jally-button-small mb-2 width-275"
         onClick={() => {
           toggleScoresModal()
-          window.setTimeout(loadNextGame, 5000)
+          syncGameData(gameSlug, randomFraction, roomParticipants, activeParticipant, pictionaryData,
+            {show: true, changedBy: getChangedByName()})
+          window.setTimeout(loadNextGame, 10000)
           closeModal()
         }}
       >

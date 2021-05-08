@@ -3,10 +3,10 @@ import {RoomContext} from "../../context/context";
 import ordinalize from "../../helpers/ordinalize";
 import Countdown from "./Countdown";
 
-const GameScoreBoard = ({closeModal}) => {
+const GameScoreBoard = ({closeModal, changedBy, localParticipantIdentity}) => {
   const {roomParticipants} = useContext(RoomContext);
   useEffect(() => {
-    window.setTimeout(closeModal, 11000)
+    window.setTimeout(closeModal, 10000)
   }, [])
 
   const renderParticipantScore = (participant, index) => {
@@ -48,9 +48,11 @@ const GameScoreBoard = ({closeModal}) => {
     )
   }
 
-
-
   return <>
+    {changedBy && <div className='mx-3 has-text-centered subtitle'>
+      {changedBy} has ended the current game, here are the scores!
+    </div>}
+
     {roomParticipants.sort((p1, p2) => {
       if(p1.score < p2.score) {
         return 1
