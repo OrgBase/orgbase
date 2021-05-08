@@ -12,6 +12,7 @@ import SelectGameForm from "../common/SelectGameForm";
 import Modal from "../common/modal";
 import fetchWrapper from "../../helpers/fetchWrapper";
 import {RoomContext} from "../../context/context";
+import GameScoreBoard from "../common/GameScoreBoard";
 // import cameraImage from '../../stylesheets/img/camera-button.svg';
 // import videoFilter from '../../stylesheets/img/video-filter.svg';
 
@@ -19,11 +20,14 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [changeGameModalState, setChangeGameModalState] = useState(false)
+  const [scoresModalState, setScoresModalState] = useState(false)
   const [mute, setMute] = useState(false)
   const [stopVideo, setStopVideo] = useState(false)
   const dataTrack = new LocalDataTrack();
   const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
   const [inviteText, setInviteText] = useState('Copy invite link')
+  const [nextGame, setNextGame] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -98,7 +102,35 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
     window.open('/lobby', '_self');
   }
 
+  const loadNextGame = () => {
+    if(nextGame) {
+      setLoading(true)
+      fetchWrapper('/room-participant', 'POST', {
+        room_slug: roomName,
+        reset_scores: true
+      })
+        .then(response => response.json())
+        .then(data => {
+          syncGameData(nextGame, Math.random(), data)
+          setLoading(false)
+        })
+        .catch(error => {
+          console.error(error)
+        });
+    }
+  }
+
   const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
+  const toggleScoresModal = (nextGame) => {
+    if(scoresModalState) {
+      loadNextGame()
+      setScoresModalState(false)
+    } else {
+      setNextGame(nextGame)
+      setScoresModalState(true)
+    }
+
+  }
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -179,7 +211,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
 
   return (
     <>
-      <div className="columns room is-mobile room-container is-gapless is-desktop is-vcentered">
+      <div className={`columns room is-mobile room-container is-gapless is-desktop is-vcentered ${loading ? 'pending' : ''}`}>
         <div className="column is-half remote-participants has-text-centered">
           <div className='columns is-multiline is-centered'>
             {remoteParticipants()}
@@ -252,7 +284,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
         modalState={changeGameModalState}
         closeModal={toggleChangeGameModal}
         modalTitle='Pick an activity'
-        className="jally-modal full-width-modal xyz"
+        className="jally-modal full-width-modal"
         modalClass="full-width-modal"
       >
         <SelectGameForm
@@ -260,7 +292,20 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
           syncGameData={syncGameData}
           closeModal={toggleChangeGameModal}
           roomName={roomName}
+          toggleScoresModal={toggleScoresModal}
         />
+      </Modal>
+
+      <Modal
+        modalState={scoresModalState}
+        closeModal={() => {
+          toggleScoresModal(nextGame)
+        }}
+        modalTitle="Here are the scores"
+        className="jally-modal"
+        hideCloseOption={true}
+      >
+        <GameScoreBoard />
       </Modal>
     </>
   );

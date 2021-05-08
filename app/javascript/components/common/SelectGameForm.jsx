@@ -22,28 +22,10 @@ import pictionaryBack from '../../stylesheets/img/pictionary-back.svg'
 import fetchWrapper from "../../helpers/fetchWrapper";
 import GameCard from "./GameCard";
 
-const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
+const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggleScoresModal }) => {
   const [loading, setLoading] = useState(false)
   const [confirmation, setConfirmation] = useState(false)
   const [gameSlug, setGameSlug] = useState("")
-
-  const loadNewGame = () => {
-    setLoading(true)
-    fetchWrapper('/room-participant', 'POST', {
-      room_slug: roomName,
-      reset_scores: true
-    })
-      .then(response => response.json())
-      .then(data => {
-        setLoading(false)
-        syncGameData(gameSlug, Math.random(), data)
-        closeModal()
-      })
-      .catch(error => {
-        setLoading(false)
-        console.error(error)
-      });
-  }
 
   const handleGameSelection = (gSlug) => {
     if(changeGame) {
@@ -145,11 +127,13 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName }) => {
 
   return <>
     {confirmation ? <div className="has-text-centered">
-      <h3 className="title mt-6 mb-3">Are you sure?</h3>
-      <p className="subtitle mt-3 mb-3">Starting a new activity will end the current one</p>
+      <p className="subtitle mt-6 mb-3">Are you sure? Starting a new activity will end the current one</p>
       <div
         className="button jally-button-small mb-2 width-275"
-        onClick={loadNewGame}
+        onClick={() => {
+          toggleScoresModal(gameSlug)
+          closeModal()
+        }}
       >
         Yes, change activity for everyone
       </div>
