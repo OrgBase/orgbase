@@ -26,7 +26,6 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
   const dataTrack = new LocalDataTrack();
   const {gameSlug, randomFraction, activeParticipant, roomParticipants, pictionaryData, updateRoomDetails} = useContext(RoomContext);
   const [inviteText, setInviteText] = useState('Copy invite link')
-  const [nextGame, setNextGame] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -102,35 +101,8 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
     window.open('/lobby', '_self');
   }
 
-  const loadNextGame = () => {
-    if(nextGame) {
-      setLoading(true)
-      fetchWrapper('/room-participant', 'POST', {
-        room_slug: roomName,
-        reset_scores: true
-      })
-        .then(response => response.json())
-        .then(data => {
-          syncGameData(nextGame, Math.random(), data)
-          setLoading(false)
-        })
-        .catch(error => {
-          console.error(error)
-        });
-    }
-  }
-
   const toggleChangeGameModal = () => setChangeGameModalState(!changeGameModalState)
-  const toggleScoresModal = (nextGame) => {
-    if(scoresModalState) {
-      loadNextGame()
-      setScoresModalState(false)
-    } else {
-      setNextGame(nextGame)
-      setScoresModalState(true)
-    }
-
-  }
+  const toggleScoresModal = () => setScoresModalState(!scoresModalState)
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -211,7 +183,7 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
 
   return (
     <>
-      <div className={`columns room is-mobile room-container is-gapless is-desktop is-vcentered ${loading ? 'pending' : ''}`}>
+      <div className='columns room is-mobile room-container is-gapless is-desktop is-vcentered'>
         <div className="column is-half remote-participants has-text-centered">
           <div className='columns is-multiline is-centered'>
             {remoteParticipants()}
@@ -298,14 +270,14 @@ const RoomWrapper = ({ roomName, token, roomSid, sessionSlug, roomShared }) => {
 
       <Modal
         modalState={scoresModalState}
-        closeModal={() => {
-          toggleScoresModal(nextGame)
-        }}
-        modalTitle="Here are the scores"
+        closeModal={toggleScoresModal}
+        modalTitle="Here are the scores!"
         className="jally-modal"
         hideCloseOption={true}
       >
-        <GameScoreBoard />
+        <GameScoreBoard
+          closeModal={toggleScoresModal}
+        />
       </Modal>
     </>
   );

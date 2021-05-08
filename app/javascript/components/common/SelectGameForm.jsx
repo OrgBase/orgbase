@@ -47,6 +47,20 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggle
     }
   }
 
+  const loadNextGame = () => {
+    fetchWrapper('/room-participant', 'POST', {
+      room_slug: roomName,
+      reset_scores: true
+    })
+      .then(response => response.json())
+      .then(data => {
+        syncGameData(gameSlug, Math.random(), data)
+      })
+      .catch(error => {
+        console.error(error)
+      });
+  }
+
   const renderGames = () => (<>
     <div className="actions has-text-centered">
       <div className={`columns is is-multiline is-centered my-6 ${loading ? 'pending' : ''}`}>
@@ -131,7 +145,8 @@ const SelectGameForm = ({ syncGameData, closeModal, changeGame, roomName, toggle
       <div
         className="button jally-button-small mb-2 width-275"
         onClick={() => {
-          toggleScoresModal(gameSlug)
+          toggleScoresModal()
+          window.setTimeout(loadNextGame, 5000)
           closeModal()
         }}
       >
