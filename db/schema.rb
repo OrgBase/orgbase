@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_111547) do
+ActiveRecord::Schema.define(version: 2021_05_11_113017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2021_04_15_111547) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.integer "score"
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_feedbacks_on_employee_id"
   end
 
   create_table "game_configs", force: :cascade do |t|
@@ -201,6 +210,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_111547) do
   add_foreign_key "company_participants", "users"
   add_foreign_key "employees", "companies"
   add_foreign_key "employees", "users"
+  add_foreign_key "feedbacks", "employees"
   add_foreign_key "game_configs", "games"
   add_foreign_key "game_variants", "games"
   add_foreign_key "jally_session_settings", "jally_sessions"
