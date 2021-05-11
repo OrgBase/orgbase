@@ -307,6 +307,8 @@ p {
   align-items: center;
   .boxx{
     width: 500px;
+    position: relative;
+
     .rating {
       position: relative;
       display: flex;
@@ -338,6 +340,14 @@ p {
       input[type="radio"]:checked ~ label{
         background: transparent;
       }
+    }
+    .not-likely {
+      position: absolute;
+      left: -30px;
+    }
+    .extremely-likely {
+      position: absolute;
+      right:-45px;
     }
   }
 }

@@ -17,8 +17,8 @@
     <h2 class="title has-text-centered">How likely are you to recommend Jally to other teammates or friends?</h2>
     <%= form_with url: submit_feedback_path(@type), method: :post, class: 'has-text-centered',
                   local: true do |f| %>
-      <div class="field mt-3 mb-6 has-text-left boxx">
-        <div class="field mt-3 mb-6 has-text-left rating">
+      <div class="field mt-3 mb-6 boxx">
+        <div class="mb-2 rating">
           <%= f.radio_button :score, 10 %>
           <%= f.label :score, "10", :value => "10"  %>
           <%= f.radio_button :score, 9 %>
@@ -40,6 +40,8 @@
           <%= f.radio_button :score, 1 %>
           <%= f.label :score, "1", :value => "1" %>
         </div>
+        <span class="not-likely">Not Likely</span>
+        <span class="extremely-likely">Extremely Likely</span>
       </div>
       <%= f.submit "Submit", class: "jally-button-small"%>
     <% end %>
