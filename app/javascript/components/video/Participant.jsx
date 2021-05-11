@@ -126,7 +126,7 @@ const Participant = ({ participant, numRemoteParticipants }) => {
   const renderScore = () => {
     return !isIceBreaker() && <span className="score" style={{
       backgroundColor: getColor(),
-      zIndex: '999'
+      zIndex: '1'
     }}>{getScore() || 0}</span>
   }
 
@@ -134,7 +134,7 @@ const Participant = ({ participant, numRemoteParticipants }) => {
     <div className={`participant ${numRemoteParticipants > 1 ? 'participant-3' : ''}`}>
       <span className="name" style={{
         backgroundColor: getColor(),
-        zIndex: '999'
+        zIndex: '1'
       }}>{roomParticipant.firstName}</span>
       {renderScore()}
       <video ref={videoRef} autoPlay={true} style={getBorder()}/>
