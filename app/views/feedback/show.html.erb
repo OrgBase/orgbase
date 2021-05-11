@@ -1,0 +1,47 @@
+<div class="feedback-container">
+  <% if @type == 'need' %>
+    <h2 class="title has-text-centered">How would you feel if you could no longer use Jally?</h2>
+    <%= form_with url: submit_feedback_path(@type), method: :post, class: 'has-text-centered',
+                  local: true do |f| %>
+      <div class="field mt-3 mb-6 has-text-left">
+        <%= f.radio_button :score, 3 %>
+        <%= f.label :score, "Very Disappointed", :value => "3"  %><br /><br />
+        <%= f.radio_button :score, 2 %>
+        <%= f.label :score, "Somewhat disappointed", :value => "2" %><br /><br />
+        <%= f.radio_button :score, 1 %>
+        <%= f.label :score, "Not disappointed", :value => "1" %>
+      </div>
+      <%= f.submit "Submit", class: "jally-button-small"%>
+    <% end %>
+  <% else %>
+    <h2 class="title has-text-centered">How likely are you to recommend Jally to other teammates or friends?</h2>
+    <%= form_with url: submit_feedback_path(@type), method: :post, class: 'has-text-centered',
+                  local: true do |f| %>
+      <div class="field mt-3 mb-6 has-text-left boxx">
+        <div class="field mt-3 mb-6 has-text-left rating">
+          <%= f.radio_button :score, 10 %>
+          <%= f.label :score, "10", :value => "10"  %>
+          <%= f.radio_button :score, 9 %>
+          <%= f.label :score, "9", :value => "9" %>
+          <%= f.radio_button :score, 8 %>
+          <%= f.label :score, "8", :value => "8" %>
+          <%= f.radio_button :score, 7 %>
+          <%= f.label :score, "7", :value => "7" %>
+          <%= f.radio_button :score, 6 %>
+          <%= f.label :score, "6", :value => "6" %>
+          <%= f.radio_button :score, 5 %>
+          <%= f.label :score, "5", :value => "5" %>
+          <%= f.radio_button :score, 4 %>
+          <%= f.label :score, "4", :value => "4" %>
+          <%= f.radio_button :score, 3 %>
+          <%= f.label :score, "3", :value => "3" %>
+          <%= f.radio_button :score, 2 %>
+          <%= f.label :score, "2", :value => "2" %>
+          <%= f.radio_button :score, 1 %>
+          <%= f.label :score, "1", :value => "1" %>
+        </div>
+      </div>
+      <%= f.submit "Submit", class: "jally-button-small"%>
+    <% end %>
+  <% end %>
+</div>

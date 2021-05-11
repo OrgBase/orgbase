@@ -2,12 +2,12 @@
 #
 # Table name: feedbacks
 #
-#  id          :bigint           not null, primary key
-#  score       :integer
-#  type        :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  employee_id :bigint           not null
+#  id            :bigint           not null, primary key
+#  feedback_type :string
+#  score         :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  employee_id   :bigint           not null
 #
 # Indexes
 #

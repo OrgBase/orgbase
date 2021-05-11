@@ -47,4 +47,7 @@ Rails.application.routes.draw do
   get '/join_playspace/:invite_code' => "company#accept_invitation", :as => :accept_invitation
 
   get '/game/:game_slug' => "game#game_data", :as => :fetch_game_data
+
+  get '/feedback/:type' => "feedback#show", :as => :show_feedback
+  post '/feedback/:type' => "feedback#submit", :as => :submit_feedback
 end
